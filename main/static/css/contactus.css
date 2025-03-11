@@ -1,0 +1,1054 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+
+/* Navigation Styles */
+.navigationOutside {
+    box-sizing: border-box;
+    outline: none;
+    overflow: visible;
+    /* Ensure submenus are not clipped */
+    position: sticky;
+    /* Make the navbar sticky */
+    top: 0;
+    /* Stick to the top of the viewport */
+    z-index: 1000;
+    /* Ensure it stays above other elements */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.137);
+    background-color: rgb(255, 250, 250);
+    height: 12vh;
+}
+
+.navigationBody {
+    overflow-x: visible;
+    /* Allow horizontal overflow if needed */
+    color: black;
+}
+
+.navigationOutside .navigationBody header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 130px;
+
+}
+
+.navigationOutside .navigationBody .navigationLogo {
+    display: flex;
+    align-items: center;
+    color: #2c3e50;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    gap: 10px;
+}
+
+
+.navigationOutside .navigationBody .navigationLogo img {
+    width: 62px;
+    height: 62px;
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+.navigationOutside .navigationBody ul li {
+    display: inline-block;
+    list-style: none;
+    margin: 0 30px;
+    position: relative;
+    /* Required for submenu positioning */
+}
+
+.navigationOutside .navigationBody ul li:last-child {
+    margin-right: 0;
+}
+
+.navigationOutside .navigationBody li a {
+    text-decoration: none;
+    color: black;
+    padding: 22px 0;
+    display: inline-block;
+    transition: all ease 0.3s;
+    font-size: 18px;
+}
+
+.navigationOutside .navigationBody ul li a:hover {
+    color: lightblue;
+}
+
+/* Default active state styling */
+.navigationOutside .navigationBody ul li a.active {
+    color: #002068;
+    font-weight: bold;
+    /* Optional for emphasis */
+}
+
+/* Restrict ::after to top-level links only */
+.navigationOutside .navigationBody>header>nav>ul>li>a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 15px;
+    width: 100%;
+    height: 2px;
+    background: #002068;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover effect for top-level links */
+.navigationOutside .navigationBody>header>nav>ul>li>a:hover::after {
+    transform: scaleX(1);
+}
+
+/* Ensure submenu links are unaffected by the hover underline */
+.navigationOutside .navigationBody ul .submenu li a::after {
+    content: none;
+}
+
+
+/* Submenu Styles */
+.navigationOutside .navigationBody ul .submenu {
+    position: absolute;
+    top: 100%;
+    /* Position submenu below parent menu item */
+    left: 0;
+    width: 200px;
+    background-color: white;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99;
+    /* Ensure it is above other elements */
+    transition: all ease 0.3s;
+    max-height: 300px;
+    /* Limit height if needed for long menus */
+    overflow-y: auto;
+    /* Add vertical scrolling for long menus */
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount {
+    position: absolute;
+    top: 100%;
+    /* Position submenu below parent menu item */
+    right: 0;
+    width: 200px;
+    background-color: white;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99;
+    /* Ensure it is above other elements */
+    transition: all ease 0.3s;
+    max-height: 300px;
+    /* Limit height if needed for long menus */
+    overflow-y: auto;
+    /* Add vertical scrolling for long menus */
+}
+
+
+.navigationOutside .navigationBody ul li:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.navigationOutside .navigationBody .navigationAccount ul li:hover .submenuAccount {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Submenu Item Styles */
+.navigationOutside .navigationBody ul .submenu li {
+    margin: 0;
+    width: 100%;
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount li {
+    margin: 0;
+    width: 100%;
+}
+
+.navigationOutside .navigationBody ul .submenu li a {
+    padding: 15px 20px;
+    display: inline-block;
+    width: 100%;
+    color: black;
+    /* Change text color for submenu items */
+    text-decoration: none;
+    transition: background-color ease 0.3s;
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount li a {
+    padding: 15px 20px;
+    display: inline-block;
+    width: 100%;
+    color: black;
+    /* Change text color for submenu items */
+    text-decoration: none;
+    transition: background-color ease 0.3s;
+    font-size: 18px;
+}
+
+.navigationOutside .navigationBody ul .submenu li a:hover {
+    background-color: rgba(121, 123, 124, 0.18);
+    /* Highlight submenu items on hover */
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount li a:hover {
+    background-color: rgba(121, 123, 124, 0.18);
+    /* Highlight submenu items on hover */
+}
+
+/*account submenu*/
+
+.navigationOutside .navigationBody .navigationAccount a {
+    font-size: 30px;
+    color: black;
+}
+
+.navigationOutside .navigationBody .navigationAccount a:hover {
+    color: lightblue;
+}
+
+/* Default active state styling */
+.navigationOutside .navigationBody .navigationAccount a.active {
+    color: #002068;
+    font-weight: bold;
+    /* Optional for emphasis */
+}
+
+
+.ourvalues .ourvaluesbody .info {
+    position: absolute;
+    bottom: 20%;
+    width: 93.4%;
+    text-align: center;
+    left: 3.6%;
+    padding-bottom: 100px;
+}
+
+.ourvalues .ourvaluesbody .info h2 {
+    color: white;
+    font-size: 70px;
+    font-weight: 460;
+    letter-spacing: 2px;
+
+}
+
+
+@media (max-width: 1120px) {
+
+    .navigationOutside {
+        width: 1100px;
+    }
+
+    .navigationOutside .navigationBody header {
+        padding: 0 50px;
+        bottom: -10px;
+        position: absolute;
+    }
+
+
+    .navigationOutside .navigationBody ul li {
+        margin: 0 15px;
+    }
+
+    .navhome {
+        margin-right: 50px;
+    }
+
+    .ourvalues img {
+        width: 1100px;
+    }
+
+    .ourvalues .ourvaluesbody .info {
+        position: absolute;
+        bottom: 30%;
+        width: 93.4%;
+        text-align: center;
+        left: 8%;
+        padding-bottom: 100px;
+    }
+
+}
+
+@media (max-width: 770px) {
+
+    .navigationOutside {
+        width: 1320px;
+    }
+
+    .navigationOutside .navigationBody header {
+        padding: 0 50px;
+        bottom: -10px;
+        position: absolute;
+    }
+
+    .navigationOutside .navigationBody ul li {
+        margin: 0 15px;
+    }
+
+    .ourvalues img {
+        width: 1100px;
+    }
+
+    .ourvalues .ourvaluesbody .info {
+        position: absolute;
+        bottom: 30%;
+        width: 93.4%;
+        text-align: center;
+        left: 8%;
+        padding-bottom: 100px;
+    }
+
+}
+
+
+
+
+@media screen and (max-width: 770px) {
+    .ourvalues .ourvaluesbody .info {
+        position: absolute;
+        bottom: 20%;
+        width: 1300px;
+        text-align: center;
+        margin-left: -50px;
+        padding-bottom: 50px;
+    }
+
+
+    .ourvalues .ourvaluesbody img {
+        width: 1320px;
+    }
+
+    .ourvalues img {
+        width: 1100px;
+    }
+
+
+}
+
+@media screen and (max-width: 330px) {
+
+
+    .ourvalues .ourvaluesbody .info {
+        position: absolute;
+        bottom: 20%;
+        width: 1300px;
+        text-align: center;
+        margin-left: -50px;
+        padding-bottom: 50px;
+    }
+
+
+    .ourvalues .ourvaluesbody img {
+        width: 1320px;
+    }
+
+
+}
+
+
+.mapcontainer {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.mapcontainer h1 {
+    color: black;
+    margin-bottom: 60px;
+}
+
+iframe {
+    width: 80%;
+    height: 500px;
+}
+
+
+
+@media screen and (max-width: 1120px) {
+    .mapcontainer {
+        width: 107%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding-left: 20px;
+
+    }
+
+
+
+}
+
+
+
+@media screen and (max-width: 770px) {
+    .mapcontainer {
+        padding-top: 90px;
+        width: 170%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-left: 5px;
+
+    }
+
+}
+
+
+
+@media screen and (max-width: 350px) {
+    .mapcontainer {
+        padding-top: 90px;
+        width: 390%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-left: 15px;
+
+    }
+
+}
+
+
+
+/* Full-screen solid background (NO blur) */
+.custom-alert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    /* Dark overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+/* Alert box styling */
+.custom-alert-box {
+    background: #002068;
+    /* Deep navy blue */
+    color: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    width: 350px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.3s ease-out;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    /* Stack messages and button */
+    align-items: center;
+    gap: 15px;
+}
+
+/* Message styling */
+.alert-message {
+    padding: 12px;
+    border-radius: 8px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Button styling */
+.custom-alert-box button {
+    background: #ffffff;
+    color: #002068;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.4);
+}
+
+
+/* Smooth fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+
+
+.container {
+    max-width: 1044px;
+    /* Increased the width of the form */
+    width: 100%;
+    /* Ensures the form adjusts responsively */
+    overflow: hidden;
+    margin: 5px auto;
+    /* Centers the form horizontally and adds space at the top */
+    padding: 40px;
+}
+
+.container .title {
+    padding: 30px 8px;
+    text-align: center;
+    /* Center-align the title */
+    margin-top: -30px;
+    margin-bottom: 27px;
+}
+
+.container .title p {
+    font-size: 30px;
+    font-weight: 500;
+    position: relative;
+}
+
+.container .title p::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 39%;
+    transform: translateX(-50%);
+    width: 88px;
+    height: 3px;
+    background: linear-gradient(to right, lightblue, #002068);
+}
+
+.user_details {
+    display: flex;
+    flex-direction: column;
+    /* Stack fields vertically */
+    gap: 20px;
+}
+
+.input_box {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    /* Adjusted width ratio of label and input */
+    align-items: center;
+    gap: 80px;
+    /* Increased gap to add more spacing between label and input */
+    margin: 0 0 20px 0;
+    /* Added more bottom margin for each input box */
+
+}
+
+.input_box label {
+    font-weight: 500;
+    text-align: right;
+    color: #333;
+    margin-right: 10px;
+    /* Adds some horizontal space between the label and input */
+}
+
+.input_box label::after {
+    content: " *";
+    color: red;
+}
+
+.input_box input,
+.input_box textarea {
+    width: 100%;
+    height: 60px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding-left: 15px;
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+    background-color: #f4f4f4;
+    font-family: 'Poppins', sans-serif;
+    transition: all 120ms ease-out 0s;
+    padding: 16px;
+}
+
+.input_box textarea {
+    height: auto;
+    resize: vertical;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+.reg_btn {
+    text-align: center;
+    /* Center-align the button */
+    padding: 30px 0;
+}
+
+.reg_btn input {
+    height: 50px;
+    width: 100%;
+    max-width: 200px;
+    /* Button remains centered and doesn't stretch too wide */
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 5px;
+    color: #002068;
+    border: 1px solid #002068;
+    letter-spacing: 1px;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.reg_btn input:hover {
+    background-color: #002068;
+    color: white;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        max-width: 100%;
+        padding: 20px;
+    }
+
+    .input_box {
+        grid-template-columns: 1fr;
+        /* Stack label and input vertically */
+    }
+
+    .input_box label {
+        text-align: left;
+        /* Align label text to the left */
+    }
+}
+
+@media screen and (max-width: 419px) {
+    .user_details .input_box {
+        width: 100%;
+    }
+
+    .gender .category {
+        flex-direction: column;
+    }
+}
+
+
+.message {
+    max-width: 1044px;
+    /* Increased the width of the form */
+    width: 100%;
+    /* Ensures the form adjusts responsively */
+    overflow: hidden;
+    margin: 5px auto;
+    /* Centers the form horizontally and adds space at the top */
+    padding: 40px;
+    line-height: 40px;
+    margin-top: -45px;
+    margin-bottom: 20px;
+}
+
+
+.message a {
+    text-decoration: none;
+    color: #0056b3;
+    font-weight: bolder;
+}
+
+.message a:hover {
+    text-decoration: none;
+    color: #004099;
+}
+
+.message p {
+    margin-bottom: 10px;
+}
+
+/* Form Validation Styles */
+.input_box {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.input_box input.invalid,
+.input_box textarea.invalid {
+    border-color: #002068 !important;
+    border-width: 2px;
+    background-color: #f0f4ff;
+    box-shadow: 0 2px 5px rgba(0, 32, 104, 0.1);
+}
+
+.error-message {
+    position: absolute;
+    bottom: -33px;
+    left: 0;
+    color: #002068;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background-color: #f0f4ff;
+    padding: 3px 8px;
+    border-radius: 3px;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.radio-group.invalid {
+    position: relative;
+}
+
+.radio-group.invalid .error-message {
+    position: static;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Validation Animation */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-3px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(3px);
+    }
+}
+
+.input_box input.invalid,
+.input_box textarea.invalid {
+    animation: shake 0.3s linear;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .error-message {
+        font-size: 0.7rem;
+        bottom: -45px;
+    }
+}
+
+.reg_btn input:hover:not(:disabled) {
+    background-color: #002068;
+    color: white;
+}
+
+.reg_btn input:disabled {
+    background-color: #e0e0e0;
+    border-color: #cccccc;
+    color: #999999;
+    cursor: not-allowed;
+    text-shadow: none;
+}
+
+.reg_btn input:disabled:hover {
+    background-color: #e0e0e0;
+    color: #999999;
+}
+
+
+
+
+
+.signU {
+    font-size: 16px;
+    padding-left: 8px;
+    padding-top: 30px;
+    padding-bottom: 70px;
+}
+
+.signU .resigterI {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f4f4f4;
+    color: #002068;
+    font-size: 19px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 15px;
+    transition: 0.3s ease;
+    width: 325px;
+    text-align: center;
+}
+
+.resigterI:hover {
+    background-color: rgba(244, 244, 244, 0.65);
+    /* Adding some transparency */
+    color: #002068;
+}
+
+
+
+
+
+
+/* br line */
+
+.custom-line {
+    border: 0;
+    height: 2px;
+    background: rgb(173, 191, 230);
+    width: 50%;
+    margin: 10px auto;
+}
+
+
+/* footer */
+
+.footer {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Work Sans', sans-serif;
+}
+
+.footerobody {
+    height: 50vh;
+    width: 100%;
+    background: white;
+}
+
+.footerbody {
+    padding: 80px 8% 70px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+    gap: 3.5rem;
+    background: white;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.footer .footerobody .footerbody .footer-content .sugarsense {
+    color: #797b7c;
+    font-size: larger;
+}
+
+
+.footer-content h4 {
+    color: #797b7c;
+    margin-bottom: 1.5rem;
+    font-size: 20px;
+
+}
+
+.footer-content li {
+    margin-bottom: 16px;
+
+}
+
+.footer-content li a {
+    display: block;
+    color: black;
+    font-size: 15px;
+    font-weight: 400;
+    transition: all .40s ease;
+    text-decoration: none;
+}
+
+.footer-content li a:hover {
+    transform: translateY(-3px) translateX(-5px);
+    color: black;
+}
+
+.footer-content p {
+    color: black;
+    font-size: 16px;
+    line-height: 30px;
+    margin: 20px 0;
+}
+
+.icons a {
+    display: inline-block;
+    font-size: 22px;
+    color: black;
+    margin-right: 17px;
+    transition: all .40s ease;
+}
+
+.icons a:hover {
+    color: black;
+    transform: translateY(-5px);
+}
+
+
+
+@media screen and (max-width: 1120px) {
+
+    .container {
+        margin-top: -70px;
+    }
+
+    .custom-line {
+        border: 0;
+        height: 2px;
+        background: rgb(173, 191, 230);
+        width: 600px;
+        margin: 10px auto;
+        margin-left: 280px;
+    }
+
+    .footer {
+        padding-top: 20px;
+        width: 1100px;
+
+    }
+
+    .footerbody {
+        width: 1100px;
+        padding-left: 50px;
+    }
+
+    .message {
+        padding-left: 100px;
+    }
+
+}
+
+@media screen and (max-width: 770px) {
+
+
+    .container {
+        max-width: 1044px;
+        /* Increased the width of the form */
+        width: 100%;
+        /* Ensures the form adjusts responsively */
+        overflow: hidden;
+        margin: 5px auto;
+        /* Centers the form horizontally and adds space at the top */
+        padding: 40px;
+        margin-left: 300px;
+        padding-top: 80px;
+    }
+
+
+    .custom-line {
+        border: 0;
+        height: 2px;
+        background: rgb(173, 191, 230);
+        width: 600px;
+        margin: 10px auto;
+        margin-top: 50px;
+        margin-left: 400px;
+    }
+
+    .footer {
+        padding-top: 20px;
+        width: 1320px;
+
+    }
+
+    .footerbody {
+        width: 1320px;
+        padding-left: 110px;
+    }
+
+    .input_box input {
+        width: 100%;
+        height: 60px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        padding-left: 15px;
+        box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+        background-color: #f4f4f4;
+        font-family: 'Poppins', sans-serif;
+        transition: all 120ms ease-out 0s;
+        padding: 16px;
+        margin-top: -56px;
+    }
+
+
+    .input_box textarea {
+        height: auto;
+        resize: vertical;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-top: -50px;
+    }
+
+    .message {
+        margin-left: 240px;
+    }
+
+}
+
+@media screen and (max-width: 350px) {
+
+
+    .container {
+        max-width: 1044px;
+        /* Increased the width of the form */
+        width: 250%;
+        /* Ensures the form adjusts responsively */
+        overflow: hidden;
+        margin: 5px auto;
+        /* Centers the form horizontally and adds space at the top */
+        padding: 40px;
+        margin-left: 250px;
+        padding-top: 100px;
+    }
+
+    .message {
+        margin-left: 190px;
+        width: 800px;
+    }
+
+    .custom-line {
+        border: 0;
+        height: 2px;
+        background: rgb(173, 191, 230);
+        width: 600px;
+        margin: 10px auto;
+        margin-top: 150px;
+        margin-left: 370px;
+    }
+
+    .footer {
+        padding-top: 20px;
+        width: 1100px;
+
+    }
+
+    .footerbody {
+        width: 1100px;
+        padding-left: 106px;
+    }
+
+}

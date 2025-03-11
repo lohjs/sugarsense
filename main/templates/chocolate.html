@@ -1,0 +1,239 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static '/css/chocolate.css' %}" />
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+
+  <body>
+    <section class="ourvalues">
+      <div class="ourvaluesbody">
+        <img src="{% static '/images/research.png' %}" height="420px" width="100%" alt="" />
+        <div class="info">
+          <h2>Research</h2>
+        </div>
+      </div>
+    </section>
+
+    <div class="page-container">
+      <div class="main-content">
+        <div class="research-details2">
+          <h3>10 December 2024</h3>
+          <h2>Dark Chocolate Consumption May Reduce Type 2 Diabetes Risk</h2>
+          <p>Regular dark chocolate consumption may lower type 2 diabetes risk by 21%, thanks to its antioxidants and flavonoids that improve insulin sensitivity. Moderation is key to avoid excess calories.</p>
+        </div>
+
+        <section class="researchimage">
+          <div class="researchimagebody">
+            <img src="{% static '/images/chocolate.png' %}" height="467px" width="700px" alt="" />
+          </div>
+        </section>
+
+        <div class="research-details" id="overview">
+          <h3>Overview of the Study</h3>
+          <p>The study published in The BMJ explored the relationship between dark chocolate consumption and type 2 diabetes risk. Researchers analyzed over 30 years of data involving 192,000 adults. They discovered that people who regularly consumed dark chocolate had a 21% lower risk of developing type 2 diabetes compared to those who did not. This benefit is believed to be due to the high content of flavonoids and antioxidants in dark chocolate, which may improve insulin sensitivity and reduce inflammation. However, moderation is essential, as dark chocolate is calorie-dense and may lead to weight gain if overconsumed.</p>
+        </div>
+
+        <div class="research-details" id="findings">
+          <h3>Detailed Breakdown of the Study's Findings</h3>
+          <ol type="a">
+            <li>
+              <strong>Flavonoids and Their Benefits</strong>
+              <p>
+                Flavonoids and Their Benefits: Dark chocolate is rich in flavonoids, a type of antioxidant found in cocoa. Flavonoids have been shown to help improve insulin sensitivity, meaning they make the body’s cells more responsive to insulin. Insulin sensitivity is a critical factor in diabetes, as the body needs to process sugar from the bloodstream effectively. When the body becomes resistant to insulin, it can lead to elevated blood sugar levels and eventually type 2 diabetes.
+                <br /><br />The antioxidants in dark chocolate also help fight oxidative stress, which is a condition that can damage cells and lead to chronic diseases like diabetes. The study suggests that these compounds play a role in reducing the risk of diabetes by improving the way the body regulates blood sugar.
+              </p>
+            </li>
+            <li>
+              <strong>Impact of Portion Sizes</strong>
+              <p>While the benefits of dark chocolate are significant, the article emphasizes that moderation is key. Dark chocolate is calorie-dense, meaning that eating too much could lead to weight gain, which is a known risk factor for type 2 diabetes. Therefore, enjoying dark chocolate in moderation, such as a small square a few times a week, may provide health benefits without the downside of excess calorie intake.</p>
+            </li>
+            <li>
+              <strong>How Dark Chocolate Helps Reduce Diabetes Risk</strong>
+              <p>Type 2 diabetes develops when the body cannot efficiently use insulin, leading to higher-than-normal blood sugar levels. The flavonoids and antioxidants in dark chocolate may reduce inflammation and improve blood flow, both of which contribute to better overall metabolic function. By improving insulin sensitivity and reducing inflammation, dark chocolate may lower the risk of insulin resistance, which is a precursor to type 2 diabetes.</p>
+            </li>
+            <li>
+              <strong>The Importance of Diet and Lifestyle</strong>
+              <p>Although dark chocolate can play a role in lowering diabetes risk, it’s important to remember that it’s just one part of a healthy lifestyle. The article stresses that dark chocolate should be consumed in the context of a balanced diet, which includes whole foods like fruits, vegetables, lean proteins, and whole grains. Additionally, regular physical activity, weight management, and other lifestyle factors like stress management should also be considered for optimal diabetes prevention.</p>
+            </li>
+          </ol>
+        </div>
+
+        <div class="research-details" id="takeaways">
+          <h3>Key Takeaways</h3>
+          <ol type="a">
+            <li>
+              <strong>Moderate Dark Chocolate Consumption</strong>
+              <p>Small amounts of dark chocolate (preferably with a higher cocoa content) have potential health benefits, including improved insulin sensitivity, reduced inflammation, and a lowered risk of type 2 diabetes.</p>
+            </li>
+            <li>
+              <strong>Flavonoids as the Key Component</strong>
+              <p>The antioxidants in dark chocolate, particularly flavonoids, help the body use insulin more effectively, which is important for preventing type 2 diabetes.</p>
+            </li>
+            <li>
+              <strong>Moderation Is Crucial</strong>
+              <p>Although dark chocolate offers health benefits, it should be eaten in moderation to avoid excessive calorie intake, which could lead to weight gain and undermine the benefits.</p>
+            </li>
+            <li>
+              <strong>Holistic Approach to Health</strong>
+              <p>Dark chocolate should be part of a balanced diet and healthy lifestyle. Regular exercise, healthy eating, and weight management are all important factors in reducing the risk of developing type 2 diabetes.</p>
+            </li>
+          </ol>
+        </div>
+
+        <div class="research-details" id="conclusion">
+          <h3>Conclusion</h3>
+          <p>This study suggests that regular, moderate consumption of dark chocolate can be beneficial in reducing the risk of type 2 diabetes due to its high content of flavonoids and antioxidants. However, it’s important to consume it in moderation and within the context of a healthy diet and active lifestyle.</p>
+        </div>
+
+        <div class="references" id="references">
+          <h4>References</h4>
+          <ol>
+            <li>
+              Priyanjana Pramanik, MSc. (2024, December 10). Sweet news: Dark chocolate reduces type 2 diabetes risk. <em>News-Medical</em>.
+              <a href="https://www.news-medical.net/news/20241210/Sweet-news-Dark-chocolate-reduces-type-2-diabetes-risk.aspx" target="_blank">https://www.news-medical.net/news/20241210/Sweet-news-Dark-chocolate-reduces-type-2-diabetes-risk.aspx</a>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="sticky-sidebar">
+        <div class="sidebar-content">
+          <h4>Related Informations</h4>
+          <ul>
+            <li id="others">
+              <a href="research">Others Research</a>
+            </li>
+            <li>
+              <a href="#overview" data-scroll="overview">Research Overview</a>
+            </li>
+            <li>
+              <a href="#findings" data-scroll="findings">Key Findings</a>
+            </li>
+            <li>
+              <a href="#takeaways" data-scroll="takeaways">Key Takeaways</a>
+            </li>
+            <li>
+              <a href="#conclusion" data-scroll="conclusion">Conclusion</a>
+            </li>
+            <li>
+              <a href="#references" data-scroll="references">References</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <script>
+        window.addEventListener('scroll', function () {
+          const sidebar = document.querySelector('.sticky-sidebar')
+          const footer = document.querySelector('footer')
+          const footerTop = footer.getBoundingClientRect().top
+          const sidebarHeight = sidebar.offsetHeight
+        
+          if (footerTop <= sidebarHeight + 200) {
+            // 100 is the top offset
+            sidebar.style.position = 'absolute'
+            sidebar.style.top = `${footerTop - sidebarHeight}px`
+          } else {
+            sidebar.style.position = 'sticky'
+            sidebar.style.top = '200px'
+          }
+        })
+        
+        document.addEventListener('DOMContentLoaded', function () {
+          // Add a click event listener to the document
+          document.addEventListener('click', function (e) {
+            // Check if the clicked element has a 'data-scroll' attribute
+            if (e.target.hasAttribute('data-scroll')) {
+              e.preventDefault() // Prevent default anchor behavior
+        
+              // Get the ID of the section to scroll to from the data-scroll attribute
+              const targetId = e.target.getAttribute('data-scroll')
+              const targetSection = document.getElementById(targetId)
+        
+              if (targetSection) {
+                // Calculate the position of the target section
+                const position = targetSection.getBoundingClientRect().top + window.pageYOffset
+        
+                // Scroll to the target section with an offset
+                window.scrollTo({
+                  top: position - 90, // Adjust this value for offset
+                  behavior: 'smooth'
+                })
+              }
+            }
+          })
+        })
+      </script>
+    </div>
+
+    <hr class="custom-line" />
+
+    <section class="footer">
+      <div class="footerobody">
+        <div class="footerbody">
+          <div class="footer-content">
+            <img src="{% static '/images/logo100.png' %}" alt="" />
+            <div class="sugarsense">
+              <p>SUGAR SENSE</p>
+            </div>
+            <p>
+              20, Genting Klang, Setapak, Kuala Lumpur<br />Tel: +60 18-218 9169 / +60 11-2769 6820
+            </p>
+
+            <div class="icons">
+              <a href="#"><i class="bx bxl-meta"></i></a>
+              <a href="#"><i class="bx bx-x"></i></a>
+              <a href="#"><i class="bx bxl-instagram"></i></a>
+              <a href="#"><i class="bx bxl-youtube"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-content">
+            <h4>COMPANY</h4>
+            <li>
+              <a href="ourvalues">About Us</a>
+            </li>
+            <li>
+              <a href="leadership">Our Leadership</a>
+            </li>
+            <li>
+              <a href="careers">Careers</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>SERVICES</h4>
+            <li>
+              <a href="prediction">Diabetes Prediction</a>
+            </li>
+            <li>
+              <a href="recommendation">Diet Recommendations</a>
+            </li>
+            <li>
+              <a href="appointment">Appointment Form</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>USERFUL INFO</h4>
+            <li>
+              <a href="research">Research</a>
+            </li>
+            <li>
+              <a href="contactus">Contact us</a>
+            </li>
+            <li>
+              <a href="profiles">Account Settings</a>
+            </li>
+            <li>
+              <a href="predictionshistory">History</a>
+            </li>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+{% endblock %}

@@ -1,0 +1,307 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static '/css/contactus.css' %}" />
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+
+  <body>
+    <section class="ourvalues">
+      <div class="ourvaluesbody">
+        <img src="{% static '/images/contactus.png' %}" height="420px" width="100%" alt="" />
+        <div class="info">
+          <h2>Contact Us</h2>
+        </div>
+      </div>
+    </section>
+
+    <div class="mapcontainer">
+      <h1>Here We Are</h1>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.537791254662!2d101.72398217447042!3d3.2152605527437395!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc3843bfb6a031%3A0x2dc5e067aae3ab84!2sTunku%20Abdul%20Rahman%20University%20of%20Management%20and%20Technology%20(TAR%20UMT)!5e0!3m2!1sen!2smy!4v1737203965544!5m2!1sen!2smy" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <!-- Add Django Messages Block Here -->
+    {% if messages %}
+      <div class="custom-alert">
+        <div class="custom-alert-box">
+          {% for message in messages %}
+            <div class="alert-message {% if message.tags %}
+                 alert-{{ message.tags }}
+              {% endif %}">{{ message }}</div>
+          {% endfor %}
+          <button onclick="closeAlert()">OK</button>
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- End of Django Messages Block -->
+
+    <div class="container">
+      <div class="title">
+        <p>Leave Us A Message</p>
+      </div>
+      <form action="{% url 'contactus' %}" method="POST">
+        {% csrf_token %}
+        <div class="user_details">
+          <!-- Subject Field -->
+          <div class="input_box">
+            <label for="subject">What would you like to contact us about today?</label>
+            <input type="text" id="subject" name="subject" placeholder="Message subject" required />
+          </div>
+
+          <!-- Message Field -->
+          <div class="input_box">
+            <label for="message">Your message</label>
+            <textarea id="message" name="message" placeholder="Type your message here" rows="4" required></textarea>
+          </div>
+
+          <!-- Country Field -->
+          <div class="input_box">
+            <label for="country">Country</label>
+            <input type="text" id="country" name="country" placeholder="Country" />
+          </div>
+
+          <!-- First Name Field -->
+          <div class="input_box">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" name="first_name" placeholder="First name" />
+          </div>
+
+          <div class="input_box">
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" name="last_name" placeholder="Last name" />
+          </div>
+
+          <div class="input_box">
+            <label for="email">E-mail Address</label>
+            <input type="email" id="email" name="email" placeholder="E-mail address" />
+          </div>
+
+          <div class="input_box">
+            <label for="mobilenumber">Mobile Number</label>
+            <input type="text" id="mobilenumber" name="mobilenumber" placeholder="Mobile Number" />
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="reg_btn">
+          <input type="submit" value="Submit" />
+        </div>
+      </form>
+    </div>
+
+    <script>
+      function closeAlert() {
+        document.querySelector('.custom-alert').style.display = 'none'
+      }
+      
+      document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form')
+        const inputs = form.querySelectorAll('input, textarea')
+        const submitButton = document.querySelector('.reg_btn input')
+      
+        // Initially disable the button
+        submitButton.disabled = true
+      
+        // Validation rules
+        const validationRules = {
+          subject: {
+            regex: /^.{5,100}$/,
+            errorMsg: 'Subject must be between 5 and 100 characters.'
+          },
+          message: {
+            regex: /^.{10,500}$/,
+            errorMsg: 'Message must be between 10 and 500 characters.'
+          },
+          email: {
+            regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            errorMsg: 'Please enter a valid email address.'
+          },
+          mobilenumber: {
+            regex: /^(\+?6?0?)[0-9]{9,11}$/,
+            errorMsg: 'Please enter a valid Malaysian phone number (9-11 digits).'
+          },
+          first_name: {
+            regex: /^[A-Za-z\s]{2,50}$/,
+            errorMsg: 'First name must only contain letters (2-50 characters).'
+          },
+          last_name: {
+            regex: /^[A-Za-z\s]{2,50}$/,
+            errorMsg: 'Last name must only contain letters (2-50 characters).'
+          },
+          country: {
+            regex: /^[A-Za-z\s]{2,50}$/,
+            errorMsg: 'Country must only contain letters (2-50 characters).'
+          }
+        }
+      
+        // Function to show/hide error message
+        function showError(input, message) {
+          let errorDiv = input.parentNode.querySelector('.error-message')
+      
+          if (message) {
+            if (!errorDiv) {
+              errorDiv = document.createElement('div')
+              errorDiv.className = 'error-message'
+              input.parentNode.appendChild(errorDiv)
+            }
+            errorDiv.textContent = message
+            input.classList.add('invalid')
+          } else {
+            if (errorDiv) errorDiv.remove()
+            input.classList.remove('invalid')
+          }
+        }
+      
+        // Validate an individual input field (only if interacted)
+        function validateInput(input) {
+          const name = input.name
+          const value = input.value.trim()
+      
+          if (input.dataset.touched === 'true') {
+            // Validate only if touched
+            if (value === '') {
+              showError(input, 'This field is required.')
+              return false
+            }
+            if (validationRules[name] && !validationRules[name].regex.test(value)) {
+              showError(input, validationRules[name].errorMsg)
+              return false
+            }
+            showError(input, '') // Clear error if valid
+          }
+          return true
+        }
+      
+        // Check form validity and enable/disable submit button
+        function checkFormValidity() {
+          let allValid = true
+          inputs.forEach((input) => {
+            if (!validateInput(input)) {
+              allValid = false
+            }
+          })
+          submitButton.disabled = !allValid
+        }
+      
+        // Event listeners for validation
+        inputs.forEach((input) => {
+          input.addEventListener('blur', function () {
+            this.dataset.touched = 'true' // Mark field as interacted
+            validateInput(this)
+            checkFormValidity()
+          })
+      
+          input.addEventListener('input', function () {
+            validateInput(this)
+            checkFormValidity()
+          })
+        })
+      
+        // Form submission validation
+        form.addEventListener('submit', function (event) {
+          let isValid = true
+      
+          inputs.forEach((input) => {
+            input.dataset.touched = 'true' // Force validation on submit
+            if (!validateInput(input)) {
+              isValid = false
+            }
+          })
+      
+          if (!isValid) {
+            event.preventDefault()
+            alert('Please fix the errors before submitting the form.')
+      
+            const firstInvalidInput = form.querySelector('.invalid')
+            if (firstInvalidInput) {
+              firstInvalidInput.scrollIntoView({ behavior: 'smooth', block: 'center' })
+              firstInvalidInput.focus()
+            }
+          }
+        })
+      })
+    </script>
+
+    <div class="message">
+      <p>
+        For media-related enquiries:
+        <a href="mailto:tangwz-wp21@student.tarc.edu.my">lohjs-wp21@student.tarc.edu.my</a>
+      </p>
+      <p>
+        For partnership-related enquiries:
+        <a href="mailto:lohjs-wp21@student.tarc.edu.my">tangwz-wp21@student.tarc.edu.my</a>
+      </p>
+      <p>For any other general enquiries, please fill out the form below. Required fields are denoted by an asterisk.</p>
+    </div>
+
+    <hr class="custom-line" />
+
+    <section class="footer">
+      <div class="footerobody">
+        <div class="footerbody">
+          <div class="footer-content">
+            <img src="{% static '/images/logo100.png' %}" alt="" />
+            <div class="sugarsense">
+              <p>SUGAR SENSE</p>
+            </div>
+            <p>
+              20, Genting Klang, Setapak, Kuala Lumpur<br />Tel: +60 18-218 9169 / +60 11-2769 6820
+            </p>
+
+            <div class="icons">
+              <a href="#"><i class="bx bxl-meta"></i></a>
+              <a href="#"><i class="bx bx-x"></i></a>
+              <a href="#"><i class="bx bxl-instagram"></i></a>
+              <a href="#"><i class="bx bxl-youtube"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-content">
+            <h4>COMPANY</h4>
+            <li>
+              <a href="ourvalues">About Us</a>
+            </li>
+            <li>
+              <a href="leadership">Our Leadership</a>
+            </li>
+            <li>
+              <a href="careers">Careers</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>SERVICES</h4>
+            <li>
+              <a href="prediction">Diabetes Prediction</a>
+            </li>
+            <li>
+              <a href="recommendation">Diet Recommendations</a>
+            </li>
+            <li>
+              <a href="appointment">Appointment Form</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>USERFUL INFO</h4>
+            <li>
+              <a href="research">Research</a>
+            </li>
+            <li>
+              <a href="contactus">Contact us</a>
+            </li>
+            <li>
+              <a href="profiles">Account Settings</a>
+            </li>
+            <li>
+              <a href="predictionshistory">History</a>
+            </li>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+{% endblock %}

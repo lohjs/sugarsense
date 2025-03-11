@@ -1,0 +1,430 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static '/css/recommendation_history.css' %}" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+
+  <body>
+    <section class="ourvalues">
+      <div class="ourvaluesbody">
+        <img src="{% static '/images/accounthistory.png' %}" height="420px" width="100%" alt="" />
+        <div class="info">
+          <h2>Records</h2>
+        </div>
+      </div>
+    </section>
+
+    <div class="title">
+      <p>Diet Recommendation History</p>
+    </div>
+
+    <section class="history-container">
+      <div class="history-header">
+        <h2>Your Diet Journey</h2>
+        <p>Track your progress and view past recommendations to see how your diet plan has evolved.</p>
+      </div>
+      <div class="filters-container">
+        <form id="historyFilters" class="filters-form">
+          <div class="filters-row">
+            <div class="filter-item">
+              <label for="dateFrom">Date From</label>
+              <input type="date" id="dateFrom" name="dateFrom" />
+            </div>
+
+            <div class="filter-item">
+              <label for="dateTo">Date To</label>
+              <input type="date" id="dateTo" name="dateTo" />
+            </div>
+
+            <div class="filter-item">
+              <label for="activity">Activity Level</label>
+              <select id="activity" name="activity">
+                <option value="">All Activities</option>
+                <option value="maintain">No Exercise</option>
+                <option value="light">Light Exercise</option>
+                <option value="moderate">Moderate Exercise</option>
+                <option value="very">Very Active</option>
+                <option value="extra">Extra Active</option>
+              </select>
+            </div>
+
+            <div class="filter-item">
+              <label for="weightGoal">Weight Goal</label>
+              <select id="weightGoal" name="weightGoal">
+                <option value="">All Goals</option>
+                <option value="maintain">Maintain Weight</option>
+                <option value="mild">Mild Weight Loss</option>
+                <option value="lose">Weight Loss</option>
+                <option value="extreme">Exteme Weight Loss</option>
+              </select>
+            </div>
+
+            <div class="filter-buttons">
+              <button type="button" class="reset-button">
+                <i class="fas fa-undo"></i>
+                Clear Filters
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      {% if recommendations %}
+        {% for recommendation in recommendations %}
+          <div class="history-card">
+            <div class="history-date">
+              <i class="fas fa-calendar"></i>
+              <span>{{ recommendation.timestamp|date:'F d, Y H:i:s' }}</span>
+            </div>
+
+            <div class="personal-stats">
+              <h3>Personal Information</h3>
+              <div class="stats-grid">
+                <div class="stat-item">
+                  <i class="fas fa-user"></i>
+                  <span>Age: {{ recommendation.age }} years</span>
+                </div>
+                <div class="stat-item">
+                  <i class="fas fa-ruler-vertical"></i>
+                  <span>Height: {{ recommendation.height }} cm</span>
+                </div>
+                <div class="stat-item">
+                  <i class="fas fa-weight"></i>
+                  <span>Weight: {{ recommendation.weight }} kg</span>
+                </div>
+                <div class="stat-item">
+                  <i class="fas fa-venus-mars"></i>
+                  <span>Gender: {{ recommendation.gender|title }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="health-metrics">
+              <h3>Health Metrics</h3>
+              <div class="metrics-container">
+                <div class="metric-box bmi-box">
+                  <h4>BMI Status</h4>
+                  <span class="bmi-value {% if recommendation.bmi_category == 'Normal' %}
+
+                      text-success
+
+                    {% elif recommendation.bmi_category == 'Underweight' %}
+ 
+                      text-info
+
+
+                    {% else %}
+
+                      text-warning
+
+
+                    {% endif %}">
+                    {{ recommendation.bmi }} kg/m²
+                  </span>
+                  <span class="bmi-category">{{ recommendation.bmi_category }}</span>
+                </div>
+
+                <div class="metric-box">
+                  <h4>Activity Level</h4>
+                  <span>{{ recommendation.activity|title }}</span>
+                </div>
+
+                <div class="metric-box">
+                  <h4>Weight Goal</h4>
+                  <span>{{ recommendation.weight_loss_plan|title }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="diet-details">
+              <h3>Diet Recommendations</h3>
+              <div class="calorie-info">
+                <i class="fas fa-fire"></i>
+                <span>Daily Calorie Target: {{ recommendation.recommended_calories }} kcal</span>
+              </div>
+
+              <div class="meal-plans">
+                <div class="meal-tabs">
+                  <button class="meal-tab active" data-meal="breakfast-{{ forloop.counter }}">Breakfast</button>
+                  <button class="meal-tab" data-meal="lunch-{{ forloop.counter }}">Lunch</button>
+                  <button class="meal-tab" data-meal="dinner-{{ forloop.counter }}">Dinner</button>
+                  <button class="meal-tab" data-meal="snacks-{{ forloop.counter }}">Snacks</button>
+                </div>
+
+                {% for meal_plan in recommendation.meal_plans.all %}
+                  <div class="meal-content" id="{{ meal_plan.meal_type|lower }}-{{ forloop.parentloop.counter }}">
+                    {% for recipe in meal_plan.recipes.all %}
+                      <div class="meal-item">
+                        <div class="meal-card-header">
+                          <h4>{{ recipe.name }}</h4>
+                          <span class="meal-calories">{{ recipe.calories }} kcal</span>
+                        </div>
+                        <button class="expand-button" onclick="toggleMealDetails('{{ meal_plan.meal_type|lower }}-{{ forloop.parentloop.counter }}-{{ forloop.counter }}')">Show Details</button>
+                        <div class="meal-details" id="details-{{ meal_plan.meal_type|lower }}-{{ forloop.parentloop.counter }}-{{ forloop.counter }}">
+                          <div class="ingredients">
+                            <h5>Nutritions:</h5>
+                            <ul>
+                              <li>Protein : {{ recipe.Protein }} g </li>
+                              <li>Saturated Fat : {{ recipe.SaturatedFat }} g </li>
+                              <li>Cholesterol : {{ recipe.Cholesterol }} g </li>
+                              <li>Sodium : {{ recipe.Sodium }} g </li>
+                              <li>Carbohydrate : {{ recipe.Carbohydrate }} g </li>
+                              <li>Fiber : {{ recipe.Fiber }} g </li>
+                              <li>Sugar : {{ recipe.Sugar }} g </li>
+                            </ul>
+                          </div>
+                          <div class="ingredients">
+                            <h5>Ingredients:</h5>
+                            <ul>
+                              {% for ingredient in recipe.ingredients %}
+                                <li>{{ ingredient }}</li>
+                              {% endfor %}
+                            </ul>
+                          </div>
+                          <div class="instructions">
+                            <h5>Instructions:</h5>
+                            <ol>
+                              {% for instruction in recipe.instructions %}
+                                <li>{{ instruction }}</li>
+                              {% endfor %}
+                            </ol>
+                          </div>
+                        </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="no-history">
+          <i class="fas fa-history"></i>
+          <h3>No Diet History Found</h3>
+          <p>You haven't generated any diet recommendations yet.</p>
+          <a href="{% url 'recommendation' %}" class="get-started-btn">Get Your First Diet Plan</a>
+        </div>
+      {% endif %}
+    </section>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const filterForm = document.getElementById('historyFilters')
+        const resetButton = filterForm.querySelector('.reset-button')
+        const historyCards = document.querySelectorAll('.history-card')
+        const filterInputs = filterForm.querySelectorAll('input, select')
+      
+        // Debounce function to limit how often the filter function is called
+        function debounce(func, wait) {
+          let timeout
+          return function executedFunction(...args) {
+            const later = () => {
+              clearTimeout(timeout)
+              func(...args)
+            }
+            clearTimeout(timeout)
+            timeout = setTimeout(later, wait)
+          }
+        }
+      
+        // Helper function to parse date string from the history card
+        function parseCardDate(dateStr) {
+          return new Date(dateStr)
+        }
+      
+        // Helper function to check if a date is within a range
+        function isDateInRange(date, fromDate, toDate) {
+          if (!fromDate && !toDate) return true
+          if (fromDate && !toDate) return date >= fromDate
+          if (!fromDate && toDate) return date <= toDate
+          return date >= fromDate && date <= toDate
+        }
+      
+        // Function to update active state of filter items
+        function updateActiveStates() {
+          filterInputs.forEach((input) => {
+            const filterItem = input.closest('.filter-item')
+            if (input.value) {
+              filterItem.classList.add('active')
+            } else {
+              filterItem.classList.remove('active')
+            }
+          })
+        }
+      
+        // Function to apply filters
+        const applyFilters = debounce(function () {
+          const dateFrom = document.getElementById('dateFrom').value ? new Date(document.getElementById('dateFrom').value) : null
+          const dateTo = document.getElementById('dateTo').value ? new Date(document.getElementById('dateTo').value) : null
+          const activity = document.getElementById('activity').value.toLowerCase()
+          const weightGoal = document.getElementById('weightGoal').value.toLowerCase()
+      
+          updateActiveStates()
+      
+          historyCards.forEach((card) => {
+            const cardDate = parseCardDate(card.querySelector('.history-date span').textContent)
+            const cardActivity = card.querySelector('.metric-box:nth-child(2) span').textContent.toLowerCase()
+            const cardWeightGoal = card.querySelector('.metric-box:nth-child(3) span').textContent.toLowerCase()
+      
+            const dateMatches = isDateInRange(cardDate, dateFrom, dateTo)
+            const activityMatches = !activity || cardActivity.includes(activity)
+            const weightGoalMatches = !weightGoal || cardWeightGoal.includes(weightGoal)
+      
+            if (dateMatches && activityMatches && weightGoalMatches) {
+              card.classList.remove('hidden')
+            } else {
+              card.classList.add('hidden')
+            }
+          })
+      
+          // Show "no results" message if all cards are hidden
+          const visibleCards = document.querySelectorAll('.history-card:not(.hidden)')
+          const noResultsDiv = document.querySelector('.no-results') || createNoResultsMessage()
+      
+          if (visibleCards.length === 0) {
+            noResultsDiv.style.display = 'block'
+          } else {
+            noResultsDiv.style.display = 'none'
+          }
+        }, 300) // 300ms debounce delay
+      
+        // Function to create "no results" message
+        function createNoResultsMessage() {
+          const noResults = document.createElement('div')
+          noResults.className = 'no-results'
+          noResults.innerHTML = `
+                  <i class="fas fa-search"></i>
+                  <h3>No Results Found</h3>
+                  <p>Try adjusting your filters to find more records.</p>
+                `
+          const historyContainer = document.querySelector('.history-container')
+          historyContainer.appendChild(noResults)
+          return noResults
+        }
+      
+        // Function to reset filters
+        function resetFilters() {
+          filterForm.reset()
+          updateActiveStates()
+          applyFilters()
+        }
+      
+        // Event listeners for auto-filtering
+        filterInputs.forEach((input) => {
+          input.addEventListener('input', applyFilters)
+          input.addEventListener('change', applyFilters)
+        })
+      
+        // Reset button event listener
+        resetButton.addEventListener('click', resetFilters)
+      })
+
+      function toggleMealDetails(id) {
+        const details = document.getElementById(`details-${id}`)
+        const button = document.querySelector(`[onclick="toggleMealDetails('${id}')"]`)
+        if (details.style.display === 'none' || !details.style.display) {
+          details.style.display = 'block'
+          button.textContent = 'Hide Details'
+        } else {
+          details.style.display = 'none'
+          button.textContent = 'Show Details'
+        }
+      }
+      
+      document.addEventListener('DOMContentLoaded', function () {
+        // Initialize meal tabs
+        const tabs = document.querySelectorAll('.meal-tab')
+        tabs.forEach((tab) => {
+          tab.addEventListener('click', function () {
+            const parent = this.closest('.meal-plans')
+            parent.querySelectorAll('.meal-tab').forEach((t) => t.classList.remove('active'))
+            parent.querySelectorAll('.meal-content').forEach((c) => (c.style.display = 'none'))
+      
+            this.classList.add('active')
+            const mealContent = parent.querySelector(`#${this.dataset.meal}`)
+            if (mealContent) {
+              mealContent.style.display = 'block'
+            }
+          })
+        })
+      
+        // Show first tab content by default
+        document.querySelectorAll('.meal-plans').forEach((plan) => {
+          const firstContent = plan.querySelector('.meal-content')
+          if (firstContent) {
+            firstContent.style.display = 'block'
+          }
+        })
+      })
+    </script>
+
+    <hr class="custom-line" />
+
+    <section class="footer">
+      <div class="footerobody">
+        <div class="footerbody">
+          <div class="footer-content">
+            <img src="{% static '/images/logo100.png' %}" alt="" />
+            <div class="sugarsense">
+              <p>SUGAR SENSE</p>
+            </div>
+            <p>
+              20, Genting Klang, Setapak, Kuala Lumpur<br />Tel: +60 18-218 9169 / +60 11-2769 6820
+            </p>
+
+            <div class="icons">
+              <a href="#"><i class="bx bxl-meta"></i></a>
+              <a href="#"><i class="bx bx-x"></i></a>
+              <a href="#"><i class="bx bxl-instagram"></i></a>
+              <a href="#"><i class="bx bxl-youtube"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-content">
+            <h4>COMPANY</h4>
+            <li>
+              <a href="ourvalues">About Us</a>
+            </li>
+            <li>
+              <a href="leadership">Our Leadership</a>
+            </li>
+            <li>
+              <a href="careers">Careers</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>SERVICES</h4>
+            <li>
+              <a href="prediction">Diabetes Prediction</a>
+            </li>
+            <li>
+              <a href="recommendation">Diet Recommendations</a>
+            </li>
+            <li>
+              <a href="appointment">Appointment Form</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>USERFUL INFO</h4>
+            <li>
+              <a href="research">Research</a>
+            </li>
+            <li>
+              <a href="contactus">Contact us</a>
+            </li>
+            <li>
+              <a href="profiles">Account Settings</a>
+            </li>
+            <li>
+              <a href="predictionshistory">History</a>
+            </li>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+{% endblock %}

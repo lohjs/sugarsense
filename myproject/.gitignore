@@ -1,0 +1,27 @@
+# Ignore environment files
+.env
+
+# Ignore compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore IDE/editor config files
+.vscode/
+.idea/
+
+# Ignore Django stuff
+db.sqlite3
+/media/
+/staticfiles/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore sensitive data
+/diabetes/controlsystem-8a38d-firebase-adminsdk-fbsvc-0b637fe231.json
+/main/controlsystem-8a38d-firebase-adminsdk-fbsvc-0b637fe231.json
+/myfirebaseapp/userinfo/controlsystem-8a38d-firebase-adminsdk-fbsvc-0b637fe231.json
+/recommendation/controlsystem-8a38d-firebase-adminsdk-fbsvc-0b637fe231.json
+/user/controlsystem-8a38d-firebase-adminsdk-fbsvc-0b637fe231.json

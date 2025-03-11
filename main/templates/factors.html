@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static '/css/factors.css' %}" />
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+
+  <body>
+    <section class="ourvalues">
+      <div class="ourvaluesbody">
+        <img src="{% static '/images/research.png' %}" height="420px" width="100%" alt="" />
+        <div class="info">
+          <h2>Research</h2>
+        </div>
+      </div>
+    </section>
+
+    <div class="page-container">
+      <div class="main-content">
+        <div class="research-details2">
+          <h3>23 January 2025</h3>
+          <h2>Key Predictors of Diabetes Risk Beyond Weight</h2>
+          <p>A study of 45,000 participants found that age, sex, and fasting plasma glucose (FPG) levels are key predictors of diabetes, beyond just weight. Even FPG levels slightly above normal (80–94 mg/dL) increase risk, especially for men and older adults. The findings stress the need for broader diabetes prevention strategies.</p>
+        </div>
+
+        <section class="researchimage">
+          <div class="researchimagebody">
+            <img src="{% static '/images/factors.png' %}" height="467px" width="700px" alt="" />
+          </div>
+        </section>
+
+        <div class="research-details" id="overview">
+          <h3>Overview of the Study</h3>
+          <p>This study focuses on identifying key factors that contribute to the progression from prediabetes to diabetes over a 10-year period, highlighting that weight alone is not the sole determinant of diabetes risk.</p>
+        </div>
+
+        <div class="research-details" id="factors">
+          <h3>Three other critical factors influencing the progression from prediabetes to diabetes:</h3>
+          <ol type="a">
+            <li>
+              <strong>Fasting Plasma Glucose (FPG)</strong>
+              <p>FPG levels, even within the normal range, significantly influence diabetes risk. Typically, normal FPG levels are below 100 mg/dL. However, the study revealed that individuals with FPG levels between 80 and 94 mg/dL—though considered normal—are still at a higher risk of developing diabetes compared to those with lower levels. This suggests that blood sugar management is crucial even for those not yet in the prediabetic range.</p>
+            </li>
+            <li>
+              <strong>Age and Sex</strong>
+              <p>Older individuals were found to have a higher likelihood of progressing to diabetes. Men were also more prone to developing diabetes compared to women. These factors indicate that biological and hormonal differences, as well as age-related metabolic changes, may play significant roles.</p>
+            </li>
+            <li>
+              <strong>Inflammation and Obesity</strong>
+              <p>The additives, unhealthy fats, and high calorie content in these foods contribute to chronic inflammation and weight gain, both of which are major risk factors for type 2 diabetes.</p>
+            </li>
+            <li>
+              <strong>Weight Is Not the Only Factor</strong>
+              <p>While weight is often considered a primary risk factor for diabetes, this study emphasizes that other variables, such as FPG levels, age, and sex, can be equally or more critical in predicting diabetes risk. This finding challenges the notion that weight loss alone is sufficient for diabetes prevention.</p>
+            </li>
+          </ol>
+        </div>
+
+        <div class="research-details" id="implications">
+          <h3>Broader Implications</h3>
+          <p>This study underscores the importance of a comprehensive approach to diabetes prevention. Rather than focusing solely on weight management, healthcare providers and individuals should monitor FPG levels regularly, particularly as they age. Lifestyle interventions, such as improving diet, engaging in regular physical activity, and managing stress, should be tailored not only to control weight but also to address these additional risk factors.</p>
+        </div>
+
+        <div class="research-details" id="takeaways">
+          <h3>Key Takeaway</h3>
+          <p>This study underscores that diabetes risk is multifaceted. Focusing on weight alone overlooks other critical factors like fasting blood sugar levels, age, and sex. By adopting a more comprehensive and personalized approach to diabetes prevention, healthcare providers can better address the needs of at-risk individuals, particularly those with subtle warning signs that might otherwise go unnoticed. This reinforces the importance of routine health monitoring and proactive measures to reduce the progression to type 2 diabetes.</p>
+        </div>
+
+        <div class="references" id="references">
+          <h4>References</h4>
+          <ol>
+            <li>
+              Beard, M. (2025, January 23). These 4 factors can predict if you’ll get diabetes within 10 years — most have nothing to do with weight.
+              <em>New York Post</em>.
+              <a href="https://nypost.com/2025/01/23/health/weight-isnt-the-only-factor-driving-diabetes-risk-3-other-drivers/" target="_blank">https://nypost.com/2025/01/23/health/weight-isnt-the-only-factor-driving-diabetes-risk-3-other-drivers/</a>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="sticky-sidebar">
+        <div class="sidebar-content">
+          <h4>Related Informations</h4>
+          <ul>
+            <li id="others">
+              <a href="research">Others Research</a>
+            </li>
+            <li>
+              <a href="#overview" data-scroll="overview">Research Overview</a>
+            </li>
+            <li>
+              <a href="#factors" data-scroll="factors">Factors</a>
+            </li>
+            <li>
+              <a href="#implications" data-scroll="implications">Implications</a>
+            </li>
+            <li>
+              <a href="#takeaways" data-scroll="takeaways">Key Takeaways</a>
+            </li>
+            <li>
+              <a href="#references" data-scroll="references">References</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <script>
+        window.addEventListener('scroll', function () {
+          const sidebar = document.querySelector('.sticky-sidebar')
+          const footer = document.querySelector('footer')
+          const footerTop = footer.getBoundingClientRect().top
+          const sidebarHeight = sidebar.offsetHeight
+        
+          if (footerTop <= sidebarHeight + 200) {
+            // 100 is the top offset
+            sidebar.style.position = 'absolute'
+            sidebar.style.top = `${footerTop - sidebarHeight}px`
+          } else {
+            sidebar.style.position = 'sticky'
+            sidebar.style.top = '200px'
+          }
+        })
+        
+        document.addEventListener('DOMContentLoaded', function () {
+          // Add a click event listener to the document
+          document.addEventListener('click', function (e) {
+            // Check if the clicked element has a 'data-scroll' attribute
+            if (e.target.hasAttribute('data-scroll')) {
+              e.preventDefault() // Prevent default anchor behavior
+        
+              // Get the ID of the section to scroll to from the data-scroll attribute
+              const targetId = e.target.getAttribute('data-scroll')
+              const targetSection = document.getElementById(targetId)
+        
+              if (targetSection) {
+                // Calculate the position of the target section
+                const position = targetSection.getBoundingClientRect().top + window.pageYOffset
+        
+                // Scroll to the target section with an offset
+                window.scrollTo({
+                  top: position - 90, // Adjust this value for offset
+                  behavior: 'smooth'
+                })
+              }
+            }
+          })
+        })
+      </script>
+    </div>
+
+    <hr class="custom-line" />
+
+    <section class="footer">
+      <div class="footerobody">
+        <div class="footerbody">
+          <div class="footer-content">
+            <img src="{% static '/images/logo100.png' %}" alt="" />
+            <div class="sugarsense">
+              <p>SUGAR SENSE</p>
+            </div>
+            <p>
+              20, Genting Klang, Setapak, Kuala Lumpur<br />Tel: +60 18-218 9169 / +60 11-2769 6820
+            </p>
+
+            <div class="icons">
+              <a href="#"><i class="bx bxl-meta"></i></a>
+              <a href="#"><i class="bx bx-x"></i></a>
+              <a href="#"><i class="bx bxl-instagram"></i></a>
+              <a href="#"><i class="bx bxl-youtube"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-content">
+            <h4>COMPANY</h4>
+            <li>
+              <a href="ourvalues">About Us</a>
+            </li>
+            <li>
+              <a href="leadership">Our Leadership</a>
+            </li>
+            <li>
+              <a href="careers">Careers</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>SERVICES</h4>
+            <li>
+              <a href="prediction">Diabetes Prediction</a>
+            </li>
+            <li>
+              <a href="recommendation">Diet Recommendations</a>
+            </li>
+            <li>
+              <a href="appointment">Appointment Form</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>USERFUL INFO</h4>
+            <li>
+              <a href="research">Research</a>
+            </li>
+            <li>
+              <a href="contactus">Contact us</a>
+            </li>
+            <li>
+              <a href="profiles">Account Settings</a>
+            </li>
+            <li>
+              <a href="predictionshistory">History</a>
+            </li>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+{% endblock %}

@@ -1,0 +1,442 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static '/css/appointment.css' %}" />
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  <body>
+    <section class="ourvalues">
+      <div class="ourvaluesbody">
+        <img src="{% static '/images/prediction123.png' %}" height="420px" width="100%" alt="" />
+        <div class="info">
+          <h2>Appointment</h2>
+        </div>
+      </div>
+    </section>
+
+    <div class="informationbackground">
+      <h2>Talk to a Real Consultant for Your Diabetes Management</h2>
+      <p>This appointment is designed to provide personalized advice on managing your diabetes, including dietary recommendations, blood sugar management, and overall wellness tips. It aims to help you make informed decisions about your health and create a plan for better diabetes control.</p>
+      <p>
+        Diabetes Research: <a href="{% url 'research' %}">Learn more about diabetes</a>
+      </p>
+      <p>
+        Diabetes Prediction: <a href="{% url 'prediction' %}">Get an early prediction and manage your diabetes effectively</a>
+      </p>
+      <p>
+        Lifestyle Diet Recommendations: <a href="{% url 'recommendation' %}">Take control of your health with a personalized diet</a>
+      </p>
+      <p>
+        Diabetes Form Guidelines: <a href="#" id="scroll-to-faq">Common Questions About Diabetes Input Form</a>
+      </p>
+    </div>
+
+    <section class="appointment">
+      <form class="form" id="appointmentForm" method="POST" action="{% url 'appointment' %}">
+        {% csrf_token %}
+        <div class="form-group">
+          <label class="field-title" for="name">Name</label>
+          <input id="name" required type="text" class="input" name="name" />
+        </div>
+
+        <div class="form-group">
+          <label class="field-title" for="email">Email</label>
+          <input id="email" required type="email" class="input" name="email" />
+        </div>
+
+        <div class="form-group">
+          <label class="field-title" for="phone">Phone</label>
+          <input id="phone" required type="tel" class="input" name="phone" />
+        </div>
+
+        <div class="form-group">
+          <label class="field-title" for="appointmentDate">Appointment Date</label>
+          <input id="appointmentDate" required type="date" class="input" name="appointmentDate" />
+        </div>
+
+        <div class="form-group">
+          <label class="field-title" for="appointmentTime">Appointment Time</label>
+          <input id="appointmentTime" required type="time" class="input" name="appointmentTime" />
+        </div>
+
+        <div class="form-group">
+          <label class="field-title" for="dateOfBirth">Date of Birth</label>
+          <input id="dateOfBirth" required type="date" class="input" name="dateOfBirth" />
+        </div>
+
+        <div class="form-group">
+          <label class="field-title">Do you want to receive personalized diet recommendations for diabetes management?</label>
+          <div class="input radio-group">
+            <label class="radio-label"><input type="radio" name="dietRecommendations" value="yes" required />Yes</label>
+            <label class="radio-label"><input type="radio" name="dietRecommendations" value="no" required />No</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-title">Have you previously received professional dietary guidance for managing diabetes?</label>
+          <div class="input radio-group">
+            <label class="radio-label"><input type="radio" name="dietGuidance" value="yes" required />Yes</label>
+            <label class="radio-label"><input type="radio" name="dietGuidance" value="no" required />No</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-title">Are you currently facing difficulties in managing your diet or blood sugar levels?</label>
+          <div class="input radio-group">
+            <label class="radio-label"><input type="radio" name="managementChallenges" value="yes" required />Yes</label>
+            <label class="radio-label"><input type="radio" name="managementChallenges" value="no" required />No</label>
+          </div>
+        </div>
+
+        <div class="reg_btn">
+          <input type="submit" id="submitBtn" value="Submit" disabled />
+        </div>
+      </form>
+    </section>
+
+    <section id="faq-section" class="faqsection">
+      <h1 class="title">FAQs for Filling Out the Appointment Form</h1>
+
+      <div class="questions-container">
+        <div class="question">
+          <button>
+            <span>Why do you need my Name, Email, and Phone number?</span>
+            <i class="fas fa-chevron-down d-arrow"></i>
+          </button>
+          <p>We use your contact information to confirm your appointment, send reminders, and share important updates or personalized recommendations.</p>
+        </div>
+
+        <div class="question">
+          <button>
+            <span>How should I enter the Appointment Date and Time?</span>
+            <i class="fas fa-chevron-down d-arrow"></i>
+          </button>
+          <p>Please enter the date in the format dd/mm/yyyy and select your preferred time. Accurate scheduling helps us provide timely consultations without conflicts.</p>
+        </div>
+
+        <div class="question">
+          <button>
+            <span>How should I enter the Appointment Date and Time?</span>
+            <i class="fas fa-chevron-down d-arrow"></i>
+          </button>
+          <p>Please enter the date in the format dd/mm/yyyy and select your preferred time. Accurate scheduling helps us provide timely consultations without conflicts.</p>
+        </div>
+
+        <div class="question">
+          <button>
+            <span>Why is Date of Birth required?</span>
+            <i class="fas fa-chevron-down d-arrow"></i>
+          </button>
+          <p>Your date of birth helps us assess your age-related risk factors for diabetes and personalize your dietary recommendations accordingly.</p>
+        </div>
+
+        <div class="question">
+          <button>
+            <span>Why should I answer if I want personalized diet recommendations for diabetes management?</span>
+            <i class="fas fa-chevron-down d-arrow"></i>
+          </button>
+          <p>By indicating Yes, you will receive customized diet plans tailored to your health needs, lifestyle, and diabetes management goals. If you choose No, you can still receive general health advice.</p>
+        </div>
+
+        <div class="question">
+          <button>
+            <span>Why are you asking if I’ve previously received professional dietary guidance?</span>
+            <i class="fas fa-chevron-down d-arrow"></i>
+          </button>
+          <p>This question helps us understand your past experiences and avoid repeating advice you may have already received. It also helps us adjust our recommendations based on your knowledge level.</p>
+        </div>
+
+        <div class="question">
+          <button>
+            <span>Why do you ask if I am facing difficulties managing my diet or blood sugar levels?</span>
+            <i class="fas fa-chevron-down d-arrow"></i>
+          </button>
+          <p>Understanding your current challenges helps us create a more personalized and supportive plan to address your specific concerns and improve your diabetes management.</p>
+        </div>
+      </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          // Scroll to FAQ
+          const scrollLink = document.getElementById('scroll-to-faq')
+          scrollLink.addEventListener('click', function (e) {
+            e.preventDefault()
+            const faqSection = document.getElementById('faq-section')
+            const position = faqSection.getBoundingClientRect().top + window.pageYOffset
+            window.scrollTo({ top: position - 90, behavior: 'smooth' })
+          })
+        
+          // FAQ Toggle Functionality
+          const buttons = document.querySelectorAll('.question button')
+          buttons.forEach((button) => {
+            button.addEventListener('click', () => {
+              const faq = button.nextElementSibling
+              const icon = button.children[1]
+              faq.classList.toggle('show')
+              icon.classList.toggle('rotate')
+            })
+          })
+        
+          // Form Validation
+          const form = document.getElementById('appointmentForm')
+          const submitButton = form.querySelector('input[type="submit"]')
+          submitButton.disabled = true
+        
+          const radioGroups = ['dietRecommendations', 'dietGuidance', 'managementChallenges']
+        
+          // Validation rules
+          const validators = {
+            name: (value) => /^[A-Za-z\s]{2,50}$/.test(value.trim()),
+            email: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()),
+            phone: (value) => /^(\+?6?0?)[0-9]{9,11}$/.test(value.replace(/\s/g, '')),
+            appointmentDate: (value) => new Date(value) > new Date(),
+            appointmentTime: (value) => {
+              const [hours] = value.split(':').map(Number)
+              return hours >= 9 && hours < 17
+            },
+            dateOfBirth: (value) => {
+              const birthDate = new Date(value)
+              const today = new Date()
+              const age = today.getFullYear() - birthDate.getFullYear()
+              const monthDiff = today.getMonth() - birthDate.getMonth()
+              return age > 18 || (age === 18 && monthDiff >= 0)
+            }
+          }
+        
+          const errorMessages = {
+            name: 'Please enter a valid name (2-50 letters)',
+            email: 'Please enter a valid email address',
+            phone: 'Please enter a valid phone number',
+            appointmentDate: 'Please select a future date',
+            appointmentTime: 'Please select a time between 9 AM and 5 PM',
+            dateOfBirth: 'You must be at least 18 years old',
+            dietRecommendations: 'Please select an option',
+            dietGuidance: 'Please select an option',
+            managementChallenges: 'Please select an option'
+          }
+        
+          function createErrorMessage(field, message) {
+            const existingError = field.parentNode.querySelector('.error-message')
+            if (existingError) existingError.remove()
+        
+            const errorEl = document.createElement('div')
+            errorEl.className = 'error-message'
+            errorEl.textContent = message
+            field.parentNode.insertBefore(errorEl, field.nextSibling)
+          }
+        
+          function validateField(field) {
+            if (!field.dataset.touched) return true
+        
+            const value = field.value.trim()
+            const fieldName = field.name
+        
+            if (!value) {
+              field.classList.add('invalid')
+              createErrorMessage(field, `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`)
+              return false
+            }
+        
+            const isValid = validators[fieldName] ? validators[fieldName](value) : true
+            if (!isValid) {
+              field.classList.add('invalid')
+              createErrorMessage(field, errorMessages[fieldName])
+              return false
+            }
+        
+            field.classList.remove('invalid')
+            const errorEl = field.parentNode.querySelector('.error-message')
+            if (errorEl) errorEl.remove()
+        
+            return true
+          }
+        
+          function validateRadioGroup(groupName, forceValidation = false) {
+            const radios = form.querySelectorAll(`input[name="${groupName}"]`)
+            const isChecked = Array.from(radios).some((radio) => radio.checked)
+            const formGroup = radios[0].closest('.form-group')
+        
+            let existingError = formGroup.querySelector('.error-message')
+            if (existingError) existingError.remove()
+        
+            if (!isChecked && forceValidation) {
+              const errorEl = document.createElement('div')
+              errorEl.className = 'error-message'
+              errorEl.textContent = errorMessages[groupName]
+              formGroup.appendChild(errorEl)
+              return false
+            }
+        
+            return true
+          }
+        
+          function checkFormValidity() {
+            const fields = form.querySelectorAll('input:not([type="radio"])')
+            let isValid = true
+        
+            fields.forEach((field) => {
+              if (field.dataset.touched && !validateField(field)) isValid = false
+            })
+        
+            radioGroups.forEach((groupName) => {
+              if (!validateRadioGroup(groupName)) isValid = false
+            })
+        
+            submitButton.disabled = !isValid
+          }
+        
+          // Event Listeners
+          const fields = form.querySelectorAll('input:not([type="radio"])')
+          fields.forEach((field) => {
+            field.addEventListener('input', () => {
+              field.dataset.touched = 'true'
+              validateField(field)
+              checkFormValidity()
+            })
+        
+            field.addEventListener('blur', () => {
+              field.dataset.touched = 'true'
+              validateField(field)
+              checkFormValidity()
+            })
+          })
+        
+          radioGroups.forEach((groupName) => {
+            const radios = form.querySelectorAll(`input[name="${groupName}"]`)
+            radios.forEach((radio) => {
+              radio.addEventListener('change', () => {
+                validateRadioGroup(groupName, true)
+                checkFormValidity()
+              })
+            })
+          })
+        
+          form.addEventListener('submit', function (e) {
+            e.preventDefault()
+        
+            if (!submitButton.disabled) {
+              const formData = new FormData(form)
+              const data = Object.fromEntries(formData.entries())
+              console.log('Form submitted:', data)
+              alert('Appointment request submitted successfully!')
+              form.reset()
+              submitButton.disabled = true
+        
+              // Remove error messages after reset
+              setTimeout(() => {
+                document.querySelectorAll('.error-message').forEach((error) => error.remove())
+                document.querySelectorAll('.invalid').forEach((input) => input.classList.remove('invalid'))
+              }, 0)
+            }
+          })
+        
+          form.addEventListener('reset', function () {
+            setTimeout(() => {
+              document.querySelectorAll('.error-message').forEach((error) => error.remove())
+              document.querySelectorAll('.invalid').forEach((input) => input.classList.remove('invalid'))
+              submitButton.disabled = true
+            }, 0)
+          })
+        })
+        
+        document.getElementById('appointmentForm').addEventListener('submit', async function (e) {
+          e.preventDefault()
+        
+          if (!document.querySelector('input[type="submit"]').disabled) {
+            try {
+              const formData = new FormData(this)
+              const response = await fetch('{% url "appointment" %}', {
+                method: 'POST',
+                body: formData
+              })
+        
+              const result = await response.json()
+        
+              if (result.status === 'success') {
+                alert('Appointment booked successfully!')
+                this.reset()
+              } else {
+                alert('Error: ' + result.message)
+              }
+            } catch (error) {
+              console.error('Error:', error)
+              alert('Error saving appointment')
+            }
+          }
+        })
+      </script>
+    </section>
+
+    <hr class="custom-line" />
+
+    <section class="footer">
+      <div class="footerobody">
+        <div class="footerbody">
+          <div class="footer-content">
+            <img src="{% static '/images/logo100.png' %}" alt="" />
+            <div class="sugarsense">
+              <p>SUGAR SENSE</p>
+            </div>
+            <p>
+              20, Genting Klang, Setapak, Kuala Lumpur<br />Tel: +60 18-218 9169 / +60 11-2769 6820
+            </p>
+
+            <div class="icons">
+              <a href="#"><i class="bx bxl-meta"></i></a>
+              <a href="#"><i class="bx bx-x"></i></a>
+              <a href="#"><i class="bx bxl-instagram"></i></a>
+              <a href="#"><i class="bx bxl-youtube"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-content">
+            <h4>COMPANY</h4>
+            <li>
+              <a href="ourvalues">About Us</a>
+            </li>
+            <li>
+              <a href="leadership">Our Leadership</a>
+            </li>
+            <li>
+              <a href="careers">Careers</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>SERVICES</h4>
+            <li>
+              <a href="prediction">Diabetes Prediction</a>
+            </li>
+            <li>
+              <a href="recommendation">Diet Recommendations</a>
+            </li>
+            <li>
+              <a href="appointment">Appointment Form</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>USERFUL INFO</h4>
+            <li>
+              <a href="research">Research</a>
+            </li>
+            <li>
+              <a href="contactus">Contact us</a>
+            </li>
+            <li>
+              <a href="profiles">Account Settings</a>
+            </li>
+            <li>
+              <a href="predictionshistory">History</a>
+            </li>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+{% endblock %}

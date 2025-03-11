@@ -1,0 +1,344 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static '/css/recommendation_result.css' %}" />
+
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  <section class="ourvalues">
+    <div class="ourvaluesbody">
+      <img src="{% static '/images/prediction123.png' %}" height="420px" width="100%" alt="" /> <!-- This image need to change -->
+      <div class="info">
+        <h2>Personalized Diet Recommendation</h2>
+      </div>
+    </div>
+  </section>
+
+  <div class="informationbackground">
+    <!-- This div need to change -->
+    <h2>Talk with Our Diabetes Prediction System</h2>
+    <p>Fill out your information and our prediction model will provide an assessment of your risk for diabetes. If you're looking for more detailed health advice, please consult a healthcare professional. Get answers to quick questions with these resources:</p>
+    <p>
+      Diabetes Research: <a href="ourvalues">Learn more about diabetes</a>
+    </p>
+    <p>
+      Lifestyle Diet Recommendations: <a href="ourvalues">Take control of your health with a personalized diet</a>
+    </p>
+    <p>
+      Schedule an Appointment: <a href="appointment">Talk to a real consultant for personalized diabetes management</a>
+    </p>
+    <p>
+      Diabetes Form Guidelines: <a href="#" id="scroll-to-faq">Common Questions About Diabetes Input Form</a>
+    </p>
+  </div>
+
+  <section class="recommendation_result">
+    <div class="title">
+      <p>Diet Recommendation Result</p>
+    </div>
+    <div class="bmi-calculator">
+      <h2>BMI CALCULATOR</h2>
+      <p>Body Mass Index (BMI)</p>
+      <h3 class="bmi-value {% if bmi_category == 'Obesity' %}
+          
+
+          
+          text-danger
+
+
+        {% elif bmi_category == 'Overweight' %}
+          
+          
+          text-warning
+
+
+        {% elif bmi_category == 'Underweight' %}
+          
+          
+          text-info
+
+        {% else %}
+          
+
+          
+          text-success
+
+
+        {% endif %}">
+        {{ bmi }} kg/m²
+      </h3>
+      <p class="bmi-category {% if bmi_category == 'Obesity' %}
+          
+
+          text-danger
+
+
+        {% elif bmi_category == 'Overweight' %}
+          
+          
+
+          text-warning
+
+
+
+        {% elif bmi_category == 'Underweight' %}
+          
+ 
+          text-info
+
+
+        {% else %}
+          
+   
+          text-success
+
+
+        {% endif %}">{{ bmi_category }}</p>
+      <p class="bmi-range">Healthy BMI range: 18.5 kg/m² - 25 kg/m²</p>
+    </div>
+    <section class="calories-calculator">
+      <h2>CALORIES CALCULATOR</h2>
+      <p class="calories-description">The results show a number of daily calorie estimates that can be used as a guideline.</p>
+      <h3>Recommended Daily Caloric Intake: <span class="text-highlight">{{ recommended_calories }}</span> kcal</h3>
+
+      <div class="meal-recommendation">
+        <h2>MEAL PLAN RECOMMENDATION</h2>
+
+        <!-- Meal Tabs Navigation -->
+        <div class="meal-tabs">
+          <button class="meal-tab active" data-meal="breakfast">Breakfast</button>
+          <button class="meal-tab" data-meal="lunch">Lunch</button>
+          <button class="meal-tab" data-meal="dinner">Dinner</button>
+          <button class="meal-tab" data-meal="snacks">Snacks</button>
+        </div>
+
+        <!-- Meal Content Sections -->
+        <div class="meal-content">
+          {% for meal, recipes in meals_recommendation.items %}
+            <div class="meal-section {% if meal|lower == 'breakfast' %}active{% endif %}" id="{{ meal|lower }}-section">
+              <div class="meal-header">
+                <h3>{{ meal|title }} Options</h3>
+                <p>
+                  {% if meal|lower == 'breakfast' %}
+                    Start your day with these nutritious breakfast recipes
+                  {% elif meal|lower == 'lunch' %}
+                    Energize your afternoon with these balanced meals
+                  {% elif meal|lower == 'dinner' %}
+                    Complete your day with these satisfying dinner recipes
+                  {% else %}
+                    Healthy snack options to keep you going throughout the day
+                  {% endif %}
+                </p>
+              </div>
+
+              <div class="meal-items">
+                {% for recipe in recipes %}
+                  <div class="meal-card">
+                    <div class="meal-card-header">
+                      <h4>{{ recipe.Name|safe }}</h4>
+                      <span class="calories">{{ recipe.Calories }} kcal</span>
+                    </div>
+                    <button class="expand-button" onclick="toggleDetails('{{ meal|lower }}-{{ forloop.counter }}')">Show Details</button>
+                    <div class="meal-details" id="details-{{ meal|lower }}-{{ forloop.counter }}">
+                      <div class="ingredients">
+                        <h5>Nutritions:</h5>
+                        <ul>
+                          <li>Protein : {{ recipe.Protein }} g </li>
+                          <li>Saturated Fat : {{ recipe.SaturatedFat }} g </li>
+                          <li>Cholesterol : {{ recipe.Cholesterol }} g </li>
+                          <li>Sodium : {{ recipe.Sodium }} g </li>
+                          <li>Carbohydrate : {{ recipe.Carbohydrate }} g </li>
+                          <li>Fiber : {{ recipe.Fiber }} g </li>
+                          <li>Sugar : {{ recipe.Sugar }} g </li>
+                        </ul>
+                      </div>
+                      <div class="ingredients">
+                        <h5>Ingredients:</h5>
+                        <ul>
+                          {% for ingredient in recipe.Ingredients %}
+                            <li>{{ ingredient }}</li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                      <div class="instructions">
+                        <h5>Instructions:</h5>
+                        <ol>
+                          {% for instruction in recipe.Instructions %}
+                            <li>{{ instruction }}</li>
+                          {% endfor %}
+                        </ol>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <script>
+    // Add this script to your existing script section
+    document.addEventListener('DOMContentLoaded', function () {
+      // Tab switching functionality
+      const tabs = document.querySelectorAll('.meal-tab')
+      const sections = document.querySelectorAll('.meal-section')
+    
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          // Remove active class from all tabs and sections
+          tabs.forEach((t) => t.classList.remove('active'))
+          sections.forEach((s) => s.classList.remove('active'))
+    
+          // Add active class to clicked tab and corresponding section
+          tab.classList.add('active')
+          const mealType = tab.getAttribute('data-meal')
+          document.getElementById(`${mealType}-section`).classList.add('active')
+        })
+      })
+    
+      // Initialize all meal details as hidden
+      document.querySelectorAll('.meal-details').forEach((detail) => {
+        detail.style.display = 'none'
+      })
+    })
+    
+    // Toggle meal details
+    function toggleDetails(id) {
+      const details = document.getElementById(`details-${id}`)
+      const button = event.target
+    
+      if (details.style.display === 'none' || !details.style.display) {
+        details.style.display = 'block'
+        button.textContent = 'Hide Details'
+      } else {
+        details.style.display = 'none'
+        button.textContent = 'Show Details'
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      // Add BMI category colors
+      const bmiValue = document.querySelector('.bmi-value')
+      const bmiCategory = document.querySelector('.bmi-category')
+      const category = bmiCategory.textContent.trim().toLowerCase()
+    
+      if (category === 'obesity') {
+        bmiValue.classList.add('text-danger')
+        bmiCategory.classList.add('text-danger')
+      } else if (category === 'overweight') {
+        bmiValue.classList.add('text-warning')
+        bmiCategory.classList.add('text-warning')
+      } else if (category === 'underweight') {
+        bmiValue.classList.add('text-info')
+        bmiCategory.classList.add('text-info')
+      } else {
+        bmiValue.classList.add('text-success')
+        bmiCategory.classList.add('text-success')
+      }
+    
+      // Add hover effects to meal rows
+      const mealRows = document.querySelectorAll('.meal-row')
+      mealRows.forEach((row) => {
+        row.addEventListener('mouseenter', function () {
+          this.style.backgroundColor = '#f8f9fa'
+        })
+        row.addEventListener('mouseleave', function () {
+          this.style.backgroundColor = ''
+        })
+      })
+    })
+    
+    // Toggle meal details
+    function toggleDetails(mealId) {
+      const detailsDiv = document.getElementById(`details-${mealId}`)
+      const button = event.target
+    
+      if (detailsDiv.style.display === 'none' || !detailsDiv.style.display) {
+        detailsDiv.style.display = 'block'
+        button.textContent = 'Hide Details'
+    
+        // Smooth scroll to the details
+        detailsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+      } else {
+        detailsDiv.style.display = 'none'
+        button.textContent = 'Show Details'
+      }
+    }
+    
+    // Add smooth scrolling for all recipe details
+    document.querySelectorAll('.meal-details').forEach((details) => {
+      details.style.display = 'none'
+    })
+  </script>
+
+  <hr class="custom-line" />
+
+  <section class="footer">
+    <div class="footerobody">
+      <div class="footerbody">
+        <div class="footer-content">
+          <img src="{% static '/images/logo100.png' %}" alt="" />
+          <div class="sugarsense">
+            <p>SUGAR SENSE</p>
+          </div>
+          <p>
+            20, Genting Klang, Setapak, Kuala Lumpur<br />Tel: +60 18-218 9169 / +60 11-2769 6820
+          </p>
+
+          <div class="icons">
+            <a href="#"><i class="bx bxl-meta"></i></a>
+            <a href="#"><i class="bx bx-x"></i></a>
+            <a href="#"><i class="bx bxl-instagram"></i></a>
+            <a href="#"><i class="bx bxl-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-content">
+          <h4>COMPANY</h4>
+          <li>
+            <a href="ourvalues">About Us</a>
+          </li>
+          <li>
+            <a href="leadership">Our Leadership</a>
+          </li>
+          <li>
+            <a href="careers">Careers</a>
+          </li>
+        </div>
+
+        <div class="footer-content">
+          <h4>SERVICES</h4>
+          <li>
+            <a href="prediction">Diabetes Prediction</a>
+          </li>
+          <li>
+            <a href="recommendation">Diet Recommendations</a>
+          </li>
+          <li>
+            <a href="appointment">Appointment Form</a>
+          </li>
+        </div>
+
+        <div class="footer-content">
+          <h4>USERFUL INFO</h4>
+          <li>
+            <a href="research">Research</a>
+          </li>
+          <li>
+            <a href="contactus">Contact us</a>
+          </li>
+          <li>
+            <a href="profiles">Account Settings</a>
+          </li>
+          <li>
+            <a href="predictionshistory">History</a>
+          </li>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

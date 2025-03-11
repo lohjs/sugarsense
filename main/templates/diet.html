@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static '/css/diet.css' %}" />
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+
+  <body>
+    <section class="ourvalues">
+      <div class="ourvaluesbody">
+        <img src="{% static '/images/research.png' %}" height="420px" width="100%" alt="" />
+        <div class="info">
+          <h2>Research</h2>
+        </div>
+      </div>
+    </section>
+
+    <div class="page-container">
+      <div class="main-content">
+        <div class="research-details2">
+          <h3>9 January 2025</h3>
+          <h2>Impact of Diet</h2>
+          <p>Recent studies have identified a link between the consumption of ultra-processed foods and an increased risk of type 2 diabetes. Specifically, savory snacks, processed meats, ready-to-eat meals, and sweetened beverages have been associated with a higher incidence of the condition.</p>
+        </div>
+
+        <section class="researchimage">
+          <div class="researchimagebody">
+            <img src="{% static '/images/drunkfood123.png' %}" height="467px" width="700px" alt="" />
+          </div>
+        </section>
+
+        <div class="research-details" id="overview">
+          <h3>Overview of the Study</h3>
+          <p>Research has shown a clear link between diets high in ultra-processed foods and an increased risk of diabetes. For instance, studies have demonstrated that individuals consuming more of these foods are significantly more likely to develop type 2 diabetes compared to those who prioritize whole, minimally processed foods. Reducing the intake of ultra-processed products and adopting a diet focused on whole foods like fresh vegetables, fruits, whole grains, lean proteins, and healthy fats can help prevent diabetes and improve overall health.</p>
+        </div>
+
+        <div class="research-details" id="ultra">
+          <h3>What are ultra-processed foods?</h3>
+          <p>These are foods that go through extensive industrial processing, often containing artificial additives, preservatives, sweeteners, and unhealthy fats. Examples include savory snacks (chips, crackers), processed meats (sausages, hot dogs), ready-to-eat meals (frozen dinners, instant noodles), and sweetened beverages (sodas, energy drinks).</p>
+        </div>
+
+        <div class="research-details" id="risk">
+          <h3>Why do they increase diabetes risk?</h3>
+          <ol type="a">
+            <li>
+              <strong>High in Added Sugars and Refined Carbs</strong>
+              <p>These foods often cause rapid spikes in blood sugar, putting strain on the body's ability to regulate glucose levels, which can lead to insulin resistance over time.</p>
+            </li>
+            <li>
+              <strong>Low in Nutritional Value</strong>
+              <p>Ultra-processed foods lack essential nutrients like fiber, vitamins, and minerals, which are important for blood sugar control and overall metabolic health.</p>
+            </li>
+            <li>
+              <strong>Inflammation and Obesity</strong>
+              <p>The additives, unhealthy fats, and high calorie content in these foods contribute to chronic inflammation and weight gain, both of which are major risk factors for type 2 diabetes.</p>
+            </li>
+            <li>
+              <strong>Disrupts Gut Health</strong>
+              <p>These foods can negatively impact gut microbiota, further affecting glucose metabolism and insulin sensitivity.</p>
+            </li>
+          </ol>
+        </div>
+
+        <div class="research-details" id="evidence">
+          <h3>The Evidence</h3>
+          <p>Studies have consistently shown that individuals who consume higher amounts of ultra-processed foods are more likely to develop type 2 diabetes. For example, a large-scale study in Europe found that those with diets high in processed foods had a significantly higher risk of diabetes compared to those who ate more whole, minimally processed foods.</p>
+        </div>
+
+        <div class="research-details" id="prevention">
+          <h3>Prevention Tip</h3>
+          <p>Shifting toward a diet rich in whole foods—like fresh vegetables, fruits, lean proteins, whole grains, and healthy fats—can lower diabetes risk, promote better weight management, and improve overall health.</p>
+        </div>
+
+        <div class="references" id="references">
+          <h4>References</h4>
+          <ol>
+            <li>
+              Swartz, T. (2025, January 9s). These 4 ultra-processed foods can raise your diabetes risk more than others: study. <em>New York Post</em>. <a href="https://nypost.com/2024/09/15/health/4-ultra-processed-foods-can-raise-diabetes-risk-more-than-others-study/" target="_blank">https://nypost.com/2024/09/15/health/4-ultra-processed-foods-can-raise-diabetes-risk-more-than-others-study/</a>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="sticky-sidebar">
+        <div class="sidebar-content">
+          <h4>Related Informations</h4>
+          <ul>
+            <li id="others">
+              <a href="research">Others Research</a>
+            </li>
+            <li>
+              <a href="#overview" data-scroll="overview">Research Overview</a>
+            </li>
+            <li>
+              <a href="#ultra" data-scroll="ultra">Ultra-Processed</a>
+            </li>
+            <li>
+              <a href="#risk" data-scroll="risk">Diabetes Risk</a>
+            </li>
+            <li>
+              <a href="#evidence" data-scroll="evidence">Evidence</a>
+            </li>
+            <li>
+              <a href="#prevention" data-scroll="prevention">Prevention Tips</a>
+            </li>
+            <li>
+              <a href="#references" data-scroll="references">References</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <script>
+        window.addEventListener('scroll', function () {
+          const sidebar = document.querySelector('.sticky-sidebar')
+          const footer = document.querySelector('footer')
+          const footerTop = footer.getBoundingClientRect().top
+          const sidebarHeight = sidebar.offsetHeight
+        
+          if (footerTop <= sidebarHeight + 200) {
+            // 100 is the top offset
+            sidebar.style.position = 'absolute'
+            sidebar.style.top = `${footerTop - sidebarHeight}px`
+          } else {
+            sidebar.style.position = 'sticky'
+            sidebar.style.top = '200px'
+          }
+        })
+        
+        document.addEventListener('DOMContentLoaded', function () {
+          // Add a click event listener to the document
+          document.addEventListener('click', function (e) {
+            // Check if the clicked element has a 'data-scroll' attribute
+            if (e.target.hasAttribute('data-scroll')) {
+              e.preventDefault() // Prevent default anchor behavior
+        
+              // Get the ID of the section to scroll to from the data-scroll attribute
+              const targetId = e.target.getAttribute('data-scroll')
+              const targetSection = document.getElementById(targetId)
+        
+              if (targetSection) {
+                // Calculate the position of the target section
+                const position = targetSection.getBoundingClientRect().top + window.pageYOffset
+        
+                // Scroll to the target section with an offset
+                window.scrollTo({
+                  top: position - 90, // Adjust this value for offset
+                  behavior: 'smooth'
+                })
+              }
+            }
+          })
+        })
+      </script>
+    </div>
+
+    <hr class="custom-line" />
+
+    <section class="footer">
+      <div class="footerobody">
+        <div class="footerbody">
+          <div class="footer-content">
+            <img src="{% static '/images/logo100.png' %}" alt="" />
+            <div class="sugarsense">
+              <p>SUGAR SENSE</p>
+            </div>
+            <p>
+              20, Genting Klang, Setapak, Kuala Lumpur<br />Tel: +60 18-218 9169 / +60 11-2769 6820
+            </p>
+
+            <div class="icons">
+              <a href="#"><i class="bx bxl-meta"></i></a>
+              <a href="#"><i class="bx bx-x"></i></a>
+              <a href="#"><i class="bx bxl-instagram"></i></a>
+              <a href="#"><i class="bx bxl-youtube"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-content">
+            <h4>COMPANY</h4>
+            <li>
+              <a href="ourvalues">About Us</a>
+            </li>
+            <li>
+              <a href="leadership">Our Leadership</a>
+            </li>
+            <li>
+              <a href="careers">Careers</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>SERVICES</h4>
+            <li>
+              <a href="prediction">Diabetes Prediction</a>
+            </li>
+            <li>
+              <a href="recommendation">Diet Recommendations</a>
+            </li>
+            <li>
+              <a href="appointment">Appointment Form</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>USERFUL INFO</h4>
+            <li>
+              <a href="research">Research</a>
+            </li>
+            <li>
+              <a href="contactus">Contact us</a>
+            </li>
+            <li>
+              <a href="profiles">Account Settings</a>
+            </li>
+            <li>
+              <a href="predictionshistory">History</a>
+            </li>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+{% endblock %}

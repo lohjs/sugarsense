@@ -1,0 +1,827 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+
+/* Navigation Styles */
+.navigationOutside {
+    box-sizing: border-box;
+    outline: none;
+    overflow: visible;
+    /* Ensure submenus are not clipped */
+    position: sticky;
+    /* Make the navbar sticky */
+    top: 0;
+    /* Stick to the top of the viewport */
+    z-index: 1000;
+    /* Ensure it stays above other elements */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.137);
+    background-color: rgb(255, 250, 250);
+    height: 12vh;
+}
+
+.navigationBody {
+    overflow-x: visible;
+    /* Allow horizontal overflow if needed */
+    color: black;
+}
+
+.navigationOutside .navigationBody header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 130px;
+
+}
+
+.navigationOutside .navigationBody .navigationLogo {
+    display: flex;
+    align-items: center;
+    color: #2c3e50;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    gap: 10px;
+}
+
+
+.navigationOutside .navigationBody .navigationLogo img {
+    width: 62px;
+    height: 62px;
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+.navigationOutside .navigationBody ul li {
+    display: inline-block;
+    list-style: none;
+    margin: 0 30px;
+    position: relative;
+    /* Required for submenu positioning */
+}
+
+.navigationOutside .navigationBody ul li:last-child {
+    margin-right: 0;
+}
+
+.navigationOutside .navigationBody li a {
+    text-decoration: none;
+    color: black;
+    padding: 22px 0;
+    display: inline-block;
+    transition: all ease 0.3s;
+    font-size: 18px;
+}
+
+.navigationOutside .navigationBody ul li a:hover {
+    color: lightblue;
+}
+
+/* Default active state styling */
+.navigationOutside .navigationBody ul li a.active {
+    color: #002068;
+    font-weight: bold;
+    /* Optional for emphasis */
+}
+
+/* Restrict ::after to top-level links only */
+.navigationOutside .navigationBody>header>nav>ul>li>a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 15px;
+    width: 100%;
+    height: 2px;
+    background: #002068;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover effect for top-level links */
+.navigationOutside .navigationBody>header>nav>ul>li>a:hover::after {
+    transform: scaleX(1);
+}
+
+/* Ensure submenu links are unaffected by the hover underline */
+.navigationOutside .navigationBody ul .submenu li a::after {
+    content: none;
+}
+
+
+/* Submenu Styles */
+.navigationOutside .navigationBody ul .submenu {
+    position: absolute;
+    top: 100%;
+    /* Position submenu below parent menu item */
+    left: 0;
+    width: 200px;
+    background-color: white;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99;
+    /* Ensure it is above other elements */
+    transition: all ease 0.3s;
+    max-height: 300px;
+    /* Limit height if needed for long menus */
+    overflow-y: auto;
+    /* Add vertical scrolling for long menus */
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount {
+    position: absolute;
+    top: 100%;
+    /* Position submenu below parent menu item */
+    right: 0;
+    width: 200px;
+    background-color: white;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99;
+    /* Ensure it is above other elements */
+    transition: all ease 0.3s;
+    max-height: 300px;
+    /* Limit height if needed for long menus */
+    overflow-y: auto;
+    /* Add vertical scrolling for long menus */
+}
+
+
+.navigationOutside .navigationBody ul li:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.navigationOutside .navigationBody .navigationAccount ul li:hover .submenuAccount {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Submenu Item Styles */
+.navigationOutside .navigationBody ul .submenu li {
+    margin: 0;
+    width: 100%;
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount li {
+    margin: 0;
+    width: 100%;
+}
+
+.navigationOutside .navigationBody ul .submenu li a {
+    padding: 15px 20px;
+    display: inline-block;
+    width: 100%;
+    color: black;
+    /* Change text color for submenu items */
+    text-decoration: none;
+    transition: background-color ease 0.3s;
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount li a {
+    padding: 15px 20px;
+    display: inline-block;
+    width: 100%;
+    color: black;
+    /* Change text color for submenu items */
+    text-decoration: none;
+    transition: background-color ease 0.3s;
+    font-size: 18px;
+}
+
+.navigationOutside .navigationBody ul .submenu li a:hover {
+    background-color: rgba(121, 123, 124, 0.18);
+    /* Highlight submenu items on hover */
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount li a:hover {
+    background-color: rgba(121, 123, 124, 0.18);
+    /* Highlight submenu items on hover */
+}
+
+/*account submenu*/
+
+.navigationOutside .navigationBody .navigationAccount a {
+    font-size: 30px;
+    color: black;
+}
+
+.navigationOutside .navigationBody .navigationAccount a:hover {
+    color: lightblue;
+}
+
+/* Default active state styling */
+.navigationOutside .navigationBody .navigationAccount a.active {
+    color: #002068;
+    font-weight: bold;
+    /* Optional for emphasis */
+}
+
+
+
+.ourvalues .ourvaluesbody .info {
+    position: absolute;
+    bottom: 20%;
+    width: 93.4%;
+    text-align: center;
+    left: 3.6%;
+    padding-bottom: 100px;
+}
+
+.ourvalues .ourvaluesbody .info h2 {
+    color: whitesmoke;
+    font-size: 70px;
+    font-weight: 460;
+    letter-spacing: 2px;
+
+}
+
+
+
+@media (max-width: 1120px) {
+
+    .navigationOutside {
+        width: 1100px;
+    }
+
+    .navigationOutside .navigationBody header {
+        padding: 0 50px;
+        bottom: -10px;
+        position: absolute;
+    }
+
+    .navigationOutside .navigationBody ul li {
+        margin: 0 15px;
+    }
+
+    .ourvalues img {
+        width: 1100px;
+    }
+
+    .ourvalues .ourvaluesbody .info {
+        position: absolute;
+        bottom: 30%;
+        width: 93.4%;
+        text-align: center;
+        left: 8%;
+        padding-bottom: 100px;
+    }
+
+}
+
+@media (max-width: 770px) {
+
+    .navigationOutside {
+        width: 1320px;
+    }
+
+    .navigationOutside .navigationBody header {
+        padding: 0 50px;
+        bottom: -10px;
+        position: absolute;
+    }
+
+    .navigationOutside .navigationBody ul li {
+        margin: 0 15px;
+    }
+
+    .ourvalues img {
+        width: 1100px;
+    }
+
+    .ourvalues .ourvaluesbody .info {
+        position: absolute;
+        bottom: 30%;
+        width: 93.4%;
+        text-align: center;
+        left: 8%;
+        padding-bottom: 100px;
+    }
+
+}
+
+
+
+
+@media screen and (max-width: 770px) {
+    .ourvalues .ourvaluesbody .info {
+        position: absolute;
+        bottom: 20%;
+        width: 1300px;
+        text-align: center;
+        margin-left: -50px;
+        padding-bottom: 50px;
+    }
+
+
+    .ourvalues .ourvaluesbody img {
+        width: 1320px;
+    }
+
+    .ourvalues img {
+        width: 1100px;
+    }
+
+
+}
+
+@media screen and (max-width: 330px) {
+
+
+    .ourvalues .ourvaluesbody .info {
+        position: absolute;
+        bottom: 20%;
+        width: 1300px;
+        text-align: center;
+        margin-left: -50px;
+        padding-bottom: 50px;
+    }
+
+
+    .ourvalues .ourvaluesbody img {
+        width: 1320px;
+    }
+
+
+}
+
+.defination {
+    display: flex;
+    flex-direction: column;
+    /* Arrange items vertically */
+    justify-content: space-evenly;
+    /* Equal space between all items */
+    align-items: center;
+    /* Center items horizontally */
+    height: 80vh;
+    /* Container height */
+    text-align: center;
+    padding: 20px 0;
+}
+
+.defination .definationinfoP,
+.defination .definationinfo {
+    width: 50%;
+    /* Adjust width for consistent alignment */
+    text-align: center;
+}
+
+.defination .definationinfoP h2 {
+    color: #002068;
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding-top: 35px;
+}
+
+.defination .definationinfo1 h2 {
+    color: #002068;
+    font-size: 23px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding-top: 40px;
+}
+
+.defination .definationinfo h2 {
+    color: #002068;
+    font-size: 23px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding-top: 35px;
+}
+
+.defination .definationinfoP p,
+.defination .definationinfo1 p,
+.defination .definationinfo p {
+    color: #797b7c;
+    font-size: 17px;
+    width: 50%;
+    /* Ensure full width to center properly */
+    padding-top: 10px;
+    /* Adjust padding for spacing */
+    text-align: center;
+    /* Center text horizontally */
+    margin: 0 auto;
+    /* Center the `<p>` element itself within its container */
+    line-height: 2;
+}
+
+
+
+
+.coreinfoP h2 {
+    color: #002068;
+    font-size: 25px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding-top: 115px;
+}
+
+.coreinfoP {
+    text-align: center;
+    padding-top: 100px;
+    padding-left: 20px;
+}
+
+
+.update_container {
+    padding: 40px;
+    /* Large spacing outside the container */
+    margin: 40px auto;
+    /* Additional margin around the container */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 80px;
+}
+
+.to_other_menu_update {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    /* Allow cards to wrap to the next line */
+    gap: 1rem;
+    /* Small distance between cards */
+    margin-top: -35px;
+
+}
+
+.to_other_menu_update .card {
+    width: 400px;
+    /* Set card width */
+    height: auto;
+    /* Adjust height dynamically based on content */
+    border-radius: 5px;
+    /* Rounded corners */
+    background-color: white;
+    /* Card background */
+    display: flex;
+    flex-direction: column;
+    /* Stack content vertically */
+    justify-content: space-between;
+    /* Space content evenly within each card */
+    padding: 10px;
+    /* Inner padding for cards */
+}
+
+.update_container .to_other_menu_update .card .hidden {
+    overflow: hidden;
+    /* Hide overflow content if any */
+}
+
+.update_container .to_other_menu_update img {
+    width: 100%;
+    /* Adjust image to match card width */
+    height: auto;
+    /* Maintain aspect ratio */
+    border-radius: 3px;
+    transition: 0.5s ease;
+    /* Smooth transition on hover effects */
+}
+
+.update_container .to_other_menu_update .card .intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 25px;
+    line-height: 1.65;
+    /* Improve text readability */
+    padding-top: 8px;
+    overflow: hidden;
+    /* Prevent content overflow */
+    text-overflow: ellipsis;
+    /* Add ellipsis for long text */
+    height: 400px;
+
+}
+
+
+
+.update_container .to_other_menu_update .card .date p {
+    font-size: 17px;
+    color: white;
+    margin-top: 15px;
+    text-align: center;
+}
+
+
+.update_container .to_other_menu_update .card .intro p {
+    font-size: 17px;
+    color: white;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.to_other_menu_update .card .date {
+    padding: 10px;
+    /* Optional: padding for better spacing */
+    text-align: center;
+    /* Center the text in the date section */
+    height: 35vh;
+}
+
+.to_other_menu_update .card .date img {
+    width: 265px;
+}
+
+.to_other_menu_update .card .intro {
+    padding: 10px;
+    /* Optional: padding for better spacing */
+    border-radius: 0 0 5px 5px;
+    /* Rounded corners for the bottom of the card */
+    color: black;
+    /* Text color */
+    font-size: 14px;
+    line-height: 1.5;
+    /* Improve text readability */
+    padding-top: 500px;
+    width: 300px;
+    padding-left: 82px;
+}
+
+
+.update_container .to_other_menu_update h2 {
+    font-size: 18px;
+    color: black;
+    margin: 10px 0 5px;
+    /* Add spacing around headings */
+    text-align: left;
+    /* Align text to the left */
+}
+
+.update_container .to_other_menu_update p {
+    font-size: 14px;
+    color: #797b7c;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.to_other_menu_update .card .intro p:nth-child(1) {
+    color: #797b7c;
+    /* Optional: text color for contrast */
+    padding: 5px;
+    /* Optional: padding for better spacing */
+    border-radius: 3px;
+    /* Optional: rounded corners */
+    text-align: center;
+    /* Center text horizontally */
+}
+
+.to_other_menu_update .card .intro p:nth-child(2) {
+    color: #797b7c;
+    padding: 5px;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.to_other_menu_update .card .intro p:nth-child(3) {
+    background-color: #75FF33;
+    /* Third paragraph background color */
+    color: black;
+    padding: 5px;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.to_other_menu_update .card .intro p:nth-child(4) {
+    background-color: #FF33A1;
+    /* Fourth paragraph background color */
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    text-align: center;
+}
+
+
+.card .date img {
+    object-fit: cover;
+    /* Ensure the image maintains its aspect ratio */
+    transition: transform 0.3s ease;
+    /* Smooth transition for zoom effect */
+}
+
+/* Zoom effect on hover */
+.card .date:hover img {
+    transform: scale(1.1);
+    /* Slightly zoom in (10%) */
+}
+
+
+
+@media (max-width: 1120px) {
+
+
+    .update_container {
+        padding-top: 100px;
+        padding-left: 140px;
+    }
+
+
+}
+
+
+@media (max-width: 770px) {
+
+
+    .update_container {
+        width: 1300px;
+        padding-top: 100px;
+        padding-left: 140px;
+    }
+
+
+
+}
+
+
+@media (max-width: 350px) {
+
+
+    .update_container {
+        width: 1300px;
+        padding-top: 100px;
+        padding-left: 140px;
+    }
+
+
+}
+
+
+
+/* br line */
+
+.custom-line {
+    border: 0;
+    height: 2px;
+    background: rgb(173, 191, 230);
+    width: 50%;
+    margin: 10px auto;
+}
+
+
+/* footer */
+
+.footer {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Work Sans', sans-serif;
+}
+
+.footerobody {
+    height: 50vh;
+    width: 100%;
+    background: white;
+}
+
+.footerbody {
+    padding: 80px 8% 70px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+    gap: 3.5rem;
+    background: white;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.footer .footerobody .footerbody .footer-content .sugarsense {
+    color: #797b7c;
+    font-size: larger;
+}
+
+
+.footer-content h4 {
+    color: #797b7c;
+    margin-bottom: 1.5rem;
+    font-size: 20px;
+
+}
+
+.footer-content li {
+    margin-bottom: 16px;
+
+}
+
+.footer-content li a {
+    display: block;
+    color: black;
+    font-size: 15px;
+    font-weight: 400;
+    transition: all .40s ease;
+    text-decoration: none;
+}
+
+.footer-content li a:hover {
+    transform: translateY(-3px) translateX(-5px);
+    color: black;
+}
+
+.footer-content p {
+    color: black;
+    font-size: 16px;
+    line-height: 30px;
+    margin: 20px 0;
+}
+
+.icons a {
+    display: inline-block;
+    font-size: 22px;
+    color: black;
+    margin-right: 17px;
+    transition: all .40s ease;
+}
+
+.icons a:hover {
+    color: black;
+    transform: translateY(-5px);
+}
+
+
+
+@media screen and (max-width: 1120px) {
+    .custom-line {
+        border: 0;
+        height: 2px;
+        background: rgb(173, 191, 230);
+        width: 600px;
+        margin: 10px auto;
+        margin-left: 280px;
+    }
+
+    .footer {
+        padding-top: 20px;
+        width: 1100px;
+
+    }
+
+    .footerbody {
+        width: 1100px;
+        padding-left: 50px;
+    }
+
+}
+
+@media screen and (max-width: 770px) {
+    .custom-line {
+        border: 0;
+        height: 2px;
+        background: rgb(173, 191, 230);
+        width: 600px;
+        margin: 10px auto;
+        margin-top: 50px;
+        margin-left: 400px;
+    }
+
+    .footer {
+        padding-top: 100px;
+        width: 1320px;
+
+    }
+
+    .footerbody {
+        width: 1320px;
+        padding-left: 110px;
+    }
+
+}
+
+@media screen and (max-width: 350px) {
+    .custom-line {
+        border: 0;
+        height: 2px;
+        background: rgb(173, 191, 230);
+        width: 600px;
+        margin: 10px auto;
+        margin-top: 150px;
+        margin-left: 370px;
+    }
+
+    .footer {
+        padding-top: 100px;
+        width: 1100px;
+
+    }
+
+    .footerbody {
+        width: 1100px;
+        padding-left: 106px;
+    }
+
+}

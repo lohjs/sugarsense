@@ -1,0 +1,718 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+
+/* Navigation Styles */
+.navigationOutside {
+    box-sizing: border-box;
+    outline: none;
+    overflow: visible;
+    /* Ensure submenus are not clipped */
+    position: sticky;
+    /* Make the navbar sticky */
+    top: 0;
+    /* Stick to the top of the viewport */
+    z-index: 1000;
+    /* Ensure it stays above other elements */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.137);
+    background-color: rgb(255, 250, 250);
+    height: 12vh;
+}
+
+.navigationBody {
+    overflow-x: visible;
+    /* Allow horizontal overflow if needed */
+    color: black;
+}
+
+.navigationOutside .navigationBody header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 130px;
+
+}
+
+.navigationOutside .navigationBody .navigationLogo {
+    display: flex;
+    align-items: center;
+    color: #2c3e50;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    gap: 10px;
+}
+
+
+.navigationOutside .navigationBody .navigationLogo img {
+    width: 62px;
+    height: 62px;
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+.navigationOutside .navigationBody ul li {
+    display: inline-block;
+    list-style: none;
+    margin: 0 30px;
+    position: relative;
+    /* Required for submenu positioning */
+}
+
+.navigationOutside .navigationBody ul li:last-child {
+    margin-right: 0;
+}
+
+.navigationOutside .navigationBody li a {
+    text-decoration: none;
+    color: black;
+    padding: 22px 0;
+    display: inline-block;
+    transition: all ease 0.3s;
+    font-size: 18px;
+}
+
+.navigationOutside .navigationBody ul li a:hover {
+    color: lightblue;
+}
+
+/* Default active state styling */
+.navigationOutside .navigationBody ul li a.active {
+    color: #002068;
+    font-weight: bold;
+    /* Optional for emphasis */
+}
+
+/* Restrict ::after to top-level links only */
+.navigationOutside .navigationBody>header>nav>ul>li>a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 15px;
+    width: 100%;
+    height: 2px;
+    background: #002068;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover effect for top-level links */
+.navigationOutside .navigationBody>header>nav>ul>li>a:hover::after {
+    transform: scaleX(1);
+}
+
+/* Ensure submenu links are unaffected by the hover underline */
+.navigationOutside .navigationBody ul .submenu li a::after {
+    content: none;
+}
+
+
+/* Submenu Styles */
+.navigationOutside .navigationBody ul .submenu {
+    position: absolute;
+    top: 100%;
+    /* Position submenu below parent menu item */
+    left: 0;
+    width: 200px;
+    background-color: white;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99;
+    /* Ensure it is above other elements */
+    transition: all ease 0.3s;
+    max-height: 300px;
+    /* Limit height if needed for long menus */
+    overflow-y: auto;
+    /* Add vertical scrolling for long menus */
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount {
+    position: absolute;
+    top: 100%;
+    /* Position submenu below parent menu item */
+    right: 0;
+    width: 200px;
+    background-color: white;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99;
+    /* Ensure it is above other elements */
+    transition: all ease 0.3s;
+    max-height: 300px;
+    /* Limit height if needed for long menus */
+    overflow-y: auto;
+    /* Add vertical scrolling for long menus */
+}
+
+
+.navigationOutside .navigationBody ul li:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.navigationOutside .navigationBody .navigationAccount ul li:hover .submenuAccount {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Submenu Item Styles */
+.navigationOutside .navigationBody ul .submenu li {
+    margin: 0;
+    width: 100%;
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount li {
+    margin: 0;
+    width: 100%;
+}
+
+.navigationOutside .navigationBody ul .submenu li a {
+    padding: 15px 20px;
+    display: inline-block;
+    width: 100%;
+    color: black;
+    /* Change text color for submenu items */
+    text-decoration: none;
+    transition: background-color ease 0.3s;
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount li a {
+    padding: 15px 20px;
+    display: inline-block;
+    width: 100%;
+    color: black;
+    /* Change text color for submenu items */
+    text-decoration: none;
+    transition: background-color ease 0.3s;
+    font-size: 18px;
+}
+
+.navigationOutside .navigationBody ul .submenu li a:hover {
+    background-color: rgba(121, 123, 124, 0.18);
+    /* Highlight submenu items on hover */
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount li a:hover {
+    background-color: rgba(121, 123, 124, 0.18);
+    /* Highlight submenu items on hover */
+}
+
+/*account submenu*/
+
+.navigationOutside .navigationBody .navigationAccount a {
+    font-size: 30px;
+    color: black;
+}
+
+.navigationOutside .navigationBody .navigationAccount a:hover {
+    color: lightblue;
+}
+
+/* Default active state styling */
+.navigationOutside .navigationBody .navigationAccount a.active {
+    color: #002068;
+    font-weight: bold;
+    /* Optional for emphasis */
+}
+
+
+
+
+.ourvalues .ourvaluesbody .info {
+    position: absolute;
+    bottom: 20%;
+    width: 93.4%;
+    text-align: center;
+    left: 3.6%;
+    padding-bottom: 100px;
+}
+
+.ourvalues .ourvaluesbody .info h2 {
+    color: white;
+    font-size: 70px;
+    font-weight: 460;
+    letter-spacing: 2px;
+
+}
+
+
+
+.informationbackground {
+    background-color: #f7f8fc;
+    height: 81vh;
+    margin-top: -20px;
+    background-size: cover;
+    /* Ensure the background doesn't move */
+    position: relative;
+    /* This allows children to respond to z-index */
+}
+
+.informationbackground h2 {
+    color: #002068;
+    padding-left: 500px;
+    padding-top: 85px;
+    max-width: 10000px;
+    /* Limits the width of the content */
+    margin-bottom: 0;
+    /* Removes unnecessary negative margin */
+}
+
+.informationbackground p {
+    color: #002068;
+    padding-left: 200px;
+    padding-top: 20px;
+    /* Reduced padding for better alignment */
+    max-width: 1250px;
+    /* Limits the width of the content */
+    line-height: 1.8;
+    /* Improved line spacing for readability */
+    margin-bottom: 15px;
+    /* Positive margin for better paragraph spacing */
+}
+
+.informationbackground h2,
+.informationbackground p a {
+    position: relative;
+    /* Allows z-index to work */
+    z-index: 10;
+    /* Bring the text/link to the front */
+}
+
+.informationbackground p a {
+    color: #0056b3;
+    /* Link color */
+    text-decoration: none;
+    /* Removes underline */
+    transition: all 0.3s ease;
+    /* Smooth transition for color change and other effects */
+}
+
+.informationbackground p a:hover {
+    color: #005F9E;
+    /* New color on hover for better contrast */
+    text-decoration: underline;
+    /* Underline on hover */
+    font-weight: bold;
+    /* Adds bold effect on hover */
+    letter-spacing: 0.5px;
+    /* Slight letter spacing for effect */
+}
+
+.informationbackground p a:focus {
+    outline: none;
+    /* Removes the default focus outline for a cleaner look */
+}
+
+/* the new css add here */
+
+.recommendation_result {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    padding-bottom: 1000px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.title {
+    padding: 30px 8px;
+    text-align: center;
+    /* Center-align the title */
+    margin-bottom: 15px;
+}
+
+.title p {
+    font-size: 35px;
+    font-weight: 600;
+    position: relative;
+    color: #002068;
+}
+
+.title p::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 36%;
+    transform: translateX(-50%);
+    width: 210px;
+    height: 3px;
+    background: linear-gradient(to right, #FFCCCC, #800000);
+}
+
+
+.bmi-calculator {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.bmi-calculator h2 {
+    color: #002068;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.bmi-calculator p {
+    color: #002068;
+}
+
+.bmi-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 1rem 0;
+}
+
+.bmi-category {
+    font-size: 1.25rem;
+    margin: 0.5rem 0;
+}
+
+.bmi-range {
+    color: #666;
+    margin-top: 1rem;
+}
+
+.text-success {
+    color: #28a745;
+}
+
+.text-warning {
+    color: #ffc107;
+}
+
+.text-danger {
+    color: #dc3545;
+}
+
+.text-info {
+    color: #17a2b8;
+}
+
+.calories-calculator {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.calories-calculator h2 {
+    color: #002068;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.calories-description {
+    color: #002068;
+    margin-bottom: 1.5rem;
+}
+
+
+.text-highlight {
+    color: #2196F3;
+    font-weight: bold;
+}
+
+/* Add these styles to your existing CSS file */
+
+.meal-recommendation {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.meal-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+}
+
+.meal-tab {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #4a5568;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.meal-tab:hover {
+    color: #2b6cb0;
+}
+
+.meal-tab.active {
+    color: #2b6cb0;
+    border-bottom: 2px solid #2b6cb0;
+}
+
+.meal-section {
+    display: none;
+}
+
+.meal-section.active {
+    display: block;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.meal-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.meal-header h3 {
+    font-size: 1.5rem;
+    color: #002068;
+    margin-bottom: 0.5rem;
+}
+
+.meal-header p {
+    color: #718096;
+}
+
+.meal-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.meal-card:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.meal-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.meal-card-header h4 {
+    font-size: 1.2rem;
+    color: #2d3748;
+}
+
+.calories {
+    font-weight: bold;
+    color: #2b6cb0;
+    font-size: 16px;
+}
+
+.expand-button {
+    background: none;
+    border: none;
+    color: #4299e1;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    font-size: 16px;
+}
+
+.expand-button:hover {
+    color: #2b6cb0;
+}
+
+.meal-details {
+    display: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.meal-details.active {
+    display: block;
+}
+
+.ingredients,
+.instructions {
+    margin-bottom: 1.5rem;
+}
+
+.ingredients h5,
+.instructions h5 {
+    font-size: 1.1rem;
+    color: #002068;
+    margin-bottom: 0.75rem;
+}
+
+.ingredients ul,
+.instructions ol {
+    padding-left: 1.5rem;
+}
+
+.ingredients li,
+.instructions li {
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+
+
+
+
+/* br line */
+
+.custom-line {
+    border: 0;
+    height: 2px;
+    background: rgb(173, 191, 230);
+    width: 50%;
+    margin: 10px auto;
+    margin-top: -490px;
+}
+
+
+/* footer */
+
+.footer {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Work Sans', sans-serif;
+}
+
+.footerobody {
+    height: 50vh;
+    width: 100%;
+    background: white;
+}
+
+.footerbody {
+    padding: 80px 8% 70px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+    gap: 3.5rem;
+    background: white;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.footer .footerobody .footerbody .footer-content .sugarsense {
+    color: #797b7c;
+    font-size: larger;
+}
+
+
+.footer-content h4 {
+    color: #797b7c;
+    margin-bottom: 1.5rem;
+    font-size: 20px;
+
+}
+
+.footer-content li {
+    margin-bottom: 16px;
+
+}
+
+.footer-content li a {
+    display: block;
+    color: black;
+    font-size: 15px;
+    font-weight: 400;
+    transition: all .40s ease;
+    text-decoration: none;
+}
+
+.footer-content li a:hover {
+    transform: translateY(-3px) translateX(-5px);
+    color: black;
+}
+
+.footer-content p {
+    color: black;
+    font-size: 16px;
+    line-height: 30px;
+    margin: 20px 0;
+}
+
+.icons a {
+    display: inline-block;
+    font-size: 22px;
+    color: black;
+    margin-right: 17px;
+    transition: all .40s ease;
+}
+
+.icons a:hover {
+    color: black;
+    transform: translateY(-5px);
+}
+
+@media (max-width:1690px) {
+    .footerbody {
+        padding: 50px 5% 40px;
+    }
+}
+
+
+@media (max-width:1120px) {
+    .footer {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+        gap: 2rem;
+    }
+}
+
+@media (max-width:700px) {
+    .footer {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, auto));
+        gap: 2.5rem;
+    }
+}

@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static '/css/careers.css' %}" />
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+
+  <body>
+    <section class="ourvalues">
+      <div class="ourvaluesbody">
+        <img src="{% static '/images/careers.png' %}" height="420px" width="100%" alt="" />
+        <div class="info">
+          <h2>Careers</h2>
+        </div>
+      </div>
+    </section>
+
+    <section class="defination">
+      <div class="definationinfoP">
+        <h2>Join Sugar Sense: Empower Lives Through Innovation</h2>
+      </div>
+
+      <div class="definationinfo">
+        <p>At Sugar Sense, we're at the forefront of transforming diabetes management with our Integrated Web-Based Diabetes Control System. Our mission is to empower individuals to take control of their health, enhance their well-being, and lead healthier lives.</p>
+        <p>We're seeking passionate and talented individuals who are driven to make a real difference in the world of healthcare technology. At Sugar Sense, you'll find a supportive platform to grow professionally, unlock your potential, and contribute to impactful solutions that improve lives.</p>
+        <p>If you're determined to succeed, passionate about innovation, and eager to make a positive impact in society, we invite you to be part of our journey. Join us in creating a healthier future for everyone.</p>
+        <div class="reg_btn">
+          <a href="careersselection"><input type="button" value="Apply Now" /></a>
+        </div>
+      </div>
+    </section>
+
+    <div class="benefitRight">
+      <h2>You will gain access to top-tier training programs.</h2>
+      <img src="{% static '/images/training.png' %}" height="500px" width="100%" alt="" />
+    </div>
+
+    <div class="benefitLeft">
+      <img src="{% static '/images/environment.png' %}" height="500px" width="100%" alt="" />
+      <h2>You will enjoy a dynamic and engaging work environment.</h2>
+    </div>
+
+    <div class="benefitRight">
+      <h2>You will put in great effort but also have plenty of opportunities for enjoyment.</h2>
+      <img src="{% static '/images/play.png' %}" height="500px" width="100%" alt="" />
+    </div>
+
+    <div class="benefitLast">
+      <img src="{% static '/images/minds.png' %}" height="500px" width="100%" alt="" />
+      <h2>You will collaborate with top talents in the field.</h2>
+    </div>
+
+    <hr class="custom-line" />
+
+    <section class="footer">
+      <div class="footerobody">
+        <div class="footerbody">
+          <div class="footer-content">
+            <img src="{% static '/images/logo100.png' %}" alt="" />
+            <div class="sugarsense">
+              <p>SUGAR SENSE</p>
+            </div>
+            <p>
+              20, Genting Klang, Setapak, Kuala Lumpur<br />Tel: +60 18-218 9169 / +60 11-2769 6820
+            </p>
+
+            <div class="icons">
+              <a href="#"><i class="bx bxl-meta"></i></a>
+              <a href="#"><i class="bx bx-x"></i></a>
+              <a href="#"><i class="bx bxl-instagram"></i></a>
+              <a href="#"><i class="bx bxl-youtube"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-content">
+            <h4>COMPANY</h4>
+            <li>
+              <a href="ourvalues">About Us</a>
+            </li>
+            <li>
+              <a href="leadership">Our Leadership</a>
+            </li>
+            <li>
+              <a href="careers">Careers</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>SERVICES</h4>
+            <li>
+              <a href="prediction">Diabetes Prediction</a>
+            </li>
+            <li>
+              <a href="recommendation">Diet Recommendations</a>
+            </li>
+            <li>
+              <a href="appointment">Appointment Form</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>USERFUL INFO</h4>
+            <li>
+              <a href="research">Research</a>
+            </li>
+            <li>
+              <a href="contactus">Contact us</a>
+            </li>
+            <li>
+              <a href="profiles">Account Settings</a>
+            </li>
+            <li>
+              <a href="predictionshistory">History</a>
+            </li>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+{% endblock %}

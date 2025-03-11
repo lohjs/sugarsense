@@ -1,0 +1,332 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+
+    <section class="Container">
+      <div class="img-slider">
+        <div class="slide active">
+          <img src="{% static 'images/bg-sea.png' %}" height="720px" width="1518px" alt="" />
+          <div class="info">
+            <h2>Sugar Sense</h2>
+            <p>A global diabetes control system digital health platform.</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="{% static 'images/about123.png' %}" height="720px" width="1518px" alt="" />
+          <div class="info123">
+            <h2>DRIVING CHANGE TO CONQUER STIGMA</h2>
+            <p>If managing diabetes was just about willpower, controlling blood sugar and maintaining stable levels would be simple.</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="{% static 'images/HealthHome1.jpg' %}" height="720px" width="1518px" alt="" />
+          <div class="info">
+            <h2>ALWAYS HERE FOR DIABETES CARE</h2>
+            <p>Your Partner in Health</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="{% static 'images/prediction123.png' %}" height="720px" width="1518px" alt="" />
+          <div class="info">
+            <h2>DIABETES PREDICTION</h2>
+            <p>Detects risks early, ensuring timely care and better safety for long-term health.</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="{% static 'images/dietrecommendation123.png' %}" height="720px" width="1518px" alt="" />
+          <div class="info">
+            <h2>DIET RECOMMENDATIONS</h2>
+            <p>Provides personalized meal plans for better health and effective blood sugar control.</p>
+          </div>
+        </div>
+
+        <!-- Navigation buttons -->
+        <div class="arrow-btn left-arrow">
+          <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="arrow-btn right-arrow">
+          <i class="fas fa-chevron-right"></i>
+        </div>
+
+        <div class="navigation">
+          <div class="btn active"></div>
+          <div class="btn"></div>
+          <div class="btn"></div>
+          <div class="btn"></div>
+          <div class="btn"></div>
+        </div>
+      </div>
+
+      <script type="text/javascript">
+        var slides = document.querySelectorAll('.slide')
+        var btns = document.querySelectorAll('.btn')
+        let currentSlide = 1
+        let autoplayInterval = 4500 // Set the autoplay interval (4.5 seconds)
+        let autoplayTimer // Timer for autoplay
+        
+        // Manual navigation
+        var manualNav = function (manual) {
+          slides.forEach((slide) => {
+            slide.classList.remove('active')
+          })
+          btns.forEach((btn) => {
+            btn.classList.remove('active')
+          })
+        
+          slides[manual].classList.add('active')
+          btns[manual].classList.add('active')
+        }
+        
+        // Add event listeners for buttons
+        btns.forEach((btn, i) => {
+          btn.addEventListener('click', () => {
+            manualNav(i)
+            currentSlide = i
+        
+            // Reset autoplay timer when clicked
+            clearTimeout(autoplayTimer)
+            startAutoplay() // Restart autoplay
+          })
+        })
+        
+        // Autoplay function
+        var startAutoplay = function () {
+          autoplayTimer = setTimeout(function () {
+            slides.forEach((slide) => {
+              slide.classList.remove('active')
+            })
+            btns.forEach((btn) => {
+              btn.classList.remove('active')
+            })
+        
+            slides[currentSlide].classList.add('active')
+            btns[currentSlide].classList.add('active')
+        
+            currentSlide++
+        
+            if (currentSlide >= slides.length) {
+              currentSlide = 0
+            }
+        
+            startAutoplay() // Continue the autoplay loop
+          }, autoplayInterval)
+        }
+        
+        // Start autoplay on page load
+        startAutoplay()
+        
+        // Select arrow elements
+        var leftArrow = document.querySelector('.left-arrow')
+        var rightArrow = document.querySelector('.right-arrow')
+        
+        // Function to go to the next slide
+        var nextSlide = function () {
+          slides.forEach((slide) => {
+            slide.classList.remove('active')
+          })
+          btns.forEach((btn) => {
+            btn.classList.remove('active')
+          })
+        
+          currentSlide++
+        
+          if (currentSlide >= slides.length) {
+            currentSlide = 0
+          }
+        
+          slides[currentSlide].classList.add('active')
+          btns[currentSlide].classList.add('active')
+        
+          // Reset autoplay timer
+          clearTimeout(autoplayTimer)
+          startAutoplay()
+        }
+        
+        // Function to go to the previous slide
+        var prevSlide = function () {
+          slides.forEach((slide) => {
+            slide.classList.remove('active')
+          })
+          btns.forEach((btn) => {
+            btn.classList.remove('active')
+          })
+        
+          currentSlide--
+        
+          if (currentSlide < 0) {
+            currentSlide = slides.length - 1
+          }
+        
+          slides[currentSlide].classList.add('active')
+          btns[currentSlide].classList.add('active')
+        
+          // Reset autoplay timer
+          clearTimeout(autoplayTimer)
+          startAutoplay()
+        }
+        
+        // Event listeners for arrows
+        leftArrow.addEventListener('click', prevSlide)
+        rightArrow.addEventListener('click', nextSlide)
+      </script>
+    </section>
+
+    <div class="title_ourmission">
+      <h1>Our Mission</h1>
+      <p>Our mission is to improve the lives of individuals with diabetes through a simple, integrated web-based solution.</p>
+    </div>
+
+    <div class="menu_container">
+      <div class="to_other_menu">
+        <div class="card">
+          <a href="ourvalues"><img src="{% static 'images/aboutuss.png' %}" height="720px" width="1518px" alt="" /></a>
+          <div class="intro">
+            <h1>About Us</h1>
+            <p>Learn more about who we are</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <a href="prediction"><img src="{% static 'images/download123.png' %}" height="720px" width="1518px" alt="" /></a>
+          <div class="intro">
+            <h1>Services</h1>
+            <p>Discover more about our services</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <a href="careers"><img src="{% static 'images/careers123.png' %}" height="720px" width="1518px" alt="" /></a>
+          <div class="intro">
+            <h1>Careers At SugarSense</h1>
+            <p>Let’s reimagine solution together</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="title_research">
+      <h1>Lastest Research</h1>
+    </div>
+
+    <div class="update_container">
+      <div class="to_other_menu_update">
+        <div class="card">
+          <div class="hidden">
+            <a href="research#drunkfood"><img src="{% static 'images/drunkfood123.png' %}" height="720px" width="1518px" alt="" /></a>
+          </div>
+          <div class="date">
+            <p>14 September 2024</p>
+          </div>
+          <div class="intro">
+            <h2>Impact of Diet</h2>
+            <p>Recent studies have identified a link between the consumption of ultra-processed foods and an increased risk of type 2 diabetes. Specifically, savory snacks, processed meats, ready-to-eat meals, and sweetened beverages have been associated with a higher incidence of the condition.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="hidden">
+            <a href="research#food"><img src="{% static 'images/food.png' %}" height="720px" width="1518px" alt="" /></a>
+          </div>
+          <div class="date">
+            <p>8 January 2025</p>
+          </div>
+          <div class="intro">
+            <h2>Impact of Sugary Drinks on Type 2 Diabetes Incidence</h2>
+            <p>In Nature Medicine reveals that one in ten new cases of type 2 diabetes globally in 2020 can be attributed to the consumption of sugary beverages, including soft drinks, fruit drinks, energy drinks, and lemonades. The research underscores the need for public health interventions to reduce the intake of these beverages to mitigate diabetes risk.</p>
+          </div>
+        </div>
+
+        <div class="card" id="treatment">
+          <div class="hidden">
+            <a href="research#treatment"><img src="{% static 'images/research11.png' %}" alt="" /></a>
+          </div>
+          <div class="date">
+            <p>9 January 2025</p>
+          </div>
+          <div class="intro">
+            <h2>Advancements in Treatment</h2>
+            <p>Richard DiMarchi's work has led to significant progress in diabetes treatment, including the development of fast-acting insulins like Humalog and medications such as Ozempic and Mounjaro that manage type 2 diabetes without insulin and aid in weight loss.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="readmore">
+      <a href="research" class="read-more1">View More</a>
+    </div>
+
+    <hr class="custom-line" />
+
+    <section class="footer">
+      <div class="footerobody">
+        <div class="footerbody">
+          <div class="footer-content">
+            <img src="{% static 'images/logo100.png' %}" alt="" />
+            <div class="sugarsense">
+              <p>SUGAR SENSE</p>
+            </div>
+            <p>
+              20, Genting Klang, Setapak, Kuala Lumpur<br />Tel: +60 18-218 9169 / +60 11-2769 6820
+            </p>
+
+            <div class="icons">
+              <a href="#"><i class="bx bxl-meta"></i></a>
+              <a href="#"><i class="bx bx-x"></i></a>
+              <a href="#"><i class="bx bxl-instagram"></i></a>
+              <a href="#"><i class="bx bxl-youtube"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-content">
+            <h4>COMPANY</h4>
+            <li>
+              <a href="ourvalues">About Us</a>
+            </li>
+            <li>
+              <a href="leadership">Our Leadership</a>
+            </li>
+            <li>
+              <a href="careers">Careers</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>SERVICES</h4>
+            <li>
+              <a href="prediction">Diabetes Prediction</a>
+            </li>
+            <li>
+              <a href="recommendation">Diet Recommendations</a>
+            </li>
+            <li>
+              <a href="appointment">Appointment Form</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>USERFUL INFO</h4>
+            <li>
+              <a href="research">Research</a>
+            </li>
+            <li>
+              <a href="contactus">Contact us</a>
+            </li>
+            <li>
+              <a href="profiles">Account Settings</a>
+            </li>
+            <li>
+              <a href="predictionshistory">History</a>
+            </li>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}

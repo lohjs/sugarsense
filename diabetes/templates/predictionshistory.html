@@ -1,0 +1,414 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static '/css/predictionshistory.css' %}" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+
+  <body>
+    <section class="ourvalues">
+      <div class="ourvaluesbody">
+        <img src="{% static '/images/accounthistory.png' %}" height="420px" width="100%" alt="" />
+        <div class="info">
+          <h2>Records</h2>
+        </div>
+      </div>
+    </section>
+
+    <div class="title">
+      <p>Diabetes Prediction History</p>
+    </div>
+
+    <section class="history">
+      <div class="filters-container">
+        <div class="filters-form">
+          <div class="filters-row">
+            <!-- Date From Filter -->
+            <div class="filter-item">
+              <label for="dateFrom">Date From</label>
+              <input type="date" id="dateFrom" class="date-filter" />
+            </div>
+
+            <!-- Date To Filter -->
+            <div class="filter-item">
+              <label for="dateTo">Date To</label>
+              <input type="date" id="dateTo" class="date-filter" />
+            </div>
+
+            <!-- Glucose Range Filters -->
+            <div class="filter-item">
+              <label>Glucose Range</label>
+              <div style="display: flex; gap: 0.5rem;">
+                <input type="number" id="glucoseMin" placeholder="Min" class="number-filter" />
+                <input type="number" id="glucoseMax" placeholder="Max" class="number-filter" />
+              </div>
+            </div>
+
+            <!-- Result Filter -->
+            <div class="filter-item">
+              <label for="resultFilter">Result</label>
+              <select id="resultFilter" class="select-filter">
+                <option value="">All Results</option>
+                <option value="Diabetic">Diabetic</option>
+                <option value="Non-Diabetic">Non-Diabetic</option>
+              </select>
+            </div>
+
+            <!-- Reset Button -->
+            <div class="filter-buttons">
+              <button id="resetFilters" class="reset-button">
+                <i class="fas fa-undo-alt"></i>
+                Reset Filters
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- No Results Message -->
+        <div class="no-results">
+          <i class="fas fa-search"></i>
+          <h3>No Results Found</h3>
+          <p>Try adjusting your filters to find what you're looking for.</p>
+        </div>
+      </div>
+
+      {% if predictions %}
+        <div class="history-list">
+          <table class="table" id="prediction-table">
+            <thead>
+              <tr>
+                <th>
+                  Date<select class="table-filter" data-column="0">
+                    <option value="">All</option>
+                  </select>
+                </th>
+                <th>
+                  Pregnancies<select class="table-filter" data-column="1">
+                    <option value="">All</option>
+                  </select>
+                </th>
+                <th>
+                  Glucose<select class="table-filter" data-column="2">
+                    <option value="">All</option>
+                  </select>
+                </th>
+                <th>
+                  Blood Pressure<select class="table-filter" data-column="3">
+                    <option value="">All</option>
+                  </select>
+                </th>
+                <th>
+                  Skin Thickness<select class="table-filter" data-column="4">
+                    <option value="">All</option>
+                  </select>
+                </th>
+                <th>
+                  Insulin<select class="table-filter" data-column="5">
+                    <option value="">All</option>
+                  </select>
+                </th>
+                <th>
+                  BMI<select class="table-filter" data-column="6">
+                    <option value="">All</option>
+                  </select>
+                </th>
+                <th>
+                  Diabetes Pedigree Function<select class="table-filter" data-column="7">
+                    <option value="">All</option>
+                  </select>
+                </th>
+                <th>
+                  Age<select class="table-filter" data-column="8">
+                    <option value="">All</option>
+                  </select>
+                </th>
+                <th>
+                  Result<select class="table-filter" data-column="9">
+                    <option value="">All</option>
+                  </select>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for prediction in predictions %}
+                <tr>
+                  <td>{{ prediction.timestamp|date:'Y-m-d H:i:s' }}</td>
+                  <td>{{ prediction.pregnancies }}</td>
+                  <td>{{ prediction.glucose }}</td>
+                  <td>{{ prediction.blood_pressure }}</td>
+                  <td>{{ prediction.skin_thickness }}</td>
+                  <td>{{ prediction.insulin }}</td>
+                  <td>{{ prediction.bmi }}</td>
+                  <td>{{ prediction.diabetes_pedigree_function }}</td>
+                  <td>{{ prediction.age }}</td>
+                  <td>{{ prediction.prediction_result }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="no-history">
+          <i class="fas fa-history"></i>
+          <h3>No Prediction History Found</h3>
+          <p>You haven't made any diabetes predictions yet.</p>
+          <a href="{% url 'prediction' %}" class="get-started-btn">Make Your First Prediction</a>
+        </div>
+      {% endif %}
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          // Initialize filters and elements
+          const filterInputs = {
+            dateFrom: document.getElementById('dateFrom'),
+            dateTo: document.getElementById('dateTo'),
+            glucoseMin: document.getElementById('glucoseMin'),
+            glucoseMax: document.getElementById('glucoseMax'),
+            resultFilter: document.getElementById('resultFilter')
+          }
+        
+          const resetButton = document.getElementById('resetFilters')
+          const noResultsMessage = document.querySelector('.no-results')
+        
+          // Add active class handling
+          Object.values(filterInputs).forEach((input) => {
+            input.addEventListener('focus', () => {
+              input.closest('.filter-item').classList.add('active')
+            })
+        
+            input.addEventListener('blur', () => {
+              if (!input.value) {
+                input.closest('.filter-item').classList.remove('active')
+              }
+            })
+        
+            input.addEventListener('change', () => {
+              const filterItem = input.closest('.filter-item')
+              if (input.value) {
+                filterItem.classList.add('active')
+              } else {
+                filterItem.classList.remove('active')
+              }
+            })
+          })
+        
+          // Add event listeners for filtering
+          Object.values(filterInputs).forEach((input) => {
+            input.addEventListener('input', applyFilters)
+            input.addEventListener('change', applyFilters)
+          })
+        
+          // Reset button handler
+          resetButton.addEventListener('click', resetFilters)
+        
+          function applyFilters() {
+            const table = document.getElementById('prediction-table')
+            const rows = Array.from(table.querySelectorAll('tbody tr'))
+            let visibleRows = 0
+        
+            rows.forEach((row) => {
+              let showRow = true
+        
+              // Date range filter
+              const rowDate = new Date(row.cells[0].textContent)
+              if (filterInputs.dateFrom.value && new Date(filterInputs.dateFrom.value) > rowDate) {
+                showRow = false
+              }
+              if (filterInputs.dateTo.value && new Date(filterInputs.dateTo.value) < rowDate) {
+                showRow = false
+              }
+        
+              // Glucose range filter
+              const glucose = parseFloat(row.cells[2].textContent)
+              if (filterInputs.glucoseMin.value && glucose < parseFloat(filterInputs.glucoseMin.value)) {
+                showRow = false
+              }
+              if (filterInputs.glucoseMax.value && glucose > parseFloat(filterInputs.glucoseMax.value)) {
+                showRow = false
+              }
+        
+              // Result filter
+              if (filterInputs.resultFilter.value && row.cells[9].textContent !== filterInputs.resultFilter.value) {
+                showRow = false
+              }
+        
+              row.style.display = showRow ? '' : 'none'
+              if (showRow) visibleRows++
+            })
+        
+            // Toggle no results message
+            noResultsMessage.style.display = visibleRows === 0 ? 'block' : 'none'
+          }
+        
+          function resetFilters() {
+            // Reset all inputs
+            Object.values(filterInputs).forEach((input) => {
+              input.value = ''
+              input.closest('.filter-item').classList.remove('active')
+            })
+        
+            // Show all rows
+            const table = document.getElementById('prediction-table')
+            const rows = Array.from(table.querySelectorAll('tbody tr'))
+            rows.forEach((row) => (row.style.display = ''))
+        
+            // Hide no results message
+            noResultsMessage.style.display = 'none'
+          }
+        
+          // Initialize filters on load
+          initializeFilters()
+        })
+        
+        document.addEventListener('DOMContentLoaded', function () {
+          // Initialize filters
+          initializeFilters()
+        
+          // Add event listeners to filters
+          document.querySelectorAll('.table-filter').forEach((filter) => {
+            filter.addEventListener('change', filterTable)
+          })
+        })
+        
+        function initializeFilters() {
+          const table = document.getElementById('prediction-table')
+          const filters = table.querySelectorAll('.table-filter')
+        
+          filters.forEach((filter) => {
+            const column = parseInt(filter.getAttribute('data-column'))
+            const options = new Set()
+        
+            // Get all rows except the header
+            const rows = Array.from(table.querySelectorAll('tbody tr'))
+        
+            // Collect unique values for this column
+            rows.forEach((row) => {
+              const cell = row.cells[column]
+              if (cell) {
+                options.add(cell.textContent.trim())
+              }
+            })
+        
+            // Add options to the filter dropdown
+            const sortedOptions = Array.from(options).sort((a, b) => {
+              // Try to sort numerically first
+              const numA = parseFloat(a)
+              const numB = parseFloat(b)
+              if (!isNaN(numA) && !isNaN(numB)) {
+                return numA - numB
+              }
+              // Fall back to string comparison
+              return a.localeCompare(b)
+            })
+        
+            sortedOptions.forEach((option) => {
+              const optionElement = document.createElement('option')
+              optionElement.value = option
+              optionElement.textContent = option
+              filter.appendChild(optionElement)
+            })
+          })
+        }
+        
+        function filterTable() {
+          const table = document.getElementById('prediction-table')
+          const rows = Array.from(table.querySelectorAll('tbody tr'))
+          const filters = Array.from(table.querySelectorAll('.table-filter'))
+        
+          // Get active filters
+          const activeFilters = filters
+            .map((filter, index) => ({
+              column: parseInt(filter.getAttribute('data-column')),
+              value: filter.value
+            }))
+            .filter((filter) => filter.value !== '')
+        
+          // Show all rows if no filters are active
+          if (activeFilters.length === 0) {
+            rows.forEach((row) => (row.style.display = ''))
+            return
+          }
+        
+          // Check each row against active filters
+          rows.forEach((row) => {
+            const shouldShow = activeFilters.every((filter) => {
+              const cellValue = row.cells[filter.column].textContent.trim()
+              return cellValue === filter.value
+            })
+        
+            row.style.display = shouldShow ? '' : 'none'
+          })
+        }
+      </script>
+    </section>
+
+    <!-- Rest of your template remains the same -->
+
+    <hr class="custom-line" />
+
+    <section class="footer">
+      <div class="footerobody">
+        <div class="footerbody">
+          <div class="footer-content">
+            <img src="{% static '/images/logo100.png' %}" alt="" />
+            <div class="sugarsense">
+              <p>SUGAR SENSE</p>
+            </div>
+            <p>
+              20, Genting Klang, Setapak, Kuala Lumpur<br />Tel: +60 18-218 9169 / +60 11-2769 6820
+            </p>
+
+            <div class="icons">
+              <a href="#"><i class="bx bxl-meta"></i></a>
+              <a href="#"><i class="bx bx-x"></i></a>
+              <a href="#"><i class="bx bxl-instagram"></i></a>
+              <a href="#"><i class="bx bxl-youtube"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-content">
+            <h4>COMPANY</h4>
+            <li>
+              <a href="ourvalues">About Us</a>
+            </li>
+            <li>
+              <a href="leadership">Our Leadership</a>
+            </li>
+            <li>
+              <a href="careers">Careers</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>SERVICES</h4>
+            <li>
+              <a href="prediction">Diabetes Prediction</a>
+            </li>
+            <li>
+              <a href="recommendation">Diet Recommendations</a>
+            </li>
+            <li>
+              <a href="appointment">Appointment Form</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>USERFUL INFO</h4>
+            <li>
+              <a href="research">Research</a>
+            </li>
+            <li>
+              <a href="contactus">Contact us</a>
+            </li>
+            <li>
+              <a href="profiles">Account Settings</a>
+            </li>
+            <li>
+              <a href="predictionshistory">History</a>
+            </li>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+{% endblock %}

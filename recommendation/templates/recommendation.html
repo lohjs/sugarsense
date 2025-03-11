@@ -1,0 +1,543 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static '/css/recommendation.css' %}" />
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  <section class="ourvalues">
+    <div class="ourvaluesbody">
+      <img src="{% static '/images/prediction123.png' %}" height="420px" width="100%" alt="" /> <!-- This image need to change -->
+      <div class="info">
+        <h2>Personalized Diet Recommendation</h2>
+      </div>
+    </div>
+  </section>
+
+  <div class="informationbackground">
+    <!-- This div need to change -->
+    <h2>Talk with Our Diet Recommendation System</h2>
+    <p>Fill out your information, and our system will generate personalized diet recommendations tailored to your needs. Our model assesses dietary patterns and suggests meals that support diabetes management. For detailed medical advice, please consult a healthcare professional. Explore quick nutrition tips and resources here:</p>
+    <p>
+      Diabetes Research: <a href="{% url 'research' %}">Learn more about diabetes</a>
+    </p>
+    <p>
+      Diabetes Prediction: <a href="{% url 'prediction' %}">Get an early prediction and manage your diabetes effectively</a>
+    </p>
+    <p>
+      Schedule an Appointment: <a href="{% url 'appointment' %}">Talk to a real consultant for personalized diabetes management</a>
+    </p>
+    <p>
+      Diet Recommendation Form Guidelines: <a href="#" id="scroll-to-faq">Common Questions About Diet Recommendation Input Form</a>
+    </p>
+  </div>
+
+  <section class="diet_recommendation">
+    <form class="form" action="{% url 'recommendation_result' %}" method="get">
+      <div class="form-group">
+        <label class="field-label">Age:</label>
+        <div class="input-wrapper">
+          <input required type="number" class="form-input" name="age" step="1" min="1" max="120" />
+          <div class="error-message"></div>
+          <div class="tooltip">Enter age between 1-120 years</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="field-label">Height (cm):</label>
+        <div class="input-wrapper">
+          <input required type="number" class="form-input" name="height" step="0.1" min="50" max="300" />
+          <div class="error-message"></div>
+          <div class="tooltip">Enter height between 50-300 cm</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="field-label">Weight (kg):</label>
+        <div class="input-wrapper">
+          <input required type="number" class="form-input" name="weight" step="0.1" min="20" max="500" />
+          <div class="error-message"></div>
+          <div class="tooltip">Enter weight between 20-500 kg</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="field-label">Gender:</label>
+        <div class="radio-wrapper">
+          <label class="radio-label">
+            <input required type="radio" name="gender" value="male" class="radio-input" />
+            <span class="radio-text">Male</span>
+          </label>
+          <label class="radio-label">
+            <input required type="radio" name="gender" value="female" class="radio-input" />
+            <span class="radio-text">Female</span>
+          </label>
+          <div class="error-message"></div>
+        </div>
+      </div>
+
+      <div class="form-group2">
+        <label class="field-label">Activity Level:</label>
+        <div class="input-wrapper">
+          <input required type="text" class="form-input" name="activity" id="activity" />
+          <div class="error-message"></div>
+          <div class="tooltip">Valid options: no exercise, light exercise, moderate exercise, very active, extra active</div>
+        </div>
+      </div>
+
+      <div class="form-group2">
+        <label class="field-label">Weight Loss Plan:</label>
+        <div class="input-wrapper">
+          <input required type="text" class="form-input" name="weight_loss_plan" id="weight_loss_plan" />
+          <div class="error-message"></div>
+          <div class="tooltip">Valid options: maintain weight, mild weight loss, weight loss, extreme weight loss</div>
+        </div>
+      </div>
+
+      <button class="submit-btn" type="submit">Generate Recommendation</button>
+    </form>
+  </section>
+
+  <section id="faq-section" class="faqsection">
+    <h1 class="title">FAQs for Filling Out the Diet Recommendation Form</h1>
+
+    <div class="questions-container">
+      <div class="question">
+        <button>
+          <span>Why is Age required?</span>
+          <i class="fas fa-chevron-down d-arrow"></i>
+        </button>
+        <p>Age is a key factor in calculating your Basal Metabolic Rate (BMR), which helps determine your daily calorie needs and personalize your diet recommendations.</p>
+      </div>
+
+      <div class="question">
+        <button>
+          <span>How should I enter my Height?</span>
+          <i class="fas fa-chevron-down d-arrow"></i>
+        </button>
+        <p>Enter your height in centimeters (cm). Accurate height data is essential for calculating your Body Mass Index (BMI), which helps us assess your weight status and recommend suitable diet plans.</p>
+      </div>
+
+      <div class="question">
+        <button>
+          <span>Why is Weight required?</span>
+          <i class="fas fa-chevron-down d-arrow"></i>
+        </button>
+        <p>Weight is critical for calculating your BMI and tailoring your daily calorie intake. Providing accurate weight readings will improve the effectiveness of your personalized diet plan.</p>
+      </div>
+
+      <div class="question">
+        <button>
+          <span>How do you use my Gender information?</span>
+          <i class="fas fa-chevron-down d-arrow"></i>
+        </button>
+        <p>Gender affects BMR calculations because males and females have different metabolic rates. This information helps us create more accurate and personalized dietary recommendations.</p>
+      </div>
+
+      <div class="question">
+        <button>
+          <span>What should I select for Activity Level?</span>
+          <i class="fas fa-chevron-down d-arrow"></i>
+        </button>
+        <p>Activity level helps us estimate how many calories you burn each day.</p>
+      </div>
+
+      <div class="question">
+        <button>
+          <span>What is the Weight Loss Plan option for?</span>
+          <i class="fas fa-chevron-down d-arrow"></i>
+        </button>
+        <p>The Weight Loss Plan allows you to set a goal for your health journey.</p>
+      </div>
+    </div>
+
+    <script>
+      // JavaScript for FAQ functionality
+      const buttons = document.querySelectorAll('.question button')
+      
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const faq = button.nextElementSibling
+          const icon = button.children[1]
+      
+          faq.classList.toggle('show')
+          icon.classList.toggle('rotate')
+        })
+      })
+      document.addEventListener('DOMContentLoaded', function () {
+        // Get the link element
+        const scrollLink = document.getElementById('scroll-to-faq')
+      
+        // Add click event listener to the link
+        scrollLink.addEventListener('click', function (e) {
+          e.preventDefault() // Prevent the default anchor behavior
+      
+          // Get the FAQ section element
+          const faqSection = document.getElementById('faq-section')
+      
+          // Calculate the position of the FAQ section
+          const position = faqSection.getBoundingClientRect().top + window.pageYOffset
+      
+          // Scroll to the FAQ section with an offset
+          window.scrollTo({
+            top: position - 90, //Adjust this value to set how much higher you want it (e.g., 50px)
+            behavior: 'smooth'
+          })
+        })
+      })
+      
+      document.addEventListener('DOMContentLoaded', function () {
+        // Add hamburger menu and overlay to DOM
+        const header = document.querySelector('.navigationBody header')
+        const nav = document.querySelector('.navigationBody nav')
+      
+        // Create hamburger menu
+        const hamburger = document.createElement('div')
+        hamburger.className = 'hamburger-menu'
+        hamburger.innerHTML = '<span></span><span></span><span></span>'
+        header.appendChild(hamburger)
+      
+        // Create overlay
+        const overlay = document.createElement('div')
+        overlay.className = 'mobile-overlay'
+        document.body.appendChild(overlay)
+      
+        // Add 'has-submenu' class to all li elements with submenu
+        const itemsWithSubmenu = document.querySelectorAll('.navigationBody ul li:has(.submenu)')
+        itemsWithSubmenu.forEach((item) => {
+          item.classList.add('has-submenu')
+      
+          // Create arrow indicators for mobile
+          const link = item.querySelector('a')
+          link.addEventListener('click', function (e) {
+            if (window.innerWidth <= 992) {
+              e.preventDefault()
+              item.classList.toggle('active')
+              const submenu = item.querySelector('.submenu')
+              submenu.classList.toggle('active')
+            }
+          })
+        })
+      
+        // Account submenu functionality
+        const accountItems = document.querySelectorAll('.navigationAccount ul li:has(.submenuAccount)')
+        accountItems.forEach((item) => {
+          item.classList.add('has-submenu')
+      
+          const link = item.querySelector('a')
+          link.addEventListener('click', function (e) {
+            if (window.innerWidth <= 992) {
+              e.preventDefault()
+              item.classList.toggle('active')
+              const submenu = item.querySelector('.submenuAccount')
+              submenu.classList.toggle('active')
+            }
+          })
+        })
+      
+        // Toggle mobile menu
+        hamburger.addEventListener('click', function () {
+          this.classList.toggle('active')
+          nav.classList.toggle('active')
+          overlay.classList.toggle('active')
+          document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : ''
+        })
+      
+        // Close menu when clicking overlay
+        overlay.addEventListener('click', function () {
+          hamburger.classList.remove('active')
+          nav.classList.remove('active')
+          this.classList.remove('active')
+          document.body.style.overflow = ''
+        })
+      
+        // Close menu when resizing to desktop
+        window.addEventListener('resize', function () {
+          if (window.innerWidth > 992 && nav.classList.contains('active')) {
+            hamburger.classList.remove('active')
+            nav.classList.remove('active')
+            overlay.classList.remove('active')
+            document.body.style.overflow = ''
+      
+            // Reset submenus
+            document.querySelectorAll('.submenu.active, .submenuAccount.active').forEach((submenu) => {
+              submenu.classList.remove('active')
+            })
+            document.querySelectorAll('.has-submenu.active').forEach((item) => {
+              item.classList.remove('active')
+            })
+          }
+        })
+      })
+    </script>
+  </section>
+
+  <script>
+    function showCustomAlert(message) {
+      // Create alert elements
+      const alertContainer = document.createElement('div')
+      alertContainer.className = 'custom-alert'
+    
+      const alertBox = document.createElement('div')
+      alertBox.className = 'custom-alert-box'
+    
+      const messageElement = document.createElement('div')
+      messageElement.className = 'alert-message'
+      messageElement.textContent = message
+    
+      const closeButton = document.createElement('button')
+      closeButton.textContent = 'OK'
+    
+      // Assemble alert
+      alertBox.appendChild(messageElement)
+      alertBox.appendChild(closeButton)
+      alertContainer.appendChild(alertBox)
+      document.body.appendChild(alertContainer)
+    
+      // Show alert with animation
+      requestAnimationFrame(() => {
+        alertContainer.classList.add('show')
+      })
+    
+      // Handle close button
+      closeButton.onclick = () => {
+        alertContainer.classList.remove('show')
+        setTimeout(() => {
+          document.body.removeChild(alertContainer)
+        }, 300)
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.querySelector('.form')
+    
+      // Validation rules
+      const validationRules = {
+        age: {
+          min: 1,
+          max: 120,
+          validate: (value) => {
+            const age = parseInt(value)
+            return age >= 1 && age <= 120
+          },
+          message: 'Age must be between 1 and 120 years'
+        },
+        height: {
+          min: 50,
+          max: 300,
+          validate: (value) => {
+            const height = parseFloat(value)
+            return height >= 50 && height <= 300
+          },
+          message: 'Height must be between 50 and 300 cm'
+        },
+        weight: {
+          min: 20,
+          max: 500,
+          validate: (value) => {
+            const weight = parseFloat(value)
+            return weight >= 20 && weight <= 500
+          },
+          message: 'Weight must be between 20 and 500 kg'
+        },
+        activity: {
+          options: ['no exercise', 'light exercise', 'moderate exercise', 'very active', 'extra active'],
+          validate: (value) => {
+            return validationRules.activity.options.includes(value.toLowerCase().trim())
+          },
+          message: 'Please select a valid activity level'
+        },
+        weight_loss_plan: {
+          options: ['maintain weight', 'mild weight loss', 'weight loss', 'extreme weight loss'],
+          validate: (value) => {
+            return validationRules.weight_loss_plan.options.includes(value.toLowerCase().trim())
+          },
+          message: 'Please select a valid weight loss plan'
+        }
+      }
+    
+      // Create and append error message element
+      function createErrorElement(input) {
+        const errorDiv = document.createElement('div')
+        errorDiv.className = 'error-message'
+        input.parentElement.appendChild(errorDiv)
+        return errorDiv
+      }
+    
+      // Show error message
+      function showError(input, message) {
+        const errorElement = input.parentElement.querySelector('.error-message') || createErrorElement(input)
+        errorElement.textContent = message
+        errorElement.style.display = 'block'
+        input.classList.add('invalid')
+      }
+    
+      // Hide error message
+      function hideError(input) {
+        const errorElement = input.parentElement.querySelector('.error-message')
+        if (errorElement) {
+          errorElement.style.display = 'none'
+        }
+        input.classList.remove('invalid')
+      }
+    
+      // Validate a single input
+      function validateInput(input) {
+        const field = input.name
+        const value = input.value
+    
+        // Skip validation for radio buttons (handled in form submission)
+        if (input.type === 'radio') return true
+    
+        // Required field validation
+        if (input.hasAttribute('required') && !value) {
+          showError(input, `${field.charAt(0).toUpperCase() + field.slice(1)} is required`)
+          return false
+        }
+    
+        // Specific field validation
+        if (validationRules[field]) {
+          const rule = validationRules[field]
+          if (!rule.validate(value)) {
+            showError(input, rule.message)
+            return false
+          }
+        }
+    
+        hideError(input)
+        return true
+      }
+    
+      // Add input event listeners for real-time validation
+      form.querySelectorAll('input').forEach((input) => {
+        // Show tooltip on focus for activity and weight loss plan
+        if (input.name === 'activity' || input.name === 'weight_loss_plan') {
+          const options = validationRules[input.name].options
+          const tooltip = document.createElement('div')
+          tooltip.className = 'tooltip'
+          tooltip.textContent = `Valid options: ${options.join(', ')}`
+          input.parentElement.appendChild(tooltip)
+    
+          input.addEventListener('focus', () => {
+            tooltip.style.display = 'block'
+          })
+    
+          input.addEventListener('blur', () => {
+            tooltip.style.display = 'none'
+            validateInput(input)
+          })
+        }
+    
+        // Real-time validation for number inputs
+        if (input.type === 'number') {
+          input.addEventListener('input', () => {
+            validateInput(input)
+          })
+        }
+    
+        // Validate on blur for all inputs
+        input.addEventListener('blur', () => {
+          validateInput(input)
+        })
+      })
+    
+      // Form submission validation
+      form.addEventListener('submit', function (e) {
+        let isValid = true
+    
+        // Validate all inputs
+        form.querySelectorAll('input').forEach((input) => {
+          if (!validateInput(input)) {
+            isValid = false
+          }
+        })
+    
+        // Validate radio buttons (gender)
+        const genderInputs = form.querySelectorAll('input[name="gender"]')
+        const genderSelected = Array.from(genderInputs).some((input) => input.checked)
+        if (!genderSelected) {
+          const genderGroup = genderInputs[0].closest('.form-group')
+          const errorElement = genderGroup.querySelector('.error-message') || createErrorElement(genderGroup)
+          errorElement.textContent = 'Please select a gender'
+          errorElement.style.display = 'block'
+          isValid = false
+        }
+    
+        if (!isValid) {
+          e.preventDefault()
+        }
+      })
+    })
+  </script>
+
+  <hr class="custom-line" />
+
+  <section class="footer">
+    <div class="footerobody">
+      <div class="footerbody">
+        <div class="footer-content">
+          <img src="{% static '/images/logo100.png' %}" alt="" />
+          <div class="sugarsense">
+            <p>SUGAR SENSE</p>
+          </div>
+          <p>
+            20, Genting Klang, Setapak, Kuala Lumpur<br />Tel: +60 18-218 9169 / +60 11-2769 6820
+          </p>
+
+          <div class="icons">
+            <a href="#"><i class="bx bxl-meta"></i></a>
+            <a href="#"><i class="bx bx-x"></i></a>
+            <a href="#"><i class="bx bxl-instagram"></i></a>
+            <a href="#"><i class="bx bxl-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-content">
+          <h4>COMPANY</h4>
+          <li>
+            <a href="ourvalues">About Us</a>
+          </li>
+          <li>
+            <a href="leadership">Our Leadership</a>
+          </li>
+          <li>
+            <a href="careers">Careers</a>
+          </li>
+        </div>
+
+        <div class="footer-content">
+          <h4>SERVICES</h4>
+          <li>
+            <a href="prediction">Diabetes Prediction</a>
+          </li>
+          <li>
+            <a href="recommendation">Diet Recommendations</a>
+          </li>
+          <li>
+            <a href="appointment">Appointment Form</a>
+          </li>
+        </div>
+
+        <div class="footer-content">
+          <h4>USERFUL INFO</h4>
+          <li>
+            <a href="research">Research</a>
+          </li>
+          <li>
+            <a href="contactus">Contact us</a>
+          </li>
+          <li>
+            <a href="profiles">Account Settings</a>
+          </li>
+          <li>
+            <a href="predictionshistory">History</a>
+          </li>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

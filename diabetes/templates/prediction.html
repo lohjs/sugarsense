@@ -1,0 +1,503 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static '/css/prediction.css' %}" />
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  <body>
+    <section class="ourvalues">
+      <div class="ourvaluesbody">
+        <img src="{% static '/images/prediction123.png' %}" height="420px" width="100%" alt="" />
+        <div class="info">
+          <h2>Diabetes Prediction</h2>
+        </div>
+      </div>
+    </section>
+
+    <div class="informationbackground">
+      <h2>Talk with Our Diabetes Prediction System</h2>
+      <p>Fill out your information and our prediction model will provide an assessment of your risk for diabetes. If you're looking for more detailed health advice, please consult a healthcare professional. Get answers to quick questions with these resources:</p>
+      <p>
+        Diabetes Research: <a href="{% url 'research' %}">Learn more about diabetes</a>
+      </p>
+      <p>
+        Lifestyle Diet Recommendations: <a href="{% url 'recommendation' %}">Take control of your health with a personalized diet</a>
+      </p>
+      <p>
+        Schedule an Appointment: <a href="{% url 'appointment' %}">Talk to a real consultant for personalized diabetes management</a>
+      </p>
+      <p>
+        Diabetes Form Guidelines: <a href="#" id="scroll-to-faq">Common Questions About Diabetes Input Form</a>
+      </p>
+    </div>
+
+    <section class="predict">
+      <form class="form" action="{% url 'result' %}" method="get">
+        <div class="form-group">
+          <label class="field-label">Pregnancies:</label>
+          <div class="input-wrapper">
+            <input required type="number" class="form-input" id="pregnancies" name="Pregnancies" step="1" min="0" max="20" />
+            <div class="error-message"></div>
+            <div class="tooltip">Enter number of pregnancies between 0-20</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">Glucose:</label>
+          <div class="input-wrapper">
+            <input required type="number" class="form-input" id="glucose" name="Glucose" step="1" min="0" max="300" />
+            <div class="error-message"></div>
+            <div class="tooltip">Enter glucose level between 0-300 mg/dL</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">Blood Pressure:</label>
+          <div class="input-wrapper">
+            <input required type="number" class="form-input" id="blood-pressure" name="Blood Pressure" step="1" min="0" max="200" />
+            <div class="error-message"></div>
+            <div class="tooltip">Enter blood pressure between 0-200 mm Hg</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">Skin Thickness:</label>
+          <div class="input-wrapper">
+            <input required type="number" class="form-input" id="skin-thickness" name="Skin Thickness" step="1" min="0" max="100" />
+            <div class="error-message"></div>
+            <div class="tooltip">Enter skin thickness between 0-100 mm</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">Insulin:</label>
+          <div class="input-wrapper">
+            <input required type="number" class="form-input" id="insulin" name="Insulin" step="0.1" min="0" max="1000" />
+            <div class="error-message"></div>
+            <div class="tooltip">Enter insulin level between 0-1000 µU/mL</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">BMI:</label>
+          <div class="input-wrapper">
+            <input required type="number" class="form-input" id="bmi" name="BMI" step="0.1" min="0" max="100" />
+            <div class="error-message"></div>
+            <div class="tooltip">Enter BMI between 0-100</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">Diabetes Pedigree Function:</label>
+          <div class="input-wrapper">
+            <input required type="number" class="form-input" id="dpf" name="Diabetes Pedigree Function" step="0.001" min="0" max="3" />
+            <div class="error-message"></div>
+            <div class="tooltip">Enter value between 0-3</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">Age:</label>
+          <div class="input-wrapper">
+            <input required type="number" class="form-input" id="age" name="Age" step="1" min="0" max="120" />
+            <div class="error-message"></div>
+            <div class="tooltip">Enter age between 0-120 years</div>
+          </div>
+        </div>
+
+        <button class="submit-btn" type="submit">Generate Prediction</button>
+
+        <div class="result {% if result2 == 'positive' %}
+            
+            
+            
+            
+            
+            
+            
+
+            positive
+
+
+
+
+
+
+
+          {% else %}
+            
+            
+            
+            
+            
+            
+            
+
+            negative
+
+
+
+
+
+
+
+
+          {% endif %}">
+          {% if result2 %}
+            Result : {{ result2 }}
+          {% else %}
+            Please fill out the form to see the result.
+          {% endif %}
+        </div>
+      </form>
+
+      <script>
+        document.querySelector('.result').classList.add('visible')
+        
+        document.addEventListener('DOMContentLoaded', function () {
+          const form = document.querySelector('.form')
+        
+          // Validation rules
+          const validationRules = {
+            Pregnancies: {
+              min: 0,
+              max: 20,
+              validate: (value) => {
+                const num = parseInt(value)
+                return num >= 0 && num <= 20
+              },
+              message: 'Number of pregnancies must be between 0 and 20'
+            },
+            Glucose: {
+              min: 0,
+              max: 300,
+              validate: (value) => {
+                const num = parseInt(value)
+                return num >= 0 && num <= 300
+              },
+              message: 'Glucose level must be between 0 and 300 mg/dL'
+            },
+            'Blood Pressure': {
+              min: 0,
+              max: 200,
+              validate: (value) => {
+                const num = parseInt(value)
+                return num >= 0 && num <= 200
+              },
+              message: 'Blood pressure must be between 0 and 200 mm Hg'
+            },
+            'Skin Thickness': {
+              min: 0,
+              max: 100,
+              validate: (value) => {
+                const num = parseInt(value)
+                return num >= 0 && num <= 100
+              },
+              message: 'Skin thickness must be between 0 and 100 mm'
+            },
+            Insulin: {
+              min: 0,
+              max: 1000,
+              validate: (value) => {
+                const num = parseFloat(value)
+                return num >= 0 && num <= 1000
+              },
+              message: 'Insulin must be between 0 and 1000 µU/mL'
+            },
+            BMI: {
+              min: 0,
+              max: 100,
+              validate: (value) => {
+                const num = parseFloat(value)
+                return num >= 0 && num <= 100
+              },
+              message: 'BMI must be between 0 and 100'
+            },
+            'Diabetes Pedigree Function': {
+              min: 0,
+              max: 3,
+              validate: (value) => {
+                const num = parseFloat(value)
+                return num >= 0 && num <= 3
+              },
+              message: 'Diabetes pedigree function must be between 0 and 3'
+            },
+            Age: {
+              min: 0,
+              max: 120,
+              validate: (value) => {
+                const num = parseInt(value)
+                return num >= 0 && num <= 120
+              },
+              message: 'Age must be between 0 and 120 years'
+            }
+          }
+        
+          // Create and append error message element
+          function createErrorElement(input) {
+            const errorDiv = document.createElement('div')
+            errorDiv.className = 'error-message'
+            input.parentElement.appendChild(errorDiv)
+            return errorDiv
+          }
+        
+          // Show error message
+          function showError(input, message) {
+            const errorElement = input.parentElement.querySelector('.error-message') || createErrorElement(input)
+            errorElement.textContent = message
+            errorElement.style.display = 'block'
+            input.classList.add('invalid')
+          }
+        
+          // Hide error message
+          function hideError(input) {
+            const errorElement = input.parentElement.querySelector('.error-message')
+            if (errorElement) {
+              errorElement.style.display = 'none'
+            }
+            input.classList.remove('invalid')
+          }
+        
+          // Validate a single input
+          function validateInput(input) {
+            const field = input.name
+            const value = input.value
+        
+            // Required field validation
+            if (input.hasAttribute('required') && !value) {
+              showError(input, `${field.charAt(0).toUpperCase() + field.slice(1)} is required`)
+              return false
+            }
+        
+            // Specific field validation
+            if (validationRules[field]) {
+              const rule = validationRules[field]
+              if (!rule.validate(value)) {
+                showError(input, rule.message)
+                return false
+              }
+            }
+        
+            hideError(input)
+            return true
+          }
+        
+          // Add input event listeners for real-time validation
+          form.querySelectorAll('input').forEach((input) => {
+            const tooltip = input.parentElement.querySelector('.tooltip')
+        
+            // Show tooltip on focus
+            if (tooltip) {
+              input.addEventListener('focus', () => {
+                tooltip.style.display = 'block'
+              })
+        
+              input.addEventListener('blur', () => {
+                tooltip.style.display = 'none'
+                validateInput(input)
+              })
+            }
+        
+            // Real-time validation for number inputs
+            if (input.type === 'number') {
+              input.addEventListener('input', () => {
+                validateInput(input)
+              })
+            }
+        
+            // Validate on blur for all inputs
+            input.addEventListener('blur', () => {
+              validateInput(input)
+            })
+          })
+        
+          // Form submission validation
+          form.addEventListener('submit', function (e) {
+            let isValid = true
+        
+            // Validate all inputs
+            form.querySelectorAll('input').forEach((input) => {
+              if (!validateInput(input)) {
+                isValid = false
+              }
+            })
+        
+            if (!isValid) {
+              e.preventDefault()
+            }
+          })
+        })
+      </script>
+    </section>
+
+    <section id="faq-section" class="faqsection">
+      <h1 class="title">FAQs for Filling Out the Diabetes Assessment Form</h1>
+
+      <div class="questions-container">
+        <div class="question">
+          <button>
+            <span>How do I fill out the 'Pregnancies' field?</span>
+            <i class="fas fa-chevron-down d-arrow"></i>
+          </button>
+          <p>Enter the number of times you have been pregnant. If you have never been pregnant or are male, enter "0".</p>
+        </div>
+
+        <div class="question">
+          <button>
+            <span>What does 'Glucose' mean?</span>
+            <i class="fas fa-chevron-down d-arrow"></i>
+          </button>
+          <p>Input your fasting blood glucose level (measured in mg/dL). Typical values range from 70–200.</p>
+        </div>
+
+        <div class="question">
+          <button>
+            <span>What should I enter for 'Blood Pressure'?</span>
+            <i class="fas fa-chevron-down d-arrow"></i>
+          </button>
+          <p>Provide your diastolic blood pressure (measured in mm Hg). Typical values are between 60–120.</p>
+        </div>
+
+        <div class="question">
+          <button>
+            <span>What does 'Skin Thickness' refer to?</span>
+            <i class="fas fa-chevron-down d-arrow"></i>
+          </button>
+          <p>Enter the thickness of the triceps skinfold (in mm). If unknown, you can leave it blank or enter "0".</p>
+        </div>
+
+        <div class="question">
+          <button>
+            <span>What is 'Insulin'?</span>
+            <i class="fas fa-chevron-down d-arrow"></i>
+          </button>
+          <p>Input your 2-hour serum insulin level (measured in µU/mL). If unavailable, you can enter "0".</p>
+        </div>
+
+        <div class="question">
+          <button>
+            <span>How do I calculate 'BMI'?</span>
+            <i class="fas fa-chevron-down d-arrow"></i>
+          </button>
+          <p>BMI = weight (kg) / [height (m) × height (m)]. You can also use a BMI calculator or provide a value between 18.5–40.</p>
+        </div>
+
+        <div class="question">
+          <button>
+            <span>What is 'Diabetes Pedigree Function'?</span>
+            <i class="fas fa-chevron-down d-arrow"></i>
+          </button>
+          <p>This value indicates the likelihood of diabetes based on family history. If unknown, enter "0.0". Values typically range from 0.1–2.5.</p>
+        </div>
+      </div>
+
+      <script>
+        // JavaScript for FAQ functionality
+        const buttons = document.querySelectorAll('.question button')
+        
+        buttons.forEach((button) => {
+          button.addEventListener('click', () => {
+            const faq = button.nextElementSibling
+            const icon = button.children[1]
+        
+            faq.classList.toggle('show')
+            icon.classList.toggle('rotate')
+          })
+        })
+        document.addEventListener('DOMContentLoaded', function () {
+          // Get the link element
+          const scrollLink = document.getElementById('scroll-to-faq')
+        
+          // Add click event listener to the link
+          scrollLink.addEventListener('click', function (e) {
+            e.preventDefault() // Prevent the default anchor behavior
+        
+            // Get the FAQ section element
+            const faqSection = document.getElementById('faq-section')
+        
+            // Calculate the position of the FAQ section
+            const position = faqSection.getBoundingClientRect().top + window.pageYOffset
+        
+            // Scroll to the FAQ section with an offset
+            window.scrollTo({
+              top: position - 90, //Adjust this value to set how much higher you want it (e.g., 50px)
+              behavior: 'smooth'
+            })
+          })
+        })
+      </script>
+    </section>
+
+    <hr class="custom-line" />
+
+    <section class="footer">
+      <div class="footerobody">
+        <div class="footerbody">
+          <div class="footer-content">
+            <img src="{% static '/images/logo100.png' %}" alt="" />
+            <div class="sugarsense">
+              <p>SUGAR SENSE</p>
+            </div>
+            <p>
+              20, Genting Klang, Setapak, Kuala Lumpur<br />Tel: +60 18-218 9169 / +60 11-2769 6820
+            </p>
+
+            <div class="icons">
+              <a href="#"><i class="bx bxl-meta"></i></a>
+              <a href="#"><i class="bx bx-x"></i></a>
+              <a href="#"><i class="bx bxl-instagram"></i></a>
+              <a href="#"><i class="bx bxl-youtube"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-content">
+            <h4>COMPANY</h4>
+            <li>
+              <a href="ourvalues">About Us</a>
+            </li>
+            <li>
+              <a href="leadership">Our Leadership</a>
+            </li>
+            <li>
+              <a href="careers">Careers</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>SERVICES</h4>
+            <li>
+              <a href="prediction">Diabetes Prediction</a>
+            </li>
+            <li>
+              <a href="recommendation">Diet Recommendations</a>
+            </li>
+            <li>
+              <a href="appointment">Appointment Form</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>USERFUL INFO</h4>
+            <li>
+              <a href="research">Research</a>
+            </li>
+            <li>
+              <a href="contactus">Contact us</a>
+            </li>
+            <li>
+              <a href="profiles">Account Settings</a>
+            </li>
+            <li>
+              <a href="predictionshistory">History</a>
+            </li>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+{% endblock %}

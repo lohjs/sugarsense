@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static '/css/research.css' %}" />
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+
+  <body>
+    <section class="ourvalues">
+      <div class="ourvaluesbody">
+        <img src="{% static '/images/research.png' %}" height="420px" width="100%" alt="" />
+        <div class="info">
+          <h2>Research</h2>
+        </div>
+      </div>
+    </section>
+
+    <div class="researchcontainer" id="factors">
+      <div class="image">
+        <img src="{% static '/images/factors.png' %}" alt="" />
+      </div>
+      <div class="details">
+        <h3>23 January 2025</h3>
+        <h2>Key Predictors of Diabetes Risk Beyond Weight</h2>
+        <p>A study of 45,000 participants found that age, sex, and fasting plasma glucose (FPG) levels are key predictors of diabetes, beyond just weight. Even FPG levels slightly above normal (80–94 mg/dL) increase risk, especially for men and older adults. The findings stress the need for broader diabetes prevention strategies.</p>
+        <div class="buttons">
+          <a href="factors">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="researchcontainer" id="drunkfood">
+      <div class="image2">
+        <img src="{% static '/images/drunkfood123.png' %}" alt="" />
+      </div>
+      <div class="details2">
+        <h3>9 January 2025</h3>
+        <h2>Impact of Diet</h2>
+        <p>Recent studies have identified a link between the consumption of ultra-processed foods and an increased risk of type 2 diabetes. Specifically, savory snacks, processed meats, ready-to-eat meals, and sweetened beverages have been associated with a higher incidence of the condition.</p>
+        <div class="buttons">
+          <a href="diet">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="researchcontainer" id="food">
+      <div class="image">
+        <img src="{% static '/images/food.png' %}" alt="" />
+      </div>
+      <div class="details">
+        <h3>8 January 2025</h3>
+        <h2>Eating Well & Managing Diabetes | ADA</h2>
+        <p>The American Diabetes Association (ADA) provides comprehensive guidelines on healthy eating for diabetes management. The ADA recommends the Diabetes Plate Method, which involves filling half the plate with non-starchy vegetables, a quarter with lean proteins, and a quarter with quality carbohydrates. This approach helps in maintaining balanced nutrition and controlling blood sugar levels. </p>
+        <div class="buttons">
+          <a href="food">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="researchcontainer" id="chocolate">
+      <div class="image2">
+        <img src="{% static '/images/chocolate.png' %}" alt="" />
+      </div>
+      <div class="details2">
+        <h3>10 December 2024</h3>
+        <h2>Dark Chocolate Consumption May Reduce Type 2 Diabetes Risk</h2>
+        <p>Regular dark chocolate consumption may lower type 2 diabetes risk by 21%, thanks to its antioxidants and flavonoids that improve insulin sensitivity. Moderation is key to avoid excess calories.</p>
+        <div class="buttons">
+          <a href="chocolate">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="researchcontainer" id="treatment">
+      <div class="image">
+        <img src="{% static '/images/research11.png' %}" alt="" />
+      </div>
+      <div class="details">
+        <h3>14 September 2024</h3>
+        <h2>Advancements in Treatment</h2>
+        <p>Richard DiMarchi's work has led to significant progress in diabetes treatment, including the development of fast-acting insulins like Humalog and medications such as Ozempic and Mounjaro that manage type 2 diabetes without insulin and aid in weight loss.</p>
+        <div class="buttons">
+          <a href="treatment">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="researchcontainer" id="weightloss">
+      <div class="image2">
+        <img src="{% static '/images/weightloss.png' %}" alt="" />
+      </div>
+      <div class="details2">
+        <h3>3 September 2024</h3>
+        <h2>Blood Fats as Predictors of Weight Loss Success in Prediabetes Management</h2>
+        <p>Research from the Centenary Institute has identified specific blood fats that can predict how effectively individuals with prediabetes will improve their blood sugar levels through diet and weight loss. These findings could pave the way for more personalized approaches to preventing and managing type 2 diabetes.</p>
+        <div class="buttons">
+          <a href="weightloss">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Function to smoothly scroll to a section
+        function smoothScrollToSection(targetId) {
+          const targetElement = document.getElementById(targetId)
+          if (targetElement) {
+            // Use scrollIntoView for smooth scrolling
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            })
+      
+            // Optional: Add slight offset if needed
+            const offset = 80 // Adjust based on your navbar height
+            window.scrollBy(0, -offset)
+          }
+        }
+      
+        // Handle both internal and external page navigation
+        document.querySelectorAll('a[href*="#"]').forEach((anchor) => {
+          anchor.addEventListener('click', function (e) {
+            // Check if the link is to a different page
+            const isExternalLink = this.hostname !== window.location.hostname
+            const targetId = this.getAttribute('href').split('#')[1]
+      
+            if (isExternalLink) {
+              // For external links, store the section in sessionStorage
+              sessionStorage.setItem('scrollToSection', targetId)
+            } else {
+              // For internal links, scroll immediately
+              e.preventDefault()
+              smoothScrollToSection(targetId)
+            }
+          })
+        })
+      
+        // Check if we need to scroll to a section after page load
+        const sectionToScroll = sessionStorage.getItem('scrollToSection')
+        if (sectionToScroll) {
+          // Wait a short moment to ensure page is fully loaded
+          setTimeout(() => {
+            smoothScrollToSection(sectionToScroll)
+            sessionStorage.removeItem('scrollToSection')
+          }, 100)
+        }
+      })
+    </script>
+
+    <hr class="custom-line" />
+
+    <section class="footer">
+      <div class="footerobody">
+        <div class="footerbody">
+          <div class="footer-content">
+            <img src="{% static '/images/logo100.png' %}" alt="" />
+            <div class="sugarsense">
+              <p>SUGAR SENSE</p>
+            </div>
+            <p>
+              20, Genting Klang, Setapak, Kuala Lumpur<br />Tel: +60 18-218 9169 / +60 11-2769 6820
+            </p>
+
+            <div class="icons">
+              <a href="#"><i class="bx bxl-meta"></i></a>
+              <a href="#"><i class="bx bx-x"></i></a>
+              <a href="#"><i class="bx bxl-instagram"></i></a>
+              <a href="#"><i class="bx bxl-youtube"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-content">
+            <h4>COMPANY</h4>
+            <li>
+              <a href="ourvalues">About Us</a>
+            </li>
+            <li>
+              <a href="leadership">Our Leadership</a>
+            </li>
+            <li>
+              <a href="careers">Careers</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>SERVICES</h4>
+            <li>
+              <a href="prediction">Diabetes Prediction</a>
+            </li>
+            <li>
+              <a href="recommendation">Diet Recommendations</a>
+            </li>
+            <li>
+              <a href="appointment">Appointment Form</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>USERFUL INFO</h4>
+            <li>
+              <a href="research">Research</a>
+            </li>
+            <li>
+              <a href="contactus">Contact us</a>
+            </li>
+            <li>
+              <a href="profiles">Account Settings</a>
+            </li>
+            <li>
+              <a href="predictionshistory">History</a>
+            </li>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+{% endblock %}

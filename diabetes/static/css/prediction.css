@@ -1,0 +1,1195 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+
+/* Navigation Styles */
+.navigationOutside {
+    box-sizing: border-box;
+    outline: none;
+    overflow: visible;
+    /* Ensure submenus are not clipped */
+    position: sticky;
+    /* Make the navbar sticky */
+    top: 0;
+    /* Stick to the top of the viewport */
+    z-index: 1000;
+    /* Ensure it stays above other elements */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.137);
+    background-color: rgb(255, 250, 250);
+    height: 12vh;
+}
+
+.navigationBody {
+    overflow-x: visible;
+    /* Allow horizontal overflow if needed */
+    color: black;
+}
+
+.navigationOutside .navigationBody header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 130px;
+
+}
+
+.navigationOutside .navigationBody .navigationLogo {
+    display: flex;
+    align-items: center;
+    color: #2c3e50;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    gap: 10px;
+}
+
+
+.navigationOutside .navigationBody .navigationLogo img {
+    width: 62px;
+    height: 62px;
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+.navigationOutside .navigationBody ul li {
+    display: inline-block;
+    list-style: none;
+    margin: 0 30px;
+    position: relative;
+    /* Required for submenu positioning */
+}
+
+.navigationOutside .navigationBody ul li:last-child {
+    margin-right: 0;
+}
+
+.navigationOutside .navigationBody li a {
+    text-decoration: none;
+    color: black;
+    padding: 22px 0;
+    display: inline-block;
+    transition: all ease 0.3s;
+    font-size: 18px;
+}
+
+.navigationOutside .navigationBody ul li a:hover {
+    color: lightblue;
+}
+
+/* Default active state styling */
+.navigationOutside .navigationBody ul li a.active {
+    color: #002068;
+    font-weight: bold;
+    /* Optional for emphasis */
+}
+
+/* Restrict ::after to top-level links only */
+.navigationOutside .navigationBody>header>nav>ul>li>a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 15px;
+    width: 100%;
+    height: 2px;
+    background: #002068;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover effect for top-level links */
+.navigationOutside .navigationBody>header>nav>ul>li>a:hover::after {
+    transform: scaleX(1);
+}
+
+/* Ensure submenu links are unaffected by the hover underline */
+.navigationOutside .navigationBody ul .submenu li a::after {
+    content: none;
+}
+
+
+/* Submenu Styles */
+.navigationOutside .navigationBody ul .submenu {
+    position: absolute;
+    top: 100%;
+    /* Position submenu below parent menu item */
+    left: 0;
+    width: 200px;
+    background-color: white;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99;
+    /* Ensure it is above other elements */
+    transition: all ease 0.3s;
+    max-height: 300px;
+    /* Limit height if needed for long menus */
+    overflow-y: auto;
+    /* Add vertical scrolling for long menus */
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount {
+    position: absolute;
+    top: 100%;
+    /* Position submenu below parent menu item */
+    right: 0;
+    width: 200px;
+    background-color: white;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99;
+    /* Ensure it is above other elements */
+    transition: all ease 0.3s;
+    max-height: 300px;
+    /* Limit height if needed for long menus */
+    overflow-y: auto;
+    /* Add vertical scrolling for long menus */
+}
+
+
+.navigationOutside .navigationBody ul li:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.navigationOutside .navigationBody .navigationAccount ul li:hover .submenuAccount {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Submenu Item Styles */
+.navigationOutside .navigationBody ul .submenu li {
+    margin: 0;
+    width: 100%;
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount li {
+    margin: 0;
+    width: 100%;
+}
+
+.navigationOutside .navigationBody ul .submenu li a {
+    padding: 15px 20px;
+    display: inline-block;
+    width: 100%;
+    color: black;
+    /* Change text color for submenu items */
+    text-decoration: none;
+    transition: background-color ease 0.3s;
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount li a {
+    padding: 15px 20px;
+    display: inline-block;
+    width: 100%;
+    color: black;
+    /* Change text color for submenu items */
+    text-decoration: none;
+    transition: background-color ease 0.3s;
+    font-size: 18px;
+}
+
+.navigationOutside .navigationBody ul .submenu li a:hover {
+    background-color: rgba(121, 123, 124, 0.18);
+    /* Highlight submenu items on hover */
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount li a:hover {
+    background-color: rgba(121, 123, 124, 0.18);
+    /* Highlight submenu items on hover */
+}
+
+/*account submenu*/
+
+.navigationOutside .navigationBody .navigationAccount a {
+    font-size: 30px;
+    color: black;
+}
+
+.navigationOutside .navigationBody .navigationAccount a:hover {
+    color: lightblue;
+}
+
+/* Default active state styling */
+.navigationOutside .navigationBody .navigationAccount a.active {
+    color: #002068;
+    font-weight: bold;
+    /* Optional for emphasis */
+}
+
+
+.ourvalues .ourvaluesbody .info {
+    position: absolute;
+    bottom: 20%;
+    width: 93.4%;
+    text-align: center;
+    left: 3.6%;
+    padding-bottom: 100px;
+}
+
+.ourvalues .ourvaluesbody .info h2 {
+    color: white;
+    font-size: 70px;
+    font-weight: 460;
+    letter-spacing: 2px;
+
+}
+
+
+
+@media (max-width: 1120px) {
+
+    .navigationOutside {
+        width: 1100px;
+    }
+
+    .navigationOutside .navigationBody header {
+        padding: 0 50px;
+    }
+
+    .navigationOutside .navigationBody ul li {
+        margin: 0 15px;
+    }
+
+    .ourvalues img {
+        width: 1100px;
+    }
+
+    .ourvalues .ourvaluesbody .info {
+        position: absolute;
+        bottom: 30%;
+        width: 93.4%;
+        text-align: center;
+        left: 8%;
+        padding-bottom: 100px;
+    }
+
+}
+
+@media (max-width: 770px) {
+
+    .navigationOutside {
+        width: 1320px;
+    }
+
+    .navigationOutside .navigationBody header {
+        padding: 0 50px;
+        bottom: -10px;
+        position: absolute;
+    }
+
+    .navigationOutside .navigationBody ul li {
+        margin: 0 15px;
+    }
+
+    .ourvalues img {
+        width: 1100px;
+    }
+
+    .ourvalues .ourvaluesbody .info {
+        position: absolute;
+        bottom: 30%;
+        width: 93.4%;
+        text-align: center;
+        left: 8%;
+        padding-bottom: 100px;
+    }
+
+}
+
+
+
+
+@media screen and (max-width: 770px) {
+    .ourvalues .ourvaluesbody .info {
+        position: absolute;
+        bottom: 20%;
+        width: 1300px;
+        text-align: center;
+        margin-left: -50px;
+        padding-bottom: 50px;
+    }
+
+
+    .ourvalues .ourvaluesbody img {
+        width: 1320px;
+    }
+
+
+}
+
+@media screen and (max-width: 330px) {
+    .ourvalues .ourvaluesbody .info {
+        position: absolute;
+        bottom: 20%;
+        width: 1300px;
+        text-align: center;
+        margin-left: -50px;
+        padding-bottom: 50px;
+    }
+
+
+    .ourvalues .ourvaluesbody img {
+        width: 1280px;
+    }
+
+
+}
+
+
+.informationbackground {
+    background-color: #f7f8fc;
+    height: 89vh;
+    margin-top: -20px;
+    background-size: cover;
+    /* Ensure the background doesn't move */
+    position: relative;
+    /* This allows children to respond to z-index */
+}
+
+.informationbackground h2 {
+    color: #002068;
+    padding-left: 60px;
+    padding-top: 85px;
+    max-width: 600px;
+    /* Limits the width of the content */
+    margin-bottom: 0;
+    /* Removes unnecessary negative margin */
+}
+
+.informationbackground p {
+    color: #002068;
+    padding-left: 60px;
+    padding-top: 20px;
+    /* Reduced padding for better alignment */
+    max-width: 600px;
+    /* Limits the width of the content */
+    line-height: 1.8;
+    /* Improved line spacing for readability */
+    margin-bottom: 15px;
+    /* Positive margin for better paragraph spacing */
+}
+
+.informationbackground h2,
+.informationbackground p a {
+    position: relative;
+    /* Allows z-index to work */
+    z-index: 10;
+    /* Bring the text/link to the front */
+}
+
+.informationbackground p a {
+    color: #0056b3;
+    /* Link color */
+    text-decoration: none;
+    /* Removes underline */
+    transition: all 0.3s ease;
+    /* Smooth transition for color change and other effects */
+}
+
+.informationbackground p a:hover {
+    color: #005F9E;
+    /* New color on hover for better contrast */
+    text-decoration: underline;
+    /* Underline on hover */
+    font-weight: bold;
+    /* Adds bold effect on hover */
+    letter-spacing: 0.5px;
+    /* Slight letter spacing for effect */
+}
+
+.informationbackground p a:focus {
+    outline: none;
+    /* Removes the default focus outline for a cleaner look */
+}
+
+
+/* Form Layout Styles */
+.predict {
+    min-height: calc(100vh - 150px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px;
+    padding-left: 680px;
+    top: -620px;
+    position: relative;
+}
+
+.form {
+    background-color: #fff;
+    box-shadow: 0 8px 24px rgba(0, 32, 104, 0.15);
+    padding: 40px;
+    width: 700px;
+    max-width: 100%;
+}
+
+.form-group {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 65px;
+    position: relative;
+}
+
+.form-group2 {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 88px;
+    position: relative;
+}
+
+.field-label {
+    flex: 0 0 200px;
+    text-align: right;
+    padding: 12px 24px 0 0;
+    font-weight: 600;
+    color: #002068;
+    font-size: 16px;
+}
+
+.input-wrapper {
+    flex: 1;
+    position: relative;
+}
+
+/* Input Styles */
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-input:hover {
+    border-color: #002068;
+}
+
+.form-input:focus {
+    border-color: #002068;
+    box-shadow: 0 0 0 3px rgba(0, 32, 104, 0.2);
+    outline: none;
+}
+
+
+
+/* Error and Tooltip Styles */
+.error-message {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 4px;
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tooltip {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f8f9fa;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+    display: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    animation: fadeIn 0.3s ease;
+    max-width: 300px;
+}
+
+.input-wrapper:hover .tooltip {
+    display: block;
+}
+
+.form-input.invalid {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
+}
+
+/* Submit Button Styles */
+.submit-btn {
+    background-color: white;
+    color: #002068;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 8px;
+    border: 1px solid #002068;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 12px;
+    width: auto;
+    display: block;
+    margin: 24px auto 0;
+}
+
+.submit-btn:hover {
+    background-color: #001845;
+    color: white;
+}
+
+
+
+
+/* Keyframe Animations */
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(4px);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Error Message Styling */
+.error-message {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 15px;
+    display: none;
+    animation: slideUpFade 0.3s ease forwards;
+    padding: 4px 8px;
+    background-color: rgba(220, 53, 69, 0.1);
+    border-left: 3px solid #dc3545;
+}
+
+.form-input.invalid {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
+    animation: shake 0.4s ease-in-out;
+}
+
+/* Custom Alert Styles */
+.custom-alert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s;
+}
+
+.custom-alert.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.custom-alert-box {
+    background: #002068;
+    color: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    width: 350px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.3s ease-out;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    transform: scale(0.9);
+    opacity: 0;
+}
+
+.custom-alert.show .custom-alert-box {
+    transform: scale(1);
+    opacity: 1;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.alert-message {
+    padding: 12px;
+    border-radius: 8px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.custom-alert-box button {
+    background: #ffffff;
+    color: #002068;
+    border: none;
+    padding: 12px 22px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.4);
+}
+
+.custom-alert-box button:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 255, 255, 0.5);
+}
+
+.custom-alert-box button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.4);
+}
+
+/* Tooltip enhancement */
+.tooltip {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f8f9fa;
+    padding: 8px 12px;
+    color: #666;
+    margin-top: 15px;
+    display: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    animation: slideUpFade 0.3s ease;
+    max-width: 700px;
+}
+
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    color: #4CAF50;
+    ;
+    font-size: 1.5em;
+    text-align: center;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+
+/* When the result is displayed (with JavaScript or templating logic), it fades in and comes from below */
+.result.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Optionally, add a smooth transition effect for hover */
+.result:hover {
+    transform: scale(1.05);
+}
+
+
+
+@media screen and (max-width: 1120px) {
+
+
+    .informationbackground {
+        background-color: #f7f8fc;
+        height: 70vh;
+        margin-top: -20px;
+        width: 1100px;
+
+        background-size: cover;
+        /* Ensure the background doesn't move */
+        position: relative;
+        /* This allows children to respond to z-index */
+    }
+
+
+    .informationbackground h2 {
+        color: #002068;
+        padding-left: 100px;
+        padding-top: 85px;
+        max-width: 1300px;
+        /* Limits the width of the content */
+        margin-bottom: 0;
+        /* Removes unnecessary negative margin */
+    }
+
+    .informationbackground p {
+        color: #002068;
+        padding-left: 100px;
+        padding-top: 20px;
+        /* Reduced padding for better alignment */
+        max-width: 1000px;
+        /* Limits the width of the content */
+        line-height: 1.8;
+        /* Improved line spacing for readability */
+        margin-bottom: 15px;
+        /* Positive margin for better paragraph spacing */
+    }
+
+    .predict {
+        position: absolute;
+        bottom: 20%;
+        text-align: center;
+        padding-left: 250px;
+        bottom: -3220px;
+    }
+}
+
+@media screen and (max-width: 770px) {
+
+
+    .informationbackground {
+        background-color: #f7f8fc;
+        height: 90vh;
+        margin-top: -20px;
+        width: 1320px;
+
+        background-size: cover;
+        /* Ensure the background doesn't move */
+        position: relative;
+        /* This allows children to respond to z-index */
+    }
+
+
+    .informationbackground h2 {
+        color: #002068;
+        padding-left: 100px;
+        padding-top: 85px;
+        max-width: 1200px;
+        /* Limits the width of the content */
+        margin-bottom: 0;
+        /* Removes unnecessary negative margin */
+    }
+
+    .informationbackground p {
+        color: #002068;
+        padding-left: 100px;
+        padding-top: 20px;
+        /* Reduced padding for better alignment */
+        max-width: 1200px;
+        /* Limits the width of the content */
+        line-height: 1.8;
+        /* Improved line spacing for readability */
+        margin-bottom: 15px;
+        /* Positive margin for better paragraph spacing */
+    }
+
+    .predict {
+        position: absolute;
+        bottom: 20%;
+        text-align: center;
+        padding-left: 300px;
+        bottom: -3400px;
+    }
+}
+
+
+@media screen and (max-width: 350px) {
+
+
+    .informationbackground {
+        background-color: #f7f8fc;
+        height: 90vh;
+        margin-top: -20px;
+        width: 1280px;
+
+        background-size: cover;
+        /* Ensure the background doesn't move */
+        position: relative;
+        /* This allows children to respond to z-index */
+    }
+
+
+    .informationbackground h2 {
+        color: #002068;
+        padding-left: 380px;
+        padding-top: 85px;
+        max-width: 1200px;
+        /* Limits the width of the content */
+        margin-bottom: 0;
+        /* Removes unnecessary negative margin */
+    }
+
+    .informationbackground p {
+        color: #002068;
+        padding-left: 100px;
+        padding-top: 20px;
+        /* Reduced padding for better alignment */
+        max-width: 1200px;
+        /* Limits the width of the content */
+        line-height: 1.8;
+        /* Improved line spacing for readability */
+        margin-bottom: 15px;
+        /* Positive margin for better paragraph spacing */
+    }
+
+    .predict {
+        position: absolute;
+        bottom: 20%;
+        text-align: center;
+        padding-left: 300px;
+        bottom: -3350px;
+    }
+}
+
+
+
+
+.faqsection {
+    background-color: #f7f8fc;
+    /* Light blue background */
+    padding: 40px 20px;
+    /* Add some padding around the FAQ */
+    position: relative;
+    /* For additional positioning if needed */
+    top: -588px;
+    /* Aligns with your current positioning */
+}
+
+.title {
+    font-size: 25px;
+    text-align: center;
+    margin-top: 80px;
+    margin-bottom: 40px;
+    position: relative;
+    top: -50px;
+}
+
+.questions-container {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    top: -50px;
+    padding: 20px;
+}
+
+.question {
+    border-bottom: 1px solid #ddd;
+    /* Subtle border for separation */
+    margin-bottom: 18px;
+
+}
+
+.question button {
+    width: 100%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    color: #002068;
+    /* Theme color for text */
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.question button:hover {
+    background-color: #e3eafc;
+    /* Lighter blue on hover */
+    color: #0056b3;
+    /* Darker blue text on hover */
+}
+
+.question p {
+    font-size: 15px;
+    max-height: 0;
+    opacity: 0;
+    line-height: 1.5;
+    overflow: hidden;
+    transition: all 0.6s ease;
+    color: #797b7c;
+    /* Darker text for readability */
+    margin: 0;
+    padding: 0 20px;
+    /* Padding to align with button text */
+}
+
+.question p.show {
+    max-height: 200px;
+    opacity: 1;
+    padding: 15px 20px;
+    background-color: #ffffff;
+    /* Consistent background for text */
+}
+
+.question button .d-arrow {
+    transition: transform 0.5s ease-in;
+    color: #002068;
+    /* Matching theme color */
+    font-size: 24px;
+    /* Larger icon for visibility */
+}
+
+.question button:hover .d-arrow {
+    color: #0056b3;
+    /* Matching hover color */
+}
+
+.question button .d-arrow.rotate {
+    transform: rotate(180deg);
+}
+
+
+
+
+@media screen and (max-width: 1100px) {
+    .faqsection {
+        background-color: #f7f8fc;
+        /* Light blue background */
+        padding: 40px 20px;
+        /* Add some padding around the FAQ */
+        position: relative;
+        /* For additional positioning if needed */
+        top: 1300px;
+        /* Aligns with your current positioning */
+        width: 1100px;
+    }
+
+}
+
+
+@media screen and (max-width: 770px) {
+    .faqsection {
+        background-color: #f7f8fc;
+        /* Light blue background */
+        padding: 40px 20px;
+        /* Add some padding around the FAQ */
+        position: relative;
+        /* For additional positioning if needed */
+        top: 1350px;
+        /* Aligns with your current positioning */
+        width: 1320px;
+    }
+
+}
+
+@media screen and (max-width: 350px) {
+    .faqsection {
+        background-color: #f7f8fc;
+        /* Light blue background */
+        padding: 40px 20px;
+        /* Add some padding around the FAQ */
+        position: relative;
+        /* For additional positioning if needed */
+        top: 1300px;
+        /* Aligns with your current positioning */
+        width: 1280px;
+    }
+
+}
+
+
+
+/* br line */
+
+.custom-line {
+    border: 0;
+    height: 2px;
+    background: rgb(173, 191, 230);
+    width: 50%;
+    margin: 10px auto;
+    margin-top: -490px;
+}
+
+
+/* footer */
+
+.footer {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Work Sans', sans-serif;
+}
+
+.footerobody {
+    height: 50vh;
+    width: 100%;
+    background: white;
+}
+
+.footerbody {
+    padding: 80px 8% 70px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+    gap: 3.5rem;
+    background: white;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.footer .footerobody .footerbody .footer-content .sugarsense {
+    color: #797b7c;
+    font-size: larger;
+}
+
+
+.footer-content h4 {
+    color: #797b7c;
+    margin-bottom: 1.5rem;
+    font-size: 20px;
+
+}
+
+.footer-content li {
+    margin-bottom: 16px;
+
+}
+
+.footer-content li a {
+    display: block;
+    color: black;
+    font-size: 15px;
+    font-weight: 400;
+    transition: all .40s ease;
+    text-decoration: none;
+}
+
+.footer-content li a:hover {
+    transform: translateY(-3px) translateX(-5px);
+    color: black;
+}
+
+.footer-content p {
+    color: black;
+    font-size: 16px;
+    line-height: 30px;
+    margin: 20px 0;
+}
+
+.icons a {
+    display: inline-block;
+    font-size: 22px;
+    color: black;
+    margin-right: 17px;
+    transition: all .40s ease;
+}
+
+.icons a:hover {
+    color: black;
+    transform: translateY(-5px);
+}
+
+@media screen and (max-width: 1120px) {
+    .custom-line {
+        border: 0;
+        height: 2px;
+        background: rgb(173, 191, 230);
+        width: 600px;
+        margin: 10px auto;
+        margin-top: 1400px;
+        margin-left: 300px;
+    }
+
+    .footer {
+        padding-top: 20px;
+        width: 1100px;
+
+    }
+
+    .footerbody {
+        width: 1100px;
+        padding-left: 50px;
+    }
+
+}
+
+@media screen and (max-width: 770px) {
+    .custom-line {
+        border: 0;
+        height: 2px;
+        background: rgb(173, 191, 230);
+        width: 600px;
+        margin: 10px auto;
+        margin-top: 1500px;
+        margin-left: 400px;
+    }
+
+    .footer {
+        padding-top: 100px;
+        width: 1320px;
+
+    }
+
+    .footerbody {
+        width: 1320px;
+        padding-left: 110px;
+    }
+
+}
+
+@media screen and (max-width: 350px) {
+    .custom-line {
+        border: 0;
+        height: 2px;
+        background: rgb(173, 191, 230);
+        width: 600px;
+        margin: 10px auto;
+        margin-top: 1450px;
+        margin-left: 400px;
+    }
+
+    .footer {
+        padding-top: 100px;
+        width: 1100px;
+
+    }
+
+    .footerbody {
+        width: 1100px;
+        padding-left: 106px;
+    }
+
+}

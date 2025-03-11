@@ -1,0 +1,927 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+
+/* Navigation Styles */
+.navigationOutside {
+    box-sizing: border-box;
+    outline: none;
+    overflow: visible;
+    /* Ensure submenus are not clipped */
+    position: sticky;
+    /* Make the navbar sticky */
+    top: 0;
+    /* Stick to the top of the viewport */
+    z-index: 1000;
+    /* Ensure it stays above other elements */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.137);
+    background-color: rgb(255, 250, 250);
+    height: 12vh;
+}
+
+.navigationBody {
+    overflow-x: visible;
+    /* Allow horizontal overflow if needed */
+    color: black;
+}
+
+.navigationOutside .navigationBody header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 130px;
+
+}
+
+.navigationOutside .navigationBody .navigationLogo {
+    display: flex;
+    align-items: center;
+    color: #2c3e50;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    gap: 10px;
+}
+
+
+.navigationOutside .navigationBody .navigationLogo img {
+    width: 62px;
+    height: 62px;
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+.navigationOutside .navigationBody ul li {
+    display: inline-block;
+    list-style: none;
+    margin: 0 30px;
+    position: relative;
+    /* Required for submenu positioning */
+}
+
+.navigationOutside .navigationBody ul li:last-child {
+    margin-right: 0;
+}
+
+.navigationOutside .navigationBody li a {
+    text-decoration: none;
+    color: black;
+    padding: 22px 0;
+    display: inline-block;
+    transition: all ease 0.3s;
+    font-size: 18px;
+}
+
+.navigationOutside .navigationBody ul li a:hover {
+    color: lightblue;
+}
+
+/* Default active state styling */
+.navigationOutside .navigationBody ul li a.active {
+    color: #002068;
+    font-weight: bold;
+    /* Optional for emphasis */
+}
+
+/* Restrict ::after to top-level links only */
+.navigationOutside .navigationBody>header>nav>ul>li>a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 15px;
+    width: 100%;
+    height: 2px;
+    background: #002068;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover effect for top-level links */
+.navigationOutside .navigationBody>header>nav>ul>li>a:hover::after {
+    transform: scaleX(1);
+}
+
+/* Ensure submenu links are unaffected by the hover underline */
+.navigationOutside .navigationBody ul .submenu li a::after {
+    content: none;
+}
+
+
+/* Submenu Styles */
+.navigationOutside .navigationBody ul .submenu {
+    position: absolute;
+    top: 100%;
+    /* Position submenu below parent menu item */
+    left: 0;
+    width: 200px;
+    background-color: white;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99;
+    /* Ensure it is above other elements */
+    transition: all ease 0.3s;
+    max-height: 300px;
+    /* Limit height if needed for long menus */
+    overflow-y: auto;
+    /* Add vertical scrolling for long menus */
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount {
+    position: absolute;
+    top: 100%;
+    /* Position submenu below parent menu item */
+    right: 0;
+    width: 200px;
+    background-color: white;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99;
+    /* Ensure it is above other elements */
+    transition: all ease 0.3s;
+    max-height: 300px;
+    /* Limit height if needed for long menus */
+    overflow-y: auto;
+    /* Add vertical scrolling for long menus */
+}
+
+
+.navigationOutside .navigationBody ul li:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.navigationOutside .navigationBody .navigationAccount ul li:hover .submenuAccount {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Submenu Item Styles */
+.navigationOutside .navigationBody ul .submenu li {
+    margin: 0;
+    width: 100%;
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount li {
+    margin: 0;
+    width: 100%;
+}
+
+.navigationOutside .navigationBody ul .submenu li a {
+    padding: 15px 20px;
+    display: inline-block;
+    width: 100%;
+    color: black;
+    /* Change text color for submenu items */
+    text-decoration: none;
+    transition: background-color ease 0.3s;
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount li a {
+    padding: 15px 20px;
+    display: inline-block;
+    width: 100%;
+    color: black;
+    /* Change text color for submenu items */
+    text-decoration: none;
+    transition: background-color ease 0.3s;
+    font-size: 18px;
+}
+
+.navigationOutside .navigationBody ul .submenu li a:hover {
+    background-color: rgba(121, 123, 124, 0.18);
+    /* Highlight submenu items on hover */
+}
+
+.navigationOutside .navigationBody .navigationAccount ul .submenuAccount li a:hover {
+    background-color: rgba(121, 123, 124, 0.18);
+    /* Highlight submenu items on hover */
+}
+
+/*account submenu*/
+
+.navigationOutside .navigationBody .navigationAccount a {
+    font-size: 30px;
+    color: black;
+}
+
+.navigationOutside .navigationBody .navigationAccount a:hover {
+    color: lightblue;
+}
+
+/* Default active state styling */
+.navigationOutside .navigationBody .navigationAccount a.active {
+    color: #002068;
+    font-weight: bold;
+    /* Optional for emphasis */
+}
+
+
+.ourvalues .ourvaluesbody .info {
+    position: absolute;
+    bottom: 20%;
+    width: 93.4%;
+    text-align: center;
+    left: 3.6%;
+    padding-bottom: 100px;
+}
+
+.ourvalues .ourvaluesbody .info h2 {
+    color: white;
+    font-size: 70px;
+    font-weight: 460;
+    letter-spacing: 2px;
+
+}
+
+
+.title {
+    padding: 30px 8px;
+    text-align: center;
+    /* Center-align the title */
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.title p {
+    font-size: 35px;
+    font-weight: 600;
+    position: relative;
+    color: #002068;
+}
+
+.title p::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 39%;
+    transform: translateX(-50%);
+    width: 210px;
+    height: 3px;
+    background: linear-gradient(to right, #FFCCCC, #800000);
+}
+
+/* the new css add here */
+/* Main Layout Styles */
+
+
+.history-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    margin-bottom: 600px;
+}
+
+.history-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.history-header h2 {
+    font-size: 2.5rem;
+    color: #002068;
+    margin-bottom: 1rem;
+}
+
+.history-header p {
+    color: #002068;
+    font-size: 1.1rem;
+}
+
+
+
+.filters-container {
+    max-width: 1200px;
+    margin: 1rem auto;
+    padding: 0 1rem;
+    padding-bottom: 40px;
+}
+
+.filters-form {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+}
+
+.filters-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    flex-wrap: nowrap;
+}
+
+.filter-item {
+    flex: 1;
+    min-width: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-item label {
+    font-weight: 500;
+    color: #002068;
+    font-size: 0.9rem;
+}
+
+.filter-item input,
+.filter-item select {
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    width: 100%;
+    height: 42px;
+    transition: all 0.3s ease;
+}
+
+.filter-item input:focus,
+.filter-item select:focus {
+    border-color: #4a90e2;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.filter-buttons {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 1px;
+}
+
+.reset-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    height: 42px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    background: #f8f9fa;
+    color: #4a5568;
+}
+
+.reset-button:hover {
+    background: #e2e8f0;
+}
+
+.history-card.hidden {
+    display: none;
+}
+
+/* No Results Message Styling */
+.no-results {
+    text-align: center;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+    margin-top: 1rem;
+    display: none;
+}
+
+.no-results i {
+    font-size: 2rem;
+    color: #4a90e2;
+    margin-bottom: 1rem;
+}
+
+.no-results h3 {
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.no-results p {
+    color: #666;
+}
+
+/* Active Filter Indicator */
+.filter-item.active label {
+    color: #4a90e2;
+}
+
+.filter-item.active input,
+.filter-item.active select {
+    border-color: #4a90e2;
+    background-color: #f8faff;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .filters-row {
+        flex-wrap: wrap;
+    }
+
+    .filter-item {
+        flex: 1 1 calc(50% - 1rem);
+        min-width: 150px;
+    }
+
+    .filter-buttons {
+        flex: 1 1 100%;
+        justify-content: flex-end;
+        padding-top: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-item {
+        flex: 1 1 100%;
+    }
+
+    .filter-buttons {
+        width: 100%;
+    }
+
+    .reset-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+
+/* History Card Styles */
+.history-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    padding: 2rem;
+}
+
+.history-date {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.history-date i {
+    color: #4a90e2;
+}
+
+/* Personal Stats Section */
+.personal-stats {
+    margin-bottom: 2rem;
+}
+
+.personal-stats h3 {
+    color: #002068;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.stat-item i {
+    color: #4a90e2;
+    font-size: 1.2rem;
+}
+
+.stat-item span {
+    color: #002068;
+}
+
+/* Health Metrics Section */
+.health-metrics {
+    margin-bottom: 2rem;
+}
+
+.health-metrics h3 {
+    color: #002068;
+}
+
+.metrics-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.metric-box {
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    text-align: center;
+    color: #002068;
+}
+
+
+.metric-box h4 {
+    color: #002068;
+    margin-bottom: 0.5rem;
+}
+
+.bmi-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bmi-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+}
+
+.text-success {
+    color: #28a745;
+}
+
+.text-warning {
+    color: #ffc107;
+}
+
+.text-info {
+    color: #17a2b8;
+}
+
+.text-danger {
+    color: #dc3545;
+}
+
+/* Diet Details Section */
+.diet-details {
+    margin-top: 2rem;
+}
+
+.diet-details h3 {
+    color: #002068;
+}
+
+.calorie-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin: 1rem 0;
+    color: #002068;
+}
+
+.calorie-info i {
+    color: #dc3545;
+}
+
+/* Meal Plans Section */
+.meal-plans {
+    margin-top: 1.5rem;
+}
+
+.meal-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+}
+
+.meal-tab {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #4a5568;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.meal-tab:hover {
+    color: #2b6cb0;
+}
+
+.meal-tab.active {
+    color: #2b6cb0;
+    border-bottom: 2px solid #2b6cb0;
+}
+
+.meal-content {
+    display: none;
+}
+
+.meal-content.active {
+    display: block;
+}
+
+.meal-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.meal-item {
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.meal-item h4 {
+    font-size: 1.2rem;
+    color: #002068;
+}
+
+.meal-calories {
+    font-weight: bold;
+    color: #2b6cb0;
+    font-size: 16px;
+}
+
+
+.expand-button {
+    background: none;
+    border: none;
+    color: #4299e1;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    font-size: 16px;
+}
+
+.expand-button:hover {
+    color: #2b6cb0;
+}
+
+.meal-details {
+    display: none;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.ingredients,
+.instructions {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.ingredients h5,
+.instructions h5 {
+    color: #002068;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+}
+
+.ingredients ul,
+.instructions ol {
+    padding-left: 1.5rem;
+}
+
+.ingredients li,
+.instructions li {
+    margin-bottom: 0.5rem;
+    color: #666;
+}
+
+/* No History State */
+.no-history {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+}
+
+.no-history i {
+    font-size: 3rem;
+    color: #4a90e2;
+    margin-bottom: 1rem;
+}
+
+.no-history h3 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.no-history p {
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.get-started-btn {
+    display: inline-block;
+    background: #4a90e2;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.get-started-btn:hover {
+    background: #357abd;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .history-header h2 {
+        font-size: 2rem;
+    }
+
+    .history-card {
+        padding: 1.5rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .metrics-container {
+        grid-template-columns: 1fr;
+    }
+
+    .meal-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.history-card {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Print Styles */
+@media print {
+    .history-card {
+        break-inside: avoid;
+        box-shadow: none;
+    }
+
+    .expand-button {
+        display: none;
+    }
+
+    .meal-details {
+        display: block !important;
+    }
+}
+
+
+
+
+
+
+
+/* br line */
+
+.custom-line {
+    border: 0;
+    height: 2px;
+    background: rgb(173, 191, 230);
+    width: 50%;
+    margin: 10px auto;
+    margin-top: -490px;
+}
+
+
+/* footer */
+
+.footer {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Work Sans', sans-serif;
+}
+
+.footerobody {
+    height: 50vh;
+    width: 100%;
+    background: white;
+}
+
+.footerbody {
+    padding: 80px 8% 70px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+    gap: 3.5rem;
+    background: white;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.footer .footerobody .footerbody .footer-content .sugarsense {
+    color: #797b7c;
+    font-size: larger;
+}
+
+
+.footer-content h4 {
+    color: #797b7c;
+    margin-bottom: 1.5rem;
+    font-size: 20px;
+
+}
+
+.footer-content li {
+    margin-bottom: 16px;
+
+}
+
+.footer-content li a {
+    display: block;
+    color: black;
+    font-size: 15px;
+    font-weight: 400;
+    transition: all .40s ease;
+    text-decoration: none;
+}
+
+.footer-content li a:hover {
+    transform: translateY(-3px) translateX(-5px);
+    color: black;
+}
+
+.footer-content p {
+    color: black;
+    font-size: 16px;
+    line-height: 30px;
+    margin: 20px 0;
+}
+
+.icons a {
+    display: inline-block;
+    font-size: 22px;
+    color: black;
+    margin-right: 17px;
+    transition: all .40s ease;
+}
+
+.icons a:hover {
+    color: black;
+    transform: translateY(-5px);
+}
+
+@media (max-width:1690px) {
+    .footerbody {
+        padding: 50px 5% 40px;
+    }
+}
+
+
+@media (max-width:1120px) {
+    .footer {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+        gap: 2rem;
+    }
+}
+
+@media (max-width:700px) {
+    .footer {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, auto));
+        gap: 2.5rem;
+    }
+}

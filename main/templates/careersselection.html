@@ -1,0 +1,279 @@
+{% extends 'careersemptyBase.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static '/css/careersselection.css' %}" />
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+
+  <body>
+    <section class="ourvalues">
+      <div class="ourvaluesbody">
+        <img src="{% static '/images/careersselection.png' %}" height="420px" width="100%" alt="" />
+        <div class="info">
+          <h2></h2>
+        </div>
+      </div>
+    </section>
+
+    <section class="job-filter">
+      <div class="filter-container">
+        <!-- Filter sidebar -->
+        <div class="filter-sidebar">
+          <div class="search-box">
+            <input type="text" class="search-input" placeholder="Search by job title or category" />
+          </div>
+
+          <div class="filter-group">
+            <label for="jobCategory">Job Category</label>
+            <select id="jobCategory">
+              <option value="">- Select -</option>
+              <option value="healthcare">Healthcare & Medical</option>
+              <option value="technology">Technology</option>
+              <option value="business">Business & Operations</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="jobType">Job Type</label>
+            <select id="jobType">
+              <option value="">- Select -</option>
+              <option value="full-time">Full Time</option>
+              <option value="part-time">Part Time</option>
+              <option value="contract">Contract</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="city">City</label>
+            <select id="city">
+              <option value="">- Select -</option>
+              <option value="kuala">Kuala Lumpur</option>
+              <option value="perai">Perai</option>
+              <option value="cyberjaya">Cyberjaya</option>
+              <option value="johor">Johor</option>
+            </select>
+          </div>
+
+          <button class="reset-btn">Reset Filters</button>
+        </div>
+
+        <div class="job-listings">
+          <div class="job-card" data-type="full-time">
+            <div class="job-info">
+              <h3>Diabetes Educator</h3>
+              <p class="job-category">Healthcare & Medical</p>
+              <p class="job-location">Kuala Lumpur</p>
+            </div>
+            <div class="apply-btn">
+              <a href="diabeteseducator"><input type="button" value="Apply Now" /></a>
+            </div>
+          </div>
+
+          <div class="job-card" data-type="part-time">
+            <div class="job-info">
+              <h3>Nutritionist / Dietitian</h3>
+              <p class="job-category">Healthcare & Medical</p>
+              <p class="job-location">Cyberjaya, Selangor</p>
+            </div>
+            <div class="apply-btn">
+              <a href="nutritionist"><input type="button" value="Apply Now" /></a>
+            </div>
+          </div>
+
+          <div class="job-card" data-type="full-time">
+            <div class="job-info">
+              <h3>Full-Stack Developer</h3>
+              <p class="job-category">Technology</p>
+              <p class="job-location">Cyberjaya, Selangor</p>
+            </div>
+            <div class="apply-btn">
+              <a href="fullstackdeveloper"><input type="button" value="Apply Now" /></a>
+            </div>
+          </div>
+
+          <div class="job-card" data-type="contract">
+            <div class="job-info">
+              <h3>Data Scientist</h3>
+              <p class="job-category">Technology</p>
+              <p class="job-location">Johor</p>
+            </div>
+            <div class="apply-btn">
+              <a href="datascientist"><input type="button" value="Apply Now" /></a>
+            </div>
+          </div>
+
+          <div class="job-card" data-type="full-time">
+            <div class="job-info">
+              <h3>Customer Support Specialist</h3>
+              <p class="job-category">Business & Operations</p>
+              <p class="job-location">Perai</p>
+            </div>
+            <div class="apply-btn">
+              <a href="customersupportspecialist"><input type="button" value="Apply Now" /></a>
+            </div>
+          </div>
+
+          <div class="job-card" data-type="full-time">
+            <div class="job-info">
+              <h3>Healthcare Administrator</h3>
+              <p class="job-category">Business & Operations</p>
+              <p class="job-location">Perai</p>
+            </div>
+            <div class="apply-btn">
+              <a href="healthcareadministrator"><input type="button" value="Apply Now" /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        function initializeJobFilter() {
+          // Get all filter elements
+          const searchInput = document.querySelector('.search-input')
+          const categorySelect = document.querySelector('#jobCategory')
+          const typeSelect = document.querySelector('#jobType')
+          const citySelect = document.querySelector('#city')
+          const resetBtn = document.querySelector('.reset-btn')
+          const jobCards = document.querySelectorAll('.job-card')
+        
+          // Function to filter jobs
+          function filterJobs() {
+            const searchTerm = searchInput.value.toLowerCase()
+            const categoryFilter = categorySelect.value.toLowerCase()
+            const typeFilter = typeSelect.value.toLowerCase()
+            const cityFilter = citySelect.value.toLowerCase()
+        
+            jobCards.forEach((card) => {
+              const title = card.querySelector('h3').textContent.toLowerCase()
+              const category = card.querySelector('.job-category').textContent.toLowerCase()
+              const location = card.querySelector('.job-location').textContent.toLowerCase()
+              const type = card.getAttribute('data-type').toLowerCase()
+        
+              // Check if the job matches all selected filters
+              const matchesSearch = title.includes(searchTerm) || category.includes(searchTerm)
+              const matchesCategory = categoryFilter === '' || category.includes(categoryFilter)
+              const matchesType = typeFilter === '' || type === typeFilter
+              const matchesCity = cityFilter === '' || location.includes(cityFilter)
+        
+              // Show/hide the card based on filter matches
+              if (matchesSearch && matchesCategory && matchesType && matchesCity) {
+                card.style.display = 'flex'
+              } else {
+                card.style.display = 'none'
+              }
+            })
+        
+            // Show "No results found" message if all cards are hidden
+            const visibleCards = Array.from(jobCards).some((card) => card.style.display !== 'none')
+            const noResultsMsg = document.querySelector('.no-results')
+            if (!visibleCards) {
+              if (!noResultsMsg) {
+                const msg = document.createElement('div')
+                msg.className = 'no-results'
+                msg.textContent = 'No jobs match your search criteria.'
+                document.querySelector('.job-listings').appendChild(msg)
+              }
+            } else if (noResultsMsg) {
+              noResultsMsg.remove()
+            }
+          }
+        
+          // Add event listeners to all filter inputs
+          searchInput.addEventListener('input', filterJobs)
+          categorySelect.addEventListener('change', filterJobs)
+          typeSelect.addEventListener('change', filterJobs)
+          citySelect.addEventListener('change', filterJobs)
+        
+          // Reset filters
+          resetBtn.addEventListener('click', () => {
+            searchInput.value = ''
+            categorySelect.value = ''
+            typeSelect.value = ''
+            citySelect.value = ''
+        
+            // Show all job cards
+            jobCards.forEach((card) => (card.style.display = 'flex'))
+        
+            // Remove "No results" message if it exists
+            const noResultsMsg = document.querySelector('.no-results')
+            if (noResultsMsg) {
+              noResultsMsg.remove()
+            }
+          })
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initializeJobFilter)
+      </script>
+    </section>
+
+    <hr class="custom-line" />
+
+    <section class="footer">
+      <div class="footerobody">
+        <div class="footerbody">
+          <div class="footer-content">
+            <img src="{% static '/images/logo100.png' %}" alt="" />
+            <div class="sugarsense">
+              <p>SUGAR SENSE</p>
+            </div>
+            <p>
+              20, Genting Klang, Setapak, Kuala Lumpur<br />Tel: +60 18-218 9169 / +60 11-2769 6820
+            </p>
+
+            <div class="icons">
+              <a href="#"><i class="bx bxl-meta"></i></a>
+              <a href="#"><i class="bx bx-x"></i></a>
+              <a href="#"><i class="bx bxl-instagram"></i></a>
+              <a href="#"><i class="bx bxl-youtube"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-content">
+            <h4>COMPANY</h4>
+            <li>
+              <a href="ourvalues">About Us</a>
+            </li>
+            <li>
+              <a href="leadership">Our Leadership</a>
+            </li>
+            <li>
+              <a href="careers">Careers</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>SERVICES</h4>
+            <li>
+              <a href="prediction">Diabetes Prediction</a>
+            </li>
+            <li>
+              <a href="recommendation">Diet Recommendations</a>
+            </li>
+            <li>
+              <a href="appointment">Appointment Form</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>USERFUL INFO</h4>
+            <li>
+              <a href="research">Research</a>
+            </li>
+            <li>
+              <a href="contactus">Contact us</a>
+            </li>
+            <li>
+              <a href="profiles">Account Settings</a>
+            </li>
+            <li>
+              <a href="predictionshistory">History</a>
+            </li>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+{% endblock %}

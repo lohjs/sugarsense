@@ -1,0 +1,98 @@
+{% load static %} <!-- python manage.py collectstatic -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sugar Sense</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'logo.png' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static '/css/careersemptyBase.css' %}" />
+    <style>
+      /* Hide Submenus Completely Before JavaScript Loads */
+      html.no-js .navigationOutside .navigationBody ul .submenu,
+      html.no-js .navigationOutside .navigationBody .navigationAccount ul .submenuAccount {
+        display: none; /* Prevent submenus from flashing before JS runs */
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="navigationOutside">
+      <div class="navigationBody">
+        <header>
+          <div class="navigationLogo">
+            <a href="{% url 'home' %}"><img src="{% static 'logo.png' %}" alt="Logo" /></a>
+            <span class="logo-top">Sugar Sense</span>
+          </div>
+
+          <nav class="navhome">
+            <ul>
+              <li>
+                <a href="{% url 'home' %}" data-id="home">Home</a>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="navigationAccount">
+            <ul>
+              <li>
+                <a href="#"><i class="bx bx-user-circle"></i></a>
+                <ul class="submenuAccount">
+                  {% if request.user.is_authenticated %}
+                    <li>
+                      <a href="{% url 'profiles' %}" data-id="Settings">Account Settings</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'logout' %}" data-id="logout">Log Out</a>
+                    </li>
+                  {% else %}
+                    <li>
+                      <a href="{% url 'signin' %}"data-id="signin">Log In/Sign Up</a>
+                    </li>
+                  {% endif %}
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </header>
+      </div>
+
+      <script>
+        const navLinks = document.querySelectorAll('.navigationOutside .navigationBody ul li a')
+        
+        // Load the active link from localStorage
+        const savedActiveLink = localStorage.getItem('activeLink')
+        if (savedActiveLink) {
+          navLinks.forEach((link) => {
+            if (link.dataset.id === savedActiveLink) {
+              link.classList.add('active')
+            }
+          })
+        }
+        
+        // Add click event to update active link
+        navLinks.forEach((link) => {
+          link.addEventListener('click', () => {
+            // Remove 'active' from all links
+            navLinks.forEach((nav) => nav.classList.remove('active'))
+            // Add 'active' to the clicked link
+            link.classList.add('active')
+            // Save the active link in localStorage
+            localStorage.setItem('activeLink', link.dataset.id)
+          })
+        })
+        
+        // Add 'js' class to <html> after DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+          document.documentElement.classList.remove('no-js')
+          document.documentElement.classList.add('js')
+        })
+      </script>
+    </section>
+
+    {% block content %}
+
+    {% endblock %}
+  </body>
+</html>

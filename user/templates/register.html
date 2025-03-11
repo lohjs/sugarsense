@@ -1,0 +1,315 @@
+{% extends 'emptyBase.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static '/css/register.css' %}" />
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+
+  {% if messages %}
+    <div class="custom-alert">
+      <div class="custom-alert-box">
+        {% for message in messages %}
+          <div class="alert-message">{{ message }}</div>
+        {% endfor %}
+        <button onclick="closeAlert()">OK</button>
+      </div>
+    </div>
+  {% endif %}
+
+  <body>
+    <div class="container">
+      <div class="title">
+        <p>Registration</p>
+      </div>
+
+      <form action="{% url 'signup' %}" class="flip-card__form" method="POST">
+        {% csrf_token %}
+        <div class="user_details">
+          <div class="input_box">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="" required />
+          </div>
+          <div class="input_box">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="" required />
+          </div>
+          <div class="input_box">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="" required />
+          </div>
+          <div class="input_box">
+            <label for="phone">Phone Number</label>
+            <input type="number" id="phone" name="phone" placeholder="" required />
+          </div>
+          <div class="input_box">
+            <label for="pass">Password</label>
+            <input type="password" id="Password" name="password" placeholder="" required />
+          </div>
+          <div class="input_box">
+            <label for="confirmPass">Confirm Password</label>
+            <input type="password" id="confirmPass" name="password2" placeholder="" required />
+          </div>
+        </div>
+
+        <div class="gender">
+          <span class="gender_title">Gender</span>
+          <input type="radio" name="gender" id="radio_1" value="Male"/>
+          <input type="radio" name="gender" id="radio_2" value="Female"/>
+          <input type="radio" name="gender" id="radio_3" value="Prefer not to say"/>
+
+          <div class="category">
+            <label for="radio_1">
+              <span class="dot one"></span>
+              <span>Male</span>
+            </label>
+            <label for="radio_2">
+              <span class="dot two"></span>
+              <span>Female</span>
+            </label>
+            <label for="radio_3">
+              <span class="dot three"></span>
+              <span>Prefer not to say</span>
+            </label>
+          </div>
+        </div>
+        <div class="reg_btn">
+          <input type="submit" id="registerBtn" value="Register" disabled />
+        </div>
+      </form>
+    </div>
+    <script>
+      function closeAlert() {
+        document.querySelector('.custom-alert').style.display = 'none'
+      }
+      
+      document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('.flip-card__form')
+        const inputs = form.querySelectorAll('input:not([type="radio"]):not([type="submit"])')
+        const registerBtn = form.querySelector('input[type="submit"]')
+      
+        // Validation functions
+        const validators = {
+          name: function (value) {
+            return value.trim().length >= 2 && /^[A-Za-z\s]+$/.test(value)
+          },
+          username: function (value) {
+            return value.trim().length >= 3 && /^[A-Za-z0-9_]+$/.test(value)
+          },
+          email: function (value) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+            return emailRegex.test(value)
+          },
+          phone: function (value) {
+            return /^(01[0-9]-?[0-9]{7,8}|01[0-9]-?[0-9]{3}-?[0-9]{4})$/.test(value)
+          },
+          password: function (value) {
+            return value.length >= 8 && /[A-Z]/.test(value) && /[a-z]/.test(value) && /[0-9]/.test(value)
+          },
+          confirmPass: function (value) {
+            const passwordInput = document.getElementById('Password')
+            return value === passwordInput.value
+          },
+          gender: function () {
+            const genderInputs = document.querySelectorAll('input[name="gender"]')
+            return Array.from(genderInputs).some((input) => input.checked)
+          }
+        }
+      
+        // Create error message element
+        function createErrorMessage(message) {
+          const errorEl = document.createElement('div')
+          errorEl.className = 'error-message'
+          errorEl.textContent = message
+          return errorEl
+        }
+      
+        // Validate individual input
+        function validateInput(input) {
+          // Remove existing error states
+          input.classList.remove('invalid')
+          const existingError = input.nextElementSibling
+          if (existingError && existingError.classList.contains('error-message')) {
+            existingError.remove()
+          }
+      
+          let isValid = true
+          let errorMessage = ''
+      
+          // Special handling for gender radio group
+          if (input.name === 'gender') {
+            const genderGroup = document.querySelector('.gender')
+            genderGroup.classList.remove('invalid')
+            const existingGenderError = genderGroup.querySelector('.error-message')
+            if (existingGenderError) {
+              existingGenderError.remove()
+            }
+      
+            isValid = validators.gender()
+            if (!isValid) {
+              genderGroup.classList.add('invalid')
+              const genderError = createErrorMessage('Please select a gender')
+              genderGroup.appendChild(genderError)
+              return false
+            }
+            return true
+          }
+      
+          // Check if input is empty
+          if (input.value.trim() === '') {
+            input.classList.add('invalid')
+            const emptyError = createErrorMessage(`${input.labels[0].textContent} is required`)
+            input.parentNode.insertBefore(emptyError, input.nextSibling)
+            return false
+          }
+      
+          // Regular input validation
+          switch (input.name) {
+            case 'name':
+              isValid = validators.name(input.value)
+              errorMessage = 'Please enter a valid name (min 2 characters, letters only)'
+              break
+            case 'username':
+              isValid = validators.username(input.value)
+              errorMessage = 'Username must be at least 3 characters (letters, numbers, underscore)'
+              break
+            case 'email':
+              isValid = validators.email(input.value)
+              errorMessage = 'Please enter a valid email address'
+              break
+            case 'phone':
+              isValid = validators.phone(input.value)
+              errorMessage = 'Please enter a valid Malaysian phone number'
+              break
+            case 'password':
+              isValid = validators.password(input.value)
+              errorMessage = 'Password must be at least 8 characters with uppercase, lowercase, and number'
+              break
+            case 'password2':
+              isValid = validators.confirmPass(input.value)
+              errorMessage = 'Passwords do not match'
+              break
+          }
+      
+          // Apply validation styling
+          if (!isValid) {
+            input.classList.add('invalid')
+            const errorEl = createErrorMessage(errorMessage)
+            input.parentNode.insertBefore(errorEl, input.nextSibling)
+          }
+      
+          return isValid
+        }
+      
+        // Validate entire form
+        function validateForm() {
+          let formIsValid = true
+          const missingFields = []
+      
+          inputs.forEach((input) => {
+            if (input.value.trim() === '') {
+              missingFields.push(input.labels[0].textContent)
+              formIsValid = false
+            } else if (!validateInput(input)) {
+              formIsValid = false
+            }
+          })
+      
+          if (!validateInput(document.querySelector('input[name="gender"]'))) {
+            formIsValid = false
+          }
+      
+          registerBtn.disabled = !formIsValid
+          return formIsValid
+        }
+      
+        // Validate form on submit
+        form.addEventListener('submit', function (event) {
+          if (!validateForm()) {
+            event.preventDefault()
+          }
+        })
+      
+        // Real-time validation on input
+        inputs.forEach((input) => {
+          input.addEventListener('input', () => validateForm())
+          input.addEventListener('blur', () => validateForm())
+        })
+      
+        // Radio button validation
+        const genderInputs = document.querySelectorAll('input[name="gender"]')
+        genderInputs.forEach((radio) => {
+          radio.addEventListener('change', () => validateForm())
+        })
+      })
+    </script>
+
+    <hr class="custom-line" />
+
+    <section class="footer">
+      <div class="footerobody">
+        <div class="footerbody">
+          <div class="footer-content">
+            <img src="{% static '/images/logo100.png' %}" alt="" />
+            <div class="sugarsense">
+              <p>SUGAR SENSE</p>
+            </div>
+            <p>
+              20, Genting Klang, Setapak, Kuala Lumpur<br />Tel: +60 18-218 9169 / +60 11-2769 6820
+            </p>
+
+            <div class="icons">
+              <a href="#"><i class="bx bxl-meta"></i></a>
+              <a href="#"><i class="bx bx-x"></i></a>
+              <a href="#"><i class="bx bxl-instagram"></i></a>
+              <a href="#"><i class="bx bxl-youtube"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-content">
+            <h4>COMPANY</h4>
+            <li>
+              <a href="ourvalues">About Us</a>
+            </li>
+            <li>
+              <a href="leadership">Our Leadership</a>
+            </li>
+            <li>
+              <a href="careers">Careers</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>SERVICES</h4>
+            <li>
+              <a href="prediction">Diabetes Prediction</a>
+            </li>
+            <li>
+              <a href="recommendation">Diet Recommendations</a>
+            </li>
+            <li>
+              <a href="appointment">Appointment Form</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>USERFUL INFO</h4>
+            <li>
+              <a href="research">Research</a>
+            </li>
+            <li>
+              <a href="contactus">Contact us</a>
+            </li>
+            <li>
+              <a href="profiles">Account Settings</a>
+            </li>
+            <li>
+              <a href="predictionshistory">History</a>
+            </li>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+{% endblock %}

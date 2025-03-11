@@ -1,0 +1,333 @@
+{% extends 'careersemptyBase.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static '/css/careerssettings.css' %}" />
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  <body>
+    <section class="ourvalues">
+      <div class="ourvaluesbody">
+        <img src="{% static '/images/careersselection.png' %}" height="420px" width="100%" alt="" />
+        <div class="info">
+          <h2>Diabetes Educator</h2>
+        </div>
+      </div>
+    </section>
+
+    <div class="informationbackground">
+      <div class="jobcontainer">
+        <h3>Job Description</h3>
+        <ul>
+          <li>Provide personalized diabetes education and counseling to support self-management and lifestyle changes.</li>
+          <li>Collaborate with healthcare teams to integrate education into patient care plans.</li>
+          <li>Conduct workshops, monitor patient progress, and adjust strategies as needed.</li>
+        </ul>
+      </div>
+
+      <div class="jobcontainer2">
+        <h3>Job Requirements</h3>
+        <ul>
+          <li>Bachelor’s Degree in Nursing, Nutrition, or related field; CDCES certification is a plus.</li>
+          <li>Strong knowledge of diabetes management and excellent communication skills.</li>
+          <li>Experience in patient education, with proficiency in using digital tools for monitoring.</li>
+        </ul>
+      </div>
+      <p>
+        Back: <a href="careersselection">Find other related careers</a>
+      </p>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          // Get the link element
+          const scrollLink = document.getElementById('scroll-to-faq')
+        
+          // Add click event listener to the link
+          scrollLink.addEventListener('click', function (e) {
+            e.preventDefault() // Prevent the default anchor behavior
+        
+            // Get the FAQ section element
+            const faqSection = document.getElementById('faq-section')
+        
+            // Calculate the position of the FAQ section
+            const position = faqSection.getBoundingClientRect().top + window.pageYOffset
+        
+            // Scroll to the FAQ section with an offset
+            window.scrollTo({
+              top: position - 90, //Adjust this value to set how much higher you want it (e.g., 50px)
+              behavior: 'smooth'
+            })
+          })
+        })
+      </script>
+    </div>
+
+    <section class="diabeteseducator">
+      <form id="jobApplicationForm" action="{% url 'career_application' career_type='diabeteseducator' %}" method="POST">
+        {% csrf_token %}
+        {% if messages %}
+          <div class="messages">
+            {% for message in messages %}
+              <div class="alert {% if message.tags %}
+                  alert-{{ message.tags }}
+                {% endif %}">{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" name="fullName" placeholder="As in NRIC/Passport" required />
+        </div>
+
+        <div class="form-group">
+          <label>Contact Number</label>
+          <div class="phone-group">
+            <select name="countryCode">
+              <option value="+65">+65</option>
+              <option value="+60">+60</option>
+            </select>
+            <input type="tel" name="phone" placeholder="Contact Number" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" name="email" placeholder="Email Address" required />
+        </div>
+
+        <div class="form-group">
+          <label>Current Location</label>
+          <select name="location" required>
+            <option value="">Location</option>
+            <option value="singapore">Singapore</option>
+            <option value="malaysia">Malaysia</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Highest Qualification</label>
+          <select name="qualification" required>
+            <option value="">Highest Qualification</option>
+            <option value="bachelors">Bachelor's Degree</option>
+            <option value="masters">Master's Degree</option>
+            <option value="phd">PhD</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Degree Classification</label>
+          <select name="degreeClass" required>
+            <option value="">Degree Classification</option>
+            <option value="firstClass">First Class Honours</option>
+            <option value="secondUpper">Second Class Upper Honours</option>
+            <option value="secondLower">Second Class Lower Honours</option>
+          </select>
+        </div>
+
+        <p class="note">Kindly note that priority of interview will be given to the first position applied for on the career page.</p>
+
+        <div class="button-group">
+          <button type="button" class="btn-cancel" onclick="window.history.back()">Cancel</button>
+          <button type="submit" class="btn-submit">Submit</button>
+        </div>
+      </form>
+
+      <script>
+        document.getElementById('jobApplicationForm').addEventListener('submit', function (e) {
+          // Remove preventDefault to allow form submission
+          const form = this
+          const submitButton = form.querySelector('.btn-submit')
+        
+          // Disable submit button to prevent double submission
+          submitButton.disabled = true
+        
+          // Optional: Add loading state
+          submitButton.innerHTML = 'Submitting...'
+        
+          // Form will submit naturally to the backend
+          return true
+        })
+        
+        document.addEventListener('DOMContentLoaded', function () {
+          const form = document.getElementById('jobApplicationForm')
+        
+          // Function to show error with animation
+          function showError(inputElement, message) {
+            clearError(inputElement)
+        
+            // Create and add new error message
+            const errorDiv = document.createElement('div')
+            errorDiv.className = 'error-message'
+            errorDiv.textContent = message
+        
+            // Insert error message after the input element
+            inputElement.parentElement.appendChild(errorDiv)
+        
+            // Apply invalid class for styling and animation
+            inputElement.classList.add('invalid')
+          }
+        
+          // Function to clear error message
+          function clearError(inputElement) {
+            const errorDiv = inputElement.parentElement.querySelector('.error-message')
+            if (errorDiv) {
+              errorDiv.remove()
+            }
+            inputElement.classList.remove('invalid')
+          }
+        
+          // Validation rules
+          const validators = {
+            fullName: (value) => {
+              const nameRegex = /^[a-zA-Z\s]{2,50}$/
+              if (!value.trim()) return 'Full name is required'
+              if (!nameRegex.test(value.trim())) return 'Please enter a valid name (2-50 characters, letters only)'
+              return ''
+            },
+        
+            phone: (value) => {
+              const phoneRegex = /^\d{8,10}$/
+              if (!value.trim()) return 'Phone number is required'
+              if (!phoneRegex.test(value.trim())) return 'Please enter a valid phone number (8-10 digits)'
+              return ''
+            },
+        
+            email: (value) => {
+              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+              if (!value.trim()) return 'Email address is required'
+              if (!emailRegex.test(value.trim())) return 'Please enter a valid email address'
+              return ''
+            },
+        
+            location: (value) => (!value ? 'Please select your current location' : ''),
+        
+            qualification: (value) => (!value ? 'Please select your highest qualification' : ''),
+        
+            degreeClass: (value) => (!value ? 'Please select your degree classification' : '')
+          }
+        
+          // Real-time validation for inputs
+          form.querySelectorAll('input, select').forEach((input) => {
+            input.addEventListener('input', function () {
+              if (validators[this.name]) {
+                const error = validators[this.name](this.value)
+                if (error) {
+                  showError(this, error)
+                } else {
+                  clearError(this)
+                }
+              }
+            })
+        
+            input.addEventListener('blur', function () {
+              if (validators[this.name]) {
+                const error = validators[this.name](this.value)
+                if (error) {
+                  showError(this, error)
+                } else {
+                  clearError(this)
+                }
+              }
+            })
+          })
+        
+          // Form submission handler
+          form.addEventListener('submit', function (e) {
+            e.preventDefault()
+            let hasErrors = false
+        
+            form.querySelectorAll('.error-message').forEach((error) => error.remove())
+        
+            const formData = new FormData(form)
+        
+            for (const [name, value] of formData.entries()) {
+              if (validators[name]) {
+                const error = validators[name](value)
+                if (error) {
+                  showError(form.querySelector(`[name="${name}"]`), error)
+                  hasErrors = true
+                }
+              }
+            }
+        
+            if (!hasErrors) {
+              alert('Form submitted successfully!')
+              form.submit()
+            }
+          })
+        })
+      </script>
+    </section>
+
+    <hr class="custom-line" />
+
+    <section class="footer">
+      <div class="footerobody">
+        <div class="footerbody">
+          <div class="footer-content">
+            <img src="{% static '/images/logo100.png' %}" alt="" />
+            <div class="sugarsense">
+              <p>SUGAR SENSE</p>
+            </div>
+            <p>
+              20, Genting Klang, Setapak, Kuala Lumpur<br />Tel: +60 18-218 9169 / +60 11-2769 6820
+            </p>
+
+            <div class="icons">
+              <a href="#"><i class="bx bxl-meta"></i></a>
+              <a href="#"><i class="bx bx-x"></i></a>
+              <a href="#"><i class="bx bxl-instagram"></i></a>
+              <a href="#"><i class="bx bxl-youtube"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-content">
+            <h4>COMPANY</h4>
+            <li>
+              <a href="ourvalues">About Us</a>
+            </li>
+            <li>
+              <a href="leadership">Our Leadership</a>
+            </li>
+            <li>
+              <a href="careers">Careers</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>SERVICES</h4>
+            <li>
+              <a href="prediction">Diabetes Prediction</a>
+            </li>
+            <li>
+              <a href="recommendation">Diet Recommendations</a>
+            </li>
+            <li>
+              <a href="appointment">Appointment Form</a>
+            </li>
+          </div>
+
+          <div class="footer-content">
+            <h4>USERFUL INFO</h4>
+            <li>
+              <a href="research">Research</a>
+            </li>
+            <li>
+              <a href="contactus">Contact us</a>
+            </li>
+            <li>
+              <a href="profiles">Account Settings</a>
+            </li>
+            <li>
+              <a href="predictionshistory">History</a>
+            </li>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+{% endblock %}
