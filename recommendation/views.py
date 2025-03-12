@@ -283,7 +283,7 @@ def parse_list_string(list_string):
     return matches
 
 
-@login_required
+@login_required(login_url='signin')
 def recommendation_history(request):
     recommendations = Recommendation.objects.filter(user=request.user).prefetch_related('meal_plans__recipes')
     

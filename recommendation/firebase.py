@@ -23,6 +23,28 @@ class FirebaseManager:
         try:
             # Create timestamp
             timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+
+
+                    # Ensure nutrition data is included in the meals recommendation
+            meals_recommendation = recommendation_data.get('meals_recommendation', {})
+            for meal_type, recipes in meals_recommendation.items():
+                for i, recipe in enumerate(recipes):
+                    # Make sure nutrition data exists for each recipe
+                    if 'protein' not in recipe or 'SaturatedFat' not in recipe or 'cholesterol' not in recipe:
+                        # Add missing nutrition fields if they don't exist
+                        recipe.update({
+                            'protein': recipe.get('protein', 0),
+                            'SaturatedFat': recipe.get('SaturatedFat', 0),
+                            'cholesterol': recipe.get('cholesterol', 0),
+                            'sodium': recipe.get('sodium', 0),
+                            'carbohydrate': recipe.get('carbohydrate', 0),
+                            'fiber': recipe.get('fiber', 0),
+                            'sugar': recipe.get('sugar', 0)
+                        })
+                        meals_recommendation[meal_type][i] = recipe
+        
+            # Update the recommendation data with nutrition-enhanced meals
+            recommendation_data['meals_recommendation'] = meals_recommendation
             
             
             data = {
