@@ -1,16 +1,12 @@
 # firebase.py
 import pyrebase
 from datetime import datetime
+import os
 
 class FirebaseManager:
     def __init__(self):
         # Your Firebase configuration
-        config = {
-            "apiKey": "AIzaSyAt6mzhb61gXzxWnKmau0ThECrMSnEcwGM",
-            "authDomain": "controlsystem-8a38d.firebaseapp.com",
-            "databaseURL": "https://controlsystem-8a38d-default-rtdb.firebaseio.com",
-            "storageBucket": "controlsystem-8a38d.firebasestorage.app"
-        }
+        config = os.getenv('config')
         
         # Initialize Firebase
         firebase = pyrebase.initialize_app(config)
